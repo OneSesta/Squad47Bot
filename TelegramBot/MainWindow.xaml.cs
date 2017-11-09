@@ -98,7 +98,7 @@ namespace TelegramBot
                     RandLit = Rnd.Next(50, 75);
                     break;
                 case 10:
-                    RandLit = Rnd.Next(60, 100);
+                    RandLit = Rnd.Next(65, 100);
                     break;
             }
 
