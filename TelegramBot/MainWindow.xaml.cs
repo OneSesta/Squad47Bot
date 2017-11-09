@@ -14,7 +14,8 @@ using System.Windows.Navigation;
 using System.Windows.Shapes;
 using Telegram.Bot.Types.Enums;
 using Telegram.Bot.Args;
-
+using Telegram.Bot;
+using System.Threading;
 
 namespace TelegramBot
 {
@@ -23,7 +24,7 @@ namespace TelegramBot
     /// </summary>
     public partial class MainWindow : Window
     {
-        private static Telegram.Bot.TelegramBotClient BOT;
+        private static TelegramBotClient Bot;
         public MainWindow()
         {
             InitializeComponent();
@@ -31,13 +32,13 @@ namespace TelegramBot
 
         private void Button_Click(object sender, RoutedEventArgs e)
         {
-            BOT = new Telegram.Bot.TelegramBotClient("488598835:AAFJAn6w1rifdR6z-8wDsaSxvwXXDVusSgU");
-            BOT.OnMessage += BotOnMessageReceived;
-            BOT.StartReceiving(new UpdateType[] { UpdateType.MessageUpdate });
+            Bot = new TelegramBotClient("488598835:AAFJAn6w1rifdR6z-8wDsaSxvwXXDVusSgU");
+            Bot.OnMessage += BotOnMessageReceived;
+            Bot.StartReceiving(new UpdateType[] { UpdateType.MessageUpdate });
             button1.IsEnabled = false;
         }
         static Random Rnd = new Random();
-        private static async void BotOnMessageReceived(object sender, MessageEventArgs messageEventArgs)
+        private async void BotOnMessageReceived(object sender, MessageEventArgs messageEventArgs)
         {
             Telegram.Bot.Types.Message msg = messageEventArgs.Message;
             if (msg == null || msg.Type != MessageType.TextMessage) return;
@@ -121,7 +122,10 @@ namespace TelegramBot
 
                 default: Answer = "Такой команды нет, так как Русик работает в Мейзу"; break;
             }
-            await BOT.SendTextMessageAsync(msg.Chat.Id, Answer);
+
+            await Dispatcher.BeginInvoke(new ThreadStart(delegate { LogTextBlock.Text += "\r\n" + "Bot received command: " + msg.Text; }));
+
+            await Bot.SendTextMessageAsync(msg.Chat.Id, Answer);
 
         }
     }
