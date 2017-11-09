@@ -8,7 +8,7 @@
         Title="MainWindow" Height="265.686" Width="496.524">
     <Grid Background="#FF2B2B2B">
         <Button x:Name="button1" Content="Start Bot" HorizontalAlignment="Left" VerticalAlignment="Top" Width="153" Margin="10,96,0,0" Height="47" Background="#FF4B4B4B" FontSize="18" BorderBrush="#FF4B4B4B" Foreground="White" FontWeight="Bold" Click="Button_Click"/>
-        <TextBox HorizontalAlignment="Left" Height="215" Margin="243,10,0,0" TextWrapping="Wrap" Text="Press start..." VerticalAlignment="Top" Width="236"/>
+        <TextBlock x:Name="LogTextBlock" HorizontalAlignment="Left" Margin="239,10,0,0" TextWrapping="Wrap" Text="Press start..." VerticalAlignment="Top" Height="215" Width="240" Background="White"/>
 
     </Grid>
 </Window>
