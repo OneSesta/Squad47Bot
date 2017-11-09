@@ -5,32 +5,64 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:TelegramBot"
         mc:Ignorable="d"
-        Title="MainWindow" Height="295.686" Width="496.524">
+        Title="Таможка Бот" 
+        Height="295" 
+        Width="495"
+        MinHeight="295"
+        MinWidth="495">
+
     <Grid Background="#FF2B2B2B" 
           Margin="0,0,0,0">
         <Button x:Name="button1" 
                 Content="Start Bot" 
                 HorizontalAlignment="Left" 
                 VerticalAlignment="Top" 
-                Width="153" 
-                Margin="10,96,0,0" 
-                Height="47" 
+                Width="230" 
+                Height="85" 
                 Background="#FF4B4B4B" 
                 FontSize="18" 
-                BorderBrush="#FF4B4B4B" 
+                BorderBrush="White" 
                 Foreground="White" 
                 FontWeight="Bold" 
-                Click="Button_Click"/>
+                Click="Button_Click"
+                />
+
+        <Button x:Name="button2" 
+                Content="Stop Bot" 
+                HorizontalAlignment="Left" 
+                VerticalAlignment="Top" 
+                Width="230" 
+                Height="85" 
+                Margin="0,85,0,0"  
+                Background="#FF4B4B4B" 
+                FontSize="18" 
+                BorderBrush="White" 
+                Foreground="White" 
+                FontWeight="Bold" 
+                Click="Button1_Click_1"/>
+        <Button x:Name="button3" 
+                Content="Close" 
+                HorizontalAlignment="Left" 
+                VerticalAlignment="Top" 
+                Width="230" 
+                Height="85" 
+                Margin="0,170,0,-3"  
+                Background="#FF4B4B4B" 
+                FontSize="18" 
+                BorderBrush="White" 
+                Foreground="White" 
+                FontWeight="Bold" 
+                Click="Button_Click_2"/>
         <TextBox x:Name="LogTextBlock"
                  HorizontalAlignment="Left" 
-                 Margin="239,10,0,0"
+                 Margin="230,0,0,0"
                  TextWrapping="Wrap" 
                  Text="Press start..."
                  VerticalAlignment="Top"
-                 Height="245" Width="240"
+                 Height="255" Width="250"
                  Background="White" 
                  ScrollViewer.CanContentScroll="True"
                  ScrollViewer.VerticalScrollBarVisibility="Visible"
-                 IsReadOnly="True"/>
+                 IsReadOnly="True" BorderBrush="White"/>
     </Grid>
 </Window>
