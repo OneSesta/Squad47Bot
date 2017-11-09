@@ -44,11 +44,15 @@ namespace TelegramBot
             if (msg == null || msg.Type != MessageType.TextMessage) return;
 
             String Answer = "";
-            String flipAnswer = "";
-            String paraAnswer = "";
+            
+            
 
+
+
+
+            //Орел и решка
+            String flipAnswer = ""; //для хранения ответа, орел решка
             int Random = Rnd.Next(0, 2);
-            int Rand = Rnd.Next(0, 48);
             if (Random == 0)
             {
                 flipAnswer = "Орел";
@@ -58,16 +62,16 @@ namespace TelegramBot
                 flipAnswer = "Решка";
             }
 
-            if (Random == 0)
-            {
-                paraAnswer = "лучше сходить";
-            }
-            else
-            {
-                paraAnswer = "можно не идти";
-            }
 
 
+            //Случайное число
+            int Rand = Rnd.Next(0, 48);
+
+
+
+            
+
+            //Узнай свою оценку по Литвинову
             int RandLit = Rnd.Next(1, 11);
             switch (RandLit)
             {
@@ -99,9 +103,22 @@ namespace TelegramBot
                     RandLit = Rnd.Next(50, 75);
                     break;
                 case 10:
-                    RandLit = Rnd.Next(60, 100);
+                    RandLit = Rnd.Next(65, 100);
                     break;
             }
+
+
+            //Проверка на то, нужно ли идти на пару
+            String paraAnswer = ""; //для хранения ответа, нужно ли идти на пару
+            if (Random == 0)//Используем из Орла и решки, так как похожий принцип
+            {
+                paraAnswer = "лучше сходить";
+            }
+            else
+            {
+                paraAnswer = "можно не идти";
+            }
+
 
 
             switch (msg.Text)
