@@ -36,6 +36,7 @@ namespace TelegramBot
             Bot.OnMessage += BotOnMessageReceived;
             Bot.StartReceiving(new UpdateType[] { UpdateType.MessageUpdate });
             button1.IsEnabled = false;
+            button2.IsEnabled = true;
         }
         static Random Rnd = new Random();
         private async void BotOnMessageReceived(object sender, MessageEventArgs messageEventArgs)
@@ -149,6 +150,20 @@ namespace TelegramBot
 
             await Bot.SendTextMessageAsync(msg.Chat.Id, Answer);
 
+        }
+
+
+
+        private void Button1_Click_1(object sender, RoutedEventArgs e)
+        {
+            Bot.StopReceiving();
+            button1.IsEnabled = true;
+            button2.IsEnabled = false;
+        }
+
+        private void Button_Click_2(object sender, RoutedEventArgs e)
+        {
+            this.Close();
         }
     }
 
