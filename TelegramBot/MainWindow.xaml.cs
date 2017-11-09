@@ -140,7 +140,12 @@ namespace TelegramBot
                 default: Answer = "Такой команды нет, так как Русик работает в Мейзу"; break;
             }
 
-            await Dispatcher.BeginInvoke(new ThreadStart(delegate { LogTextBlock.Text += "\r\n" + "Bot received command: " + msg.Text; }));
+            await Dispatcher.BeginInvoke(new ThreadStart(delegate {
+                LogTextBlock.Text += "\r\n" + "Bot received command: " + msg.Text;
+                LogTextBlock.Focus();
+                LogTextBlock.CaretIndex = LogTextBlock.Text.Length;
+                LogTextBlock.ScrollToEnd();
+            }));
 
             await Bot.SendTextMessageAsync(msg.Chat.Id, Answer);
 
