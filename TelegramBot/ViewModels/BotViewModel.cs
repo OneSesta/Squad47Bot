@@ -1,58 +1,86 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
-using Telegram.Bot.Types.Enums;
-using Telegram.Bot.Args;
-using Telegram.Bot;
-using System.Threading;
-
-namespace TelegramBot
+﻿namespace TelegramBot.ViewModels
 {
-    /// <summary>
-    /// Interaction logic for MainWindow.xaml
-    /// </summary>
-    public partial class MainWindow : Window
+    using System;
+    using System.ComponentModel;
+    using System.Windows.Input;
+    using Telegram.Bot;
+    using Telegram.Bot.Args;
+    using Telegram.Bot.Types.Enums;
+    using TelegramBot.Commands;
+
+    class BotViewModel : INotifyPropertyChanged
     {
         private static TelegramBotClient Bot;
-        public MainWindow()
+
+        public TelegramBotClient BotClient
         {
-            InitializeComponent();
-#if DEBUG
-            Bot = new TelegramBotClient("447136859:AAGMz8BN0p21JLO7i9Ob4ridbKTUDpCAD1E");
-            this.Title = "Таможка Бот: DEBUG";
-#else
-            Bot = new TelegramBotClient("488598835:AAFJAn6w1rifdR6z-8wDsaSxvwXXDVusSgU");
-            this.Title = "Таможка Бот: RELEASE";
-#endif
+            get { return Bot; }
         }
 
-        private void Button_Click(object sender, RoutedEventArgs e)
+        public bool IsActive{
+            get
+            {
+                return Bot.IsReceiving;
+            }
+        }
+
+        public ICommand ActivateCommand
+        {
+            get;
+            private set;
+        }
+
+        public ICommand DeactivateCommand
+        {
+            get;
+            private set;
+        }
+
+        public event PropertyChangedEventHandler PropertyChanged;
+        private string _log;
+        public string Log
+        {
+            get
+            {
+                return _log;
+            }
+            set
+            {
+                _log = value;
+                PropertyChanged(this, new PropertyChangedEventArgs("Log"));
+            }
+        }
+
+        public BotViewModel()
+        {
+#if DEBUG
+            Bot = new TelegramBotClient("447136859:AAGMz8BN0p21JLO7i9Ob4ridbKTUDpCAD1E");
+#else
+            Bot = new TelegramBotClient("488598835:AAFJAn6w1rifdR6z-8wDsaSxvwXXDVusSgU");
+#endif
+            ActivateCommand = new ActivateBotCommand(this);
+            DeactivateCommand = new DeactivateBotCommand(this);
+        }
+
+        public void Activate()
         {
             Bot.OnMessage += BotOnMessageReceived;
             Bot.StartReceiving(new UpdateType[] { UpdateType.MessageUpdate });
-            button1.IsEnabled = false;
-            button2.IsEnabled = true;
         }
-        static Random Rnd = new Random();
-        private async void BotOnMessageReceived(object sender, MessageEventArgs messageEventArgs)
+        public void Deactivate()
         {
-            Telegram.Bot.Types.Message msg = messageEventArgs.Message;
+            Bot.StopReceiving();
+            Bot.OnMessage -= BotOnMessageReceived;
+        }
+        private async void BotOnMessageReceived(object sender, MessageEventArgs e)
+        {
+            Random Rnd = new Random();
+            Telegram.Bot.Types.Message msg = e.Message;
             if (msg == null || msg.Type != MessageType.TextMessage) return;
 
             String Answer = "";
-            
-            
+
+
 
 
 
@@ -76,7 +104,7 @@ namespace TelegramBot
 
 
 
-            
+
 
             //Узнай свою оценку по Литвинову
             int RandLit = Rnd.Next(1, 11);
@@ -147,30 +175,17 @@ namespace TelegramBot
                 default: Answer = "Такой команды нет, так как Русик работает в Мейзу"; break;
             }
 
-            await Dispatcher.BeginInvoke(new ThreadStart(delegate {
+            /*await Dispatcher.BeginInvoke(new ThreadStart(delegate {
                 LogTextBlock.Text += "\r\n" + "Bot received command: " + msg.Text;
                 LogTextBlock.Focus();
                 LogTextBlock.CaretIndex = LogTextBlock.Text.Length;
                 LogTextBlock.ScrollToEnd();
-            }));
+            }));*/
 
             await Bot.SendTextMessageAsync(msg.Chat.Id, Answer);
 
-        }
+            Log += $"\r\n{DateTime.Now.ToLocalTime().ToString()}:\r\nCommand received:\r\n{e.Message.Text}\r\nFrom: {e.Message.From.FirstName} {e.Message.From.LastName}\r\nAnswered with: {Answer}";
 
-
-
-        private void Button1_Click_1(object sender, RoutedEventArgs e)
-        {
-            Bot.StopReceiving();
-            button1.IsEnabled = true;
-            button2.IsEnabled = false;
-        }
-
-        private void Button_Click_2(object sender, RoutedEventArgs e)
-        {
-            this.Close();
         }
     }
-
 }
