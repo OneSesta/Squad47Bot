@@ -28,11 +28,17 @@ namespace TelegramBot
         public MainWindow()
         {
             InitializeComponent();
+#if DEBUG
+            Bot = new TelegramBotClient("447136859:AAGMz8BN0p21JLO7i9Ob4ridbKTUDpCAD1E");
+            this.Title = "Таможка Бот: DEBUG";
+#else
+            Bot = new TelegramBotClient("488598835:AAFJAn6w1rifdR6z-8wDsaSxvwXXDVusSgU");
+            this.Title = "Таможка Бот: RELEASE";
+#endif
         }
 
         private void Button_Click(object sender, RoutedEventArgs e)
         {
-            Bot = new TelegramBotClient("488598835:AAFJAn6w1rifdR6z-8wDsaSxvwXXDVusSgU");
             Bot.OnMessage += BotOnMessageReceived;
             Bot.StartReceiving(new UpdateType[] { UpdateType.MessageUpdate });
             button1.IsEnabled = false;
