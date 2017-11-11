@@ -173,15 +173,18 @@
                 
                 Answer = "На следующую пару " + paraAnswer;
             }
-            else
-            {
-                Answer = "Такой команды нет, так как Русик работает в Мейзу";
-            }
+            //else
+            //{
+            //    Answer = "Такой команды нет, так как Русик работает в Мейзу";
+            //}
             #endregion
 
-            await Bot.SendTextMessageAsync(msg.Chat.Id, Answer);
+            if (Answer!="")
+            {
+                await Bot.SendTextMessageAsync(msg.Chat.Id, Answer);
+                Log += $"\r\n\r\n{DateTime.Now.ToLocalTime().ToString()}:\r\nCommand received:\r\n{e.Message.Text}\r\nFrom: {e.Message.From.FirstName} {e.Message.From.LastName}\r\nAnswered with: {Answer}";
+            }
 
-            Log += $"\r\n{DateTime.Now.ToLocalTime().ToString()}:\r\nCommand received:\r\n{e.Message.Text}\r\nFrom: {e.Message.From.FirstName} {e.Message.From.LastName}\r\nAnswered with: {Answer}";
 
         }
     }
