@@ -18,6 +18,11 @@
         {
             DataContext = new BotViewModel();
             InitializeComponent();
+#if DEBUG
+            Title = "Таможка Бот: DEBUG";
+#else
+            Title = "Таможка Бот: RELEASE";
+#endif
         }
     }
 
