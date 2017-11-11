@@ -60,6 +60,7 @@
                  Background="White" 
                  ScrollViewer.CanContentScroll="True"
                  ScrollViewer.VerticalScrollBarVisibility="Visible"
-                 IsReadOnly="True" BorderBrush="White"/>
+                 IsReadOnly="True" BorderBrush="White"
+                 TextChanged="TextBox_TextChanged"/>
     </Grid>
 </Window>
