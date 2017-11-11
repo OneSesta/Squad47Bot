@@ -24,6 +24,11 @@
             Title = "Таможка Бот: RELEASE";
 #endif
         }
+
+        private void TextBox_TextChanged(object sender, TextChangedEventArgs e)
+        {
+            (sender as TextBox)?.ScrollToEnd();
+        }
     }
 
 }
