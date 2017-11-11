@@ -24,6 +24,7 @@
             }
         }
 
+        #region Commands
         public ICommand ActivateCommand
         {
             get;
@@ -41,6 +42,7 @@
             get;
             private set;
         }
+        #endregion
 
         public event PropertyChangedEventHandler PropertyChanged;
         private string _log;
@@ -85,28 +87,8 @@
             Telegram.Bot.Types.Message msg = e.Message;
             if (msg == null || msg.Type != MessageType.TextMessage) return;
 
+            #region Answer logic
             String Answer = "";
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
             if (msg.Text.StartsWith("/start"))
             {
@@ -194,7 +176,7 @@
             {
                 Answer = "Такой команды нет, так как Русик работает в Мейзу";
             }
-
+            #endregion
 
             await Bot.SendTextMessageAsync(msg.Chat.Id, Answer);
 
