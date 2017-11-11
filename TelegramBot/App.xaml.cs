@@ -13,14 +13,9 @@ namespace TelegramBot
     /// </summary>
     public partial class App : Application
     {
-        /*protected override void OnStartup(StartupEventArgs e)
+        protected override void OnStartup(StartupEventArgs e)
         {
             base.OnStartup(e);
-/*#if DEBUG
-            window.Title = "Таможка Бот: DEBUG";
-#else
-            window.Title = "Таможка Бот: RELEASE";
-#endif*/
-        //}
+        }
     }
 }
