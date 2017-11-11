@@ -10,47 +10,46 @@
         Width="495"
         MinHeight="295"
         MinWidth="495">
+    
+    
+    <Window.Resources>
+        <Style TargetType="{x:Type Button}">
+            <Setter Property="Background" Value="#FF4B4B4B" />
+            <Setter Property="FontSize" Value="18" />
+            <Setter Property="Width" Value="230" />
+            <Setter Property="Height" Value="85" />
+            <Setter Property="BorderBrush" Value="White" />
+            <Setter Property="Foreground" Value="White" />
+            <Setter Property="FontWeight" Value="Bold" />
 
-    <Grid Background="#FF2B2B2B" 
-          Margin="0,0,0,0">
-        <Button Content="Start Bot" 
+        </Style>
+    </Window.Resources>
+
+    <Grid Background="#FF2B2B2B">
+        
+        <StackPanel>
+
+            <Button Content="Start Bot" 
                 HorizontalAlignment="Left" 
                 VerticalAlignment="Top" 
-                Width="230" 
-                Height="85" 
-                Background="#FF4B4B4B" 
-                FontSize="18" 
-                BorderBrush="White" 
-                Foreground="White" 
-                FontWeight="Bold" 
                 Command="{Binding ActivateCommand}"
                 />
 
-        <Button Content="Stop Bot" 
+            <Button Content="Stop Bot" 
                 HorizontalAlignment="Left" 
                 VerticalAlignment="Top" 
-                Width="230" 
-                Height="85" 
-                Margin="0,85,0,0"  
-                Background="#FF4B4B4B" 
-                FontSize="18" 
-                BorderBrush="White" 
-                Foreground="White" 
-                FontWeight="Bold"
-                Command="{Binding DeactivateCommand}"/>
-        <Button x:Name="button3" 
-                Content="Close" 
+                Command="{Binding DeactivateCommand}"
+                />
+        
+            <Button Content="Close" 
                 HorizontalAlignment="Left" 
                 VerticalAlignment="Top" 
-                Width="230" 
-                Height="85" 
-                Margin="0,170,0,-3"  
-                Background="#FF4B4B4B" 
-                FontSize="18" 
-                BorderBrush="White" 
-                Foreground="White" 
-                FontWeight="Bold" 
-                Command="{Binding ExitApplicationCommand}"/>
+                Command="{Binding ExitApplicationCommand}"
+                />
+        </StackPanel>
+        
+        
+        
         <TextBox HorizontalAlignment="Left" 
                  Margin="230,0,0,0"
                  TextWrapping="Wrap" 
