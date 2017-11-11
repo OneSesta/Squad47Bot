@@ -49,7 +49,8 @@
                 FontSize="18" 
                 BorderBrush="White" 
                 Foreground="White" 
-                FontWeight="Bold" />
+                FontWeight="Bold" 
+                Command="{Binding ExitApplicationCommand}"/>
         <TextBox HorizontalAlignment="Left" 
                  Margin="230,0,0,0"
                  TextWrapping="Wrap" 
