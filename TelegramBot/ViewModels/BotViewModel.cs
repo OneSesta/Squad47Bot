@@ -69,6 +69,7 @@
             ActivateCommand = new ActivateBotCommand(this);
             DeactivateCommand = new DeactivateBotCommand(this);
             ExitApplicationCommand = new ExitApplicationCommand(this);
+            ActivateCommand.Execute(null);
         }
 
         public void Activate()
