@@ -36,6 +36,12 @@
             private set;
         }
 
+        public ICommand ExitApplicationCommand
+        {
+            get;
+            private set;
+        }
+
         public event PropertyChangedEventHandler PropertyChanged;
         private string _log;
         public string Log
@@ -60,6 +66,7 @@
 #endif
             ActivateCommand = new ActivateBotCommand(this);
             DeactivateCommand = new DeactivateBotCommand(this);
+            ExitApplicationCommand = new ExitApplicationCommand(this);
         }
 
         public void Activate()
