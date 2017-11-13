@@ -98,7 +98,8 @@
         <Button Content="Список файлов" 
                 HorizontalAlignment="Left" 
                 VerticalAlignment="Top" 
-                Height="45" Width="230" Margin="10,120,0,0">
+                Height="45" Width="230" Margin="10,120,0,0"
+                Command="{Binding OpenFilesFolderCommand}">
 
 
             <Button.Effect>

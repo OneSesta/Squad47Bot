@@ -40,11 +40,19 @@
             private set;
         }
 
+        public ICommand OpenFilesFolderCommand
+        {
+            get;
+            private set;
+        }
+
         public ICommand ExitApplicationCommand
         {
             get;
             private set;
         }
+
+
         #endregion
 
         public event PropertyChangedEventHandler PropertyChanged;
@@ -71,6 +79,7 @@
 #endif
             ActivateCommand = new ActivateBotCommand(this);
             DeactivateCommand = new DeactivateBotCommand(this);
+            OpenFilesFolderCommand = new OpenFilesFolderCommand(this);
             ExitApplicationCommand = new ExitApplicationCommand(this);
             ActivateCommand.Execute(null);
         }
