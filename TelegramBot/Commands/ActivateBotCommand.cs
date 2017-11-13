@@ -17,8 +17,8 @@
             }
         }
 
-        private BotViewModel _viewModel;
-        public ActivateBotCommand(BotViewModel viewModel)
+        private MainViewModel _viewModel;
+        public ActivateBotCommand(MainViewModel viewModel)
         {
             _viewModel = viewModel;
         }

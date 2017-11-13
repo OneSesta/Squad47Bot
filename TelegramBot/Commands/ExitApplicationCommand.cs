@@ -18,8 +18,8 @@
             }
         }
 
-        private BotViewModel _viewModel;
-        public ExitApplicationCommand(BotViewModel viewModel)
+        private MainViewModel _viewModel;
+        public ExitApplicationCommand(MainViewModel viewModel)
         {
             _viewModel = viewModel;
         }

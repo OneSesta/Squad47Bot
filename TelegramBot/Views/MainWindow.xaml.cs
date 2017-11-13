@@ -16,7 +16,7 @@
     {
         public MainWindow()
         {
-            DataContext = new BotViewModel();
+            DataContext = new MainViewModel();
             InitializeComponent();
 #if DEBUG
             Title = "Таможка Бот: DEBUG";
