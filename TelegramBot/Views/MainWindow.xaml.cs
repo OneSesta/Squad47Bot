@@ -21,7 +21,7 @@
 #if DEBUG
             Title = "Squad 47 Bot: DEBUG";
 #else
-            Title = "Squad 47 Bot: RELEASE";
+            Title = "Squad 47 Bot: RELEASE"; 
 #endif
         }
 
