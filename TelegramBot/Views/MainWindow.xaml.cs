@@ -19,9 +19,9 @@
             DataContext = new MainViewModel();
             InitializeComponent();
 #if DEBUG
-            Title = "Таможка Бот: DEBUG";
+            Title = "Squad 47 Bot: DEBUG";
 #else
-            Title = "Таможка Бот: RELEASE";
+            Title = "Squad 47 Bot: RELEASE";
 #endif
         }
 
