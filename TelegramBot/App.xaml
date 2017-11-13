@@ -4,6 +4,46 @@
              xmlns:local="clr-namespace:TelegramBot"
              StartupUri="Views/MainWindow.xaml">
     <Application.Resources>
-         
+        <Style TargetType="{x:Type Button}">
+            <Style.Setters>
+                <Setter Property="Background" Value="#FF575757" />
+                <Setter Property="FontSize" Value="18" />
+                <Setter Property="Width" Value="230" />
+                <Setter Property="Height" Value="85" />
+                <Setter Property="Foreground" Value="White" />
+                <Setter Property="FontWeight" Value="Bold" />
+                <Setter Property="Margin" Value="10,5,0,0"/>
+                <Setter Property="BorderBrush" Value="{x:Null}"/>
+                <Setter Property ="FontFamily" Value="Candara"/>
+                <Setter Property ="FontSize" Value="19"/>
+
+                <Setter Property = "BitmapEffect">
+
+                    <Setter.Value>
+                        <DropShadowBitmapEffect ShadowDepth="3" Softness="0.2"  Opacity="0.5"/>
+                    </Setter.Value>
+                </Setter>
+            </Style.Setters>
+
+            <Style.Triggers>
+
+                <Trigger Property="IsMouseOver" Value="True">
+                    <Setter Property="Foreground" Value="Black"/>
+                    <Setter Property = "BitmapEffect" >
+                        <Setter.Value>
+                            <DropShadowBitmapEffect ShadowDepth="3" Softness="0.2" Opacity="0.5" Color="#FFCFCFCF"/>
+                        </Setter.Value>
+                    </Setter>
+                </Trigger>
+
+                <Trigger Property="IsPressed" Value="True">
+                    <Setter Property = "BitmapEffect" Value="{x:Null}"/>
+                </Trigger>
+
+
+
+            </Style.Triggers>
+        </Style>
+
     </Application.Resources>
 </Application>
