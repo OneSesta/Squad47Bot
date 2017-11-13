@@ -18,8 +18,8 @@
             }
         }
 
-        private BotViewModel _viewModel;
-        public DeactivateBotCommand(BotViewModel viewModel)
+        private MainViewModel _viewModel;
+        public DeactivateBotCommand(MainViewModel viewModel)
         {
             _viewModel = viewModel;
         }

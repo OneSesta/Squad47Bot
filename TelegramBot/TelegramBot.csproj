@@ -75,6 +75,8 @@
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="Commands\ExitApplicationCommand.cs" />
+    <Compile Include="Commands\OpenFilesFolderCommand.cs" />
+    <Compile Include="Models\FilesAccessor.cs" />
     <Compile Include="ViewModels\BotViewModel.cs" />
     <Compile Include="Views\MainWindow.xaml.cs">
       <DependentUpon>MainWindow.xaml</DependentUpon>
@@ -107,8 +109,6 @@
   <ItemGroup>
     <None Include="App.config" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Models\" />
-  </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

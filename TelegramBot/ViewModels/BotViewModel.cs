@@ -2,13 +2,16 @@
 {
     using System;
     using System.ComponentModel;
+    using System.IO;
     using System.Windows.Input;
     using Telegram.Bot;
     using Telegram.Bot.Args;
+    using Telegram.Bot.Types;
     using Telegram.Bot.Types.Enums;
     using TelegramBot.Commands;
+    using TelegramBot.Models;
 
-    class BotViewModel : INotifyPropertyChanged
+    class MainViewModel : INotifyPropertyChanged
     {
         private static TelegramBotClient Bot;
 
@@ -59,7 +62,7 @@
             }
         }
 
-        public BotViewModel()
+        public MainViewModel()
         {
 #if DEBUG
             Bot = new TelegramBotClient("447136859:AAGMz8BN0p21JLO7i9Ob4ridbKTUDpCAD1E");
@@ -173,15 +176,29 @@
                 
                 Answer = "На следующую пару " + paraAnswer;
             }
-            //else
-            //{
-            //    Answer = "Такой команды нет, так как Русик работает в Мейзу";
-            //}
+            else if (msg.Text.Contains("лаб"))
+            {
+                FileStream stream = null;
+                try
+                {
+                    stream = FilesAccessor.GetFileByCommand(msg.Text);
+                    await Bot.SendDocumentAsync(msg.Chat.Id, new FileToSend(stream.Name, stream), "Лови", false, msg.MessageId);
+                    Log += $"\r\n\r\n{DateTime.Now.ToLocalTime().ToString()}:\r\nCommand received:\r\n{msg.Text}\r\nFrom: {e.Message.From.FirstName} {e.Message.From.LastName}\r\nAnswered with file: {stream.Name}";
+                }
+                catch (Exception)
+                {
+                    return;
+                }
+                finally
+                {
+                    stream?.Dispose();
+                }
+            }
             #endregion
 
             if (Answer!="")
             {
-                await Bot.SendTextMessageAsync(msg.Chat.Id, Answer);
+                await Bot.SendTextMessageAsync(msg.Chat.Id, Answer, ParseMode.Default, false, false, msg.MessageId);
                 Log += $"\r\n\r\n{DateTime.Now.ToLocalTime().ToString()}:\r\nCommand received:\r\n{e.Message.Text}\r\nFrom: {e.Message.From.FirstName} {e.Message.From.LastName}\r\nAnswered with: {Answer}";
             }
             
