@@ -24,7 +24,7 @@
             Title = "Squad 47 Bot: RELEASE"; 
 #endif
         }
-
+         
         private void TextBox_TextChanged(object sender, TextChangedEventArgs e)
         {
             (sender as TextBox)?.ScrollToEnd();
