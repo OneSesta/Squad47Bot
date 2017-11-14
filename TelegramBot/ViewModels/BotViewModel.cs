@@ -75,7 +75,7 @@
 #if DEBUG
             Bot = new TelegramBotClient("447136859:AAGMz8BN0p21JLO7i9Ob4ridbKTUDpCAD1E");
 #else
-            Bot = new TelegramBotClient("488598835:AAFJAn6w1rifdR6z-8wDsaSxvwXXDVusSgU");
+            Bot = new TelegramBotClient("473027046:AAEWIMqj41Oc33sFIc_yrDcM07XbRDw-Omg");
 #endif
             ActivateCommand = new ActivateBotCommand(this);
             DeactivateCommand = new DeactivateBotCommand(this);
@@ -103,9 +103,14 @@
             #region Answer logic
             String Answer = "";
 
-            if (msg.Text.StartsWith("/start"))
+            if (msg.Text.StartsWith("/start") || msg.Text.StartsWith("/help"))
             {
-                Answer = "/flip - подбросить монетку\r\n/rand - случайное число от 1 до 47\r\n/scorebylitvinov - твоя оценка по Литвинову";
+                Answer = "Список доступных команд:\r\n" +
+                    "/flip - Подбросить монетку\r\n" +
+                    "/rand - Случайное число от 1 до 47\r\n" +
+                    "/scorebylitvinov - Твоя оценка по Литвинову\r\n" +
+                    "/para - Проверь, нужно ли тебе идти на следующую пару\r\n" +
+                    "/help - Список всех команд";
             }
             else if (msg.Text.StartsWith("/flip"))
             {
@@ -129,42 +134,15 @@
                 Answer = Rand.ToString();
             }
             else if(msg.Text.StartsWith("/scorebylitvinov"))
-            {           
+            {
                 //Узнай свою оценку по Литвинову
                 int RandLit = Rnd.Next(1, 11);
-                switch (RandLit)
+                if (RandLit < 9)
                 {
-                    case 1:
-                        RandLit = Rnd.Next(1, 44);
-                        break;
-                    case 2:
-                        RandLit = Rnd.Next(10, 44);
-                        break;
-                    case 3:
-                        RandLit = Rnd.Next(10, 51);
-                        break;
-                    case 4:
-                        RandLit = Rnd.Next(15, 61);
-                        break;
-                    case 5:
-                        RandLit = Rnd.Next(15, 61);
-                        break;
-                    case 6:
-                        RandLit = Rnd.Next(15, 61);
-                        break;
-                    case 7:
-                        RandLit = Rnd.Next(15, 66);
-                        break;
-                    case 8:
-                        RandLit = Rnd.Next(20, 75);
-                        break;
-                    case 9:
-                        RandLit = Rnd.Next(50, 75);
-                        break;
-                    case 10:
-                        RandLit = Rnd.Next(65, 100);
-                        break;
+                    RandLit = Rnd.Next(1, 66);
                 }
+                else { RandLit = Rnd.Next(66, 101); }
+
                 if (RandLit < 60) { Answer = "Твоя оценка по Литвинову: " + RandLit.ToString();}
                 else { Answer = "Твоя оценка по Литвинову: " + RandLit.ToString() + ", гнида ебучая"; }
 
