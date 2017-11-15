@@ -4,8 +4,23 @@
     using System.Windows.Input;
     using TelegramBot.ViewModels;
 
+    /// <summary>
+    /// This command is responsible for bot deactivation
+    /// </summary>
     class DeactivateBotCommand : ICommand
     {
+        private MainWindowViewModel _viewModel;
+
+        /// <summary>
+        /// Constructor
+        /// </summary>
+        /// <param name="viewModel">Target ViewModel</param>
+        public DeactivateBotCommand(MainWindowViewModel viewModel)
+        {
+            _viewModel = viewModel;
+        }
+
+        #region ICommand implementation
         public event EventHandler CanExecuteChanged
         {
             add
@@ -18,12 +33,6 @@
             }
         }
 
-        private MainViewModel _viewModel;
-        public DeactivateBotCommand(MainViewModel viewModel)
-        {
-            _viewModel = viewModel;
-        }
-
         public bool CanExecute(object parameter)
         {
             return _viewModel.IsActive;
@@ -33,5 +42,6 @@
         {
             _viewModel.Deactivate();
         }
+        #endregion
     }
 }
