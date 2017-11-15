@@ -8,6 +8,7 @@
     using System.Windows;
     using System.Windows.Controls;
     using System.Windows.Data;
+    using System.Windows.Input;
     using TelegramBot.ViewModels;
     /// <summary>
     /// Interaction logic for MainWindow.xaml
@@ -28,6 +29,12 @@
         private void TextBox_TextChanged(object sender, TextChangedEventArgs e)
         {
             (sender as TextBox)?.ScrollToEnd();
+        }
+
+        private void Window_MouseDown(object sender, MouseButtonEventArgs e)
+        {
+            if (Mouse.LeftButton == MouseButtonState.Pressed)
+                this.DragMove();
         }
     }
 
