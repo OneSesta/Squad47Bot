@@ -85,7 +85,11 @@
             DeactivateCommand = new DeactivateBotCommand(this);
             ExitApplicationCommand = new ExitApplicationCommand(this);
             OpenFilesFolderCommand = new OpenFilesFolderCommand(this);
-
+            if (!Directory.Exists(@"файлы\"))
+            {
+                Directory.CreateDirectory(@"файлы\");
+                OpenFilesFolderCommand.Execute(null);
+            }
             ActivateCommand.Execute(null);
         }
 
