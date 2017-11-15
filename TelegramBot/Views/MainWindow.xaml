@@ -9,7 +9,10 @@
         Height="300" 
         Width="500"
         MinHeight="300"
-        MinWidth="500">
+        MinWidth="500" 
+        ResizeMode="CanMinimize"
+        WindowStyle="SingleBorderWindow"
+        MouseDown="Window_MouseDown">
 
 
     <Window.Resources>
