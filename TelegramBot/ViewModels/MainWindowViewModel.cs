@@ -203,7 +203,7 @@
             if (Answer!="")
             {
                 await Bot.SendTextMessageAsync(msg.Chat.Id, Answer, ParseMode.Default, false, false, msg.MessageId);
-                Log += $"\r\n\r\n  {DateTime.Now.ToLocalTime().ToString()}:\r\n  Command received:\r\n  {e.Message.Text}\r\n  From: {e.Message.From.FirstName} {e.Message.From.LastName}\r\n  Answered with: {Answer}";
+                Log += $"\r\n\r\n{DateTime.Now.ToLocalTime().ToString()}:\r\nCommand received:\r\n{e.Message.Text}\r\nFrom: {e.Message.From.FirstName} {e.Message.From.LastName}\r\nAnswered with: {Answer}";
                
             }
         }
