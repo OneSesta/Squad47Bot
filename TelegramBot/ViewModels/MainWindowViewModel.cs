@@ -11,8 +11,13 @@
     using TelegramBot.Commands;
     using TelegramBot.Models;
 
-    class MainViewModel : INotifyPropertyChanged
+
+    /// <summary>
+    /// This class is responsible for the main window.
+    /// </summary>
+    class MainWindowViewModel : INotifyPropertyChanged
     {
+        public event PropertyChangedEventHandler PropertyChanged;
         private static TelegramBotClient Bot;
 
         public TelegramBotClient BotClient
@@ -55,7 +60,6 @@
 
         #endregion
 
-        public event PropertyChangedEventHandler PropertyChanged;
         private string _log;
         public string Log
         {
@@ -63,14 +67,14 @@
             {
                 return _log;
             }
-            set
+            private set
             {
                 _log = value;
                 PropertyChanged(this, new PropertyChangedEventArgs("Log"));
             }
         }
 
-        public MainViewModel()
+        public MainWindowViewModel()
         {
 #if DEBUG
             Bot = new TelegramBotClient("447136859:AAGMz8BN0p21JLO7i9Ob4ridbKTUDpCAD1E");
@@ -79,26 +83,37 @@
 #endif
             ActivateCommand = new ActivateBotCommand(this);
             DeactivateCommand = new DeactivateBotCommand(this);
-            OpenFilesFolderCommand = new OpenFilesFolderCommand(this);
             ExitApplicationCommand = new ExitApplicationCommand(this);
+            OpenFilesFolderCommand = new OpenFilesFolderCommand(this);
+
             ActivateCommand.Execute(null);
         }
 
+        /// <summary>
+        /// Activates the bot (hooks MessageUpdate handler and starts receiving)
+        /// </summary>
         public void Activate()
         {
             Bot.OnMessage += BotOnMessageReceived;
             Bot.StartReceiving(new UpdateType[] { UpdateType.MessageUpdate });
         }
+        /// <summary>
+        /// Deactivates the bot (unhooks MessageUpdate handler and stops receiving)
+        /// </summary>
         public void Deactivate()
         {
             Bot.StopReceiving();
             Bot.OnMessage -= BotOnMessageReceived;
         }
+        /// <summary>
+        /// Processes the inbound message
+        /// </summary>
         private async void BotOnMessageReceived(object sender, MessageEventArgs e)
         {
-            Random Rnd = new Random();
-            Telegram.Bot.Types.Message msg = e.Message;
-            if (msg == null || msg.Type != MessageType.TextMessage) return;
+            var Rnd = new Random();
+            Message msg = e.Message;
+            if (msg == null || msg.Type != MessageType.TextMessage)
+                return;
 
             #region Answer logic
             String Answer = "";
@@ -114,8 +129,9 @@
             }
             else if (msg.Text.StartsWith("/flip"))
             {
-                //Орел и решка
-                String flipAnswer = ""; //для хранения ответа, орел решка
+                // Орел и решка
+                // для хранения ответа, орел решка
+                String flipAnswer = "";
                 int Random = Rnd.Next(0, 2);
                 if (Random == 0)
                 {
@@ -129,13 +145,13 @@
             }
             else if(msg.Text.StartsWith("/rand"))
             {
-                //Случайное число
+                // Случайное число
                 int Rand = Rnd.Next(0, 48);
                 Answer = Rand.ToString();
             }
             else if(msg.Text.StartsWith("/scorebylitvinov"))
             {
-                //Узнай свою оценку по Литвинову
+                // Узнай свою оценку по Литвинову
                 int RandLit = Rnd.Next(1, 11);
                 if (RandLit < 9)
                 {
@@ -149,7 +165,7 @@
             }
             else if(msg.Text.StartsWith("/para"))
             {
-                //Проверка на то, нужно ли идти на пару
+                // Проверка на то, нужно ли идти на пару
                 int Random = Rnd.Next(0, 2);
                 String paraAnswer = ""; //для хранения ответа, нужно ли идти на пару
                 if (Random == 0)//Используем из Орла и решки, так как похожий принцип
@@ -165,20 +181,17 @@
             }
             else if (msg.Text.Contains("лаб"))
             {
-                FileStream stream = null;
                 try
                 {
-                    stream = FilesAccessor.GetFileByCommand(msg.Text);
-                    await Bot.SendDocumentAsync(msg.Chat.Id, new FileToSend(stream.Name, stream), "Лови", false, msg.MessageId);
-                    Log += $"\r\n\r\n{DateTime.Now.ToLocalTime().ToString()}:\r\nCommand received:\r\n{msg.Text}\r\nFrom: {e.Message.From.FirstName} {e.Message.From.LastName}\r\nAnswered with file: {stream.Name}";
+                    using (FileStream stream = FilesAccessor.GetFileByCommand(msg.Text))
+                    {
+                        await Bot.SendDocumentAsync(msg.Chat.Id, new FileToSend(stream.Name, stream), "Лови", false, msg.MessageId);
+                        Log += $"\r\n\r\n{DateTime.Now.ToLocalTime().ToString()}:\r\nCommand received:\r\n{msg.Text}\r\nFrom: {e.Message.From.FirstName} {e.Message.From.LastName}\r\nAnswered with file: {stream.Name}";
+                    }
                 }
                 catch (Exception)
                 {
                     return;
-                }
-                finally
-                {
-                    stream?.Dispose();
                 }
             }
             #endregion
@@ -189,8 +202,7 @@
                 Log += $"\r\n\r\n  {DateTime.Now.ToLocalTime().ToString()}:\r\n  Command received:\r\n  {e.Message.Text}\r\n  From: {e.Message.From.FirstName} {e.Message.From.LastName}\r\n  Answered with: {Answer}";
                
             }
-            
-
         }
+
     }
 }

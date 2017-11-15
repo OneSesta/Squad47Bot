@@ -17,25 +17,28 @@
     {
         public MainWindow()
         {
-            DataContext = new MainViewModel();
+            DataContext = new MainWindowViewModel();
             InitializeComponent();
 #if DEBUG
             Title = "Squad 47 Bot: DEBUG";
 #else
             Title = "Squad 47 Bot: RELEASE"; 
 #endif
-        }
-         
-        private void TextBox_TextChanged(object sender, TextChangedEventArgs e)
-        {
-            (sender as TextBox)?.ScrollToEnd();
-        }
 
-        private void Window_MouseDown(object sender, MouseButtonEventArgs e)
-        {
-            if (Mouse.LeftButton == MouseButtonState.Pressed)
-                this.DragMove();
+            // Easy moving of window if dragged outside ony element
+            MainWindowView.MouseDown += (o, e) =>
+            {
+                if (Mouse.LeftButton == MouseButtonState.Pressed)
+                    this.DragMove();
+            };
+
+            // Scroll to end on new log entry
+            LogTextBox.TextChanged += (o, e) =>
+            {
+                (o as TextBox)?.ScrollToEnd();
+            };
         }
+        
     }
 
 }

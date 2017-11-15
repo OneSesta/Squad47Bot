@@ -1,4 +1,5 @@
 ﻿<Window x:Class="TelegramBot.Views.MainWindow"
+        x:Name="MainWindowView"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
@@ -11,17 +12,13 @@
         MinHeight="300"
         MinWidth="500" 
         ResizeMode="CanMinimize"
-        WindowStyle="SingleBorderWindow"
-        MouseDown="Window_MouseDown">
-
+        WindowStyle="SingleBorderWindow">
 
     <Window.Resources>
        
     </Window.Resources>
 
     <Grid Background="#FF404040" >
-
-
 
         <Button Content="Start Bot" 
                 HorizontalAlignment="Left" 
@@ -30,14 +27,12 @@
                 Command="{Binding ActivateCommand}"
                 />
 
-
         <Button Content="Stop Bot" 
                 HorizontalAlignment="Left" 
                 VerticalAlignment="Top" 
                 Height="45" Width="110" Margin="130,5,0,0" 
                 Command="{Binding DeactivateCommand}"
                 />
-
 
         <Button Content="Close" 
                 HorizontalAlignment="Left" 
@@ -46,14 +41,11 @@
                 Command="{Binding ExitApplicationCommand}"
                 />
 
-        <Button 
-                Content="Расписание" 
+        <Button Content="Расписание" 
                 HorizontalAlignment="Left" 
                 VerticalAlignment="Top" 
                 Width="230" Height="45" Margin="10,65,0,0"
                 />
-
-
 
         <Button Content="Список файлов" 
                 HorizontalAlignment="Left" 
@@ -62,13 +54,11 @@
                 Command="{Binding OpenFilesFolderCommand}"
                 />
 
-
-
-
-        <TextBox HorizontalAlignment="Left" 
+        <TextBox x:Name="LogTextBox"
+                 HorizontalAlignment="Left" 
                  Margin="250,5,0,0"
                  TextWrapping="Wrap"
-                 Text="{Binding Log}"
+                 Text="{Binding Log, Mode=OneWay}"
                  VerticalAlignment="Top"
                  Height="250" Width="230"
                  Background="#FF575757"
@@ -76,8 +66,7 @@
                  ScrollViewer.CanContentScroll="True"
                  ScrollViewer.VerticalScrollBarVisibility="Visible"
                  IsReadOnly="True" 
-                 
-                 TextChanged="TextBox_TextChanged" Foreground="White">
+                 Foreground="White">
                  
             <TextBox.BitmapEffect>
 

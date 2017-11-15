@@ -10,8 +10,24 @@ namespace TelegramBot.Commands
     using System.Diagnostics;
     using System.Windows.Input;
     using TelegramBot.ViewModels;
+
+    /// <summary>
+    /// This command is responsible for opening folder with documents.
+    /// </summary>
     class OpenFilesFolderCommand : ICommand
     {
+        private MainWindowViewModel _viewModel;
+
+        /// <summary>
+        /// Constructor
+        /// </summary>
+        /// <param name="viewModel">Target ViewModel</param>
+        public OpenFilesFolderCommand(MainWindowViewModel viewModel)
+        {
+            _viewModel = viewModel;
+        }
+
+        #region ICommand implementation
         public event EventHandler CanExecuteChanged
         {
             add
@@ -24,12 +40,6 @@ namespace TelegramBot.Commands
             }
         }
 
-        private MainViewModel _viewModel;
-        public OpenFilesFolderCommand(MainViewModel viewModel)
-        {
-            _viewModel = viewModel;
-        }
-
         public bool CanExecute(object parameter)
         {
             return true;
@@ -39,5 +49,6 @@ namespace TelegramBot.Commands
         {
             Process.Start(@"..\файлы\");
         }
+        #endregion
     }
 }
