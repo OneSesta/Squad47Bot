@@ -56,11 +56,15 @@
             get;
             private set;
         }
-
+        public ICommand ClearLogCommand
+        {
+            get;
+            private set;
+        }
 
         #endregion
 
-        private string _log;
+        private string _log = "";
         public string Log
         {
             get
@@ -73,7 +77,10 @@
                 PropertyChanged(this, new PropertyChangedEventArgs("Log"));
             }
         }
-
+        public void ClearLog()
+        {
+            Log = "";
+        }
         public MainWindowViewModel()
         {
 #if DEBUG
@@ -85,12 +92,14 @@
             DeactivateCommand = new DeactivateBotCommand(this);
             ExitApplicationCommand = new ExitApplicationCommand(this);
             OpenFilesFolderCommand = new OpenFilesFolderCommand(this);
+            ClearLogCommand = new ClearLogCommand(this);
             if (!Directory.Exists(@"файлы\"))
             {
                 Directory.CreateDirectory(@"файлы\");
                 OpenFilesFolderCommand.Execute(null);
             }
             ActivateCommand.Execute(null);
+            //CommandManager.InvalidateRequerySuggested();
         }
 
         /// <summary>

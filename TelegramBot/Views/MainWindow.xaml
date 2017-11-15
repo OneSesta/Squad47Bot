@@ -41,19 +41,26 @@
                 Command="{Binding ExitApplicationCommand}"
                 />
 
-        <Button Content="Расписание" 
+        <Button Content="Clear Log" 
                 HorizontalAlignment="Left" 
                 VerticalAlignment="Top" 
-                Width="230" Height="45" Margin="10,65,0,0"
+                Width="230" Height="45" Margin="10,160,0,0"
+                Command="{Binding ClearLogCommand}"
                 />
 
-        <Button Content="Список файлов" 
+        <Button Content="Files" 
                 HorizontalAlignment="Left" 
                 VerticalAlignment="Top" 
-                Height="45" Width="230" Margin="10,120,0,0"
+                Height="45" Width="110" Margin="10,55,0,0"
                 Command="{Binding OpenFilesFolderCommand}"
                 />
 
+        <Button Content="Schedule" 
+                HorizontalAlignment="Left" 
+                VerticalAlignment="Top" 
+                Height="45" Width="110" Margin="130,55,0,0"
+                />
+        
         <TextBox x:Name="LogTextBox"
                  HorizontalAlignment="Left" 
                  Margin="250,5,0,0"
@@ -76,6 +83,7 @@
             </TextBox.BitmapEffect>
 
         </TextBox>
+        
 
     </Grid>
 </Window>
