@@ -47,7 +47,7 @@ namespace TelegramBot.Commands
 
         public void Execute(object parameter)
         {
-            Process.Start(@"..\файлы\");
+            Process.Start(@"файлы\");
         }
         #endregion
     }

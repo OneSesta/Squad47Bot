@@ -28,15 +28,15 @@
         {
             command = command.ToLower();
 
-            string path="../файлы/лабы/";
+            string path="файлы/";
 
             if (command.Contains("лавренюк"))
             {
-                path += "лавренюк/";
+                path += "лабы/лавренюк/";
             }
             else if (command.Contains("алгоритм"))
             {
-                path += "алгоритмы/";
+                path += "лабы/алгоритмы/";
             }
 
             MatchCollection matches = Regex.Matches(command, @"\d+");
