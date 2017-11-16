@@ -56,12 +56,19 @@
             get;
             private set;
         }
+
         public ICommand ClearLogCommand
         {
             get;
             private set;
         }
 
+        public ICommand OpenLocalFilesCommand
+        {
+            get;
+            private set;
+        }
+        
         #endregion
 
         private string _log = "";
@@ -93,11 +100,15 @@
             ExitApplicationCommand = new ExitApplicationCommand(this);
             OpenFilesFolderCommand = new OpenFilesFolderCommand(this);
             ClearLogCommand = new ClearLogCommand(this);
+            
             if (!Directory.Exists(@"файлы\"))
             {
                 Directory.CreateDirectory(@"файлы\");
                 OpenFilesFolderCommand.Execute(null);
             }
+
+            OpenLocalFilesCommand = new OpenLocalFilesCommand(this);
+
             ActivateCommand.Execute(null);
             //CommandManager.InvalidateRequerySuggested();
         }
@@ -212,7 +223,11 @@
             if (Answer!="")
             {
                 await Bot.SendTextMessageAsync(msg.Chat.Id, Answer, ParseMode.Default, false, false, msg.MessageId);
-                Log += $"\r\n\r\n{DateTime.Now.ToLocalTime().ToString()}:\r\nCommand received:\r\n{e.Message.Text}\r\nFrom: {e.Message.From.FirstName} {e.Message.From.LastName}\r\nAnswered with: {Answer}";
+                Log += $"\r\n\r\n{DateTime.Now.ToLocalTime().ToString()}:" +
+                    $"\r\nCommand received:" +
+                    $"\r\n{e.Message.Text}\r\n" +
+                    $"From: {e.Message.From.FirstName} {e.Message.From.LastName}\r\n" +
+                    $"Answered with: {Answer}";
                
             }
         }
