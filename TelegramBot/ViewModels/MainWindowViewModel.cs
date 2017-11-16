@@ -63,6 +63,12 @@
             private set;
         }
 
+        public ICommand OpenLocalFilesCommand
+        {
+            get;
+            private set;
+        }
+        
         public ICommand OpenScheduleCommand
         {
             get;
@@ -109,6 +115,8 @@
             OpenFilesFolderCommand = new OpenFilesFolderCommand(this);
             ClearLogCommand = new ClearLogCommand(this);
             OpenScheduleCommand = new OpenScheduleCommand(this);
+            OpenLocalFilesCommand = new OpenLocalFilesCommand(this);
+
 
             if (!Directory.Exists(@"файлы\"))
             {
