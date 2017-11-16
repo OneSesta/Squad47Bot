@@ -7,10 +7,10 @@
         xmlns:local="clr-namespace:TelegramBot"
         xmlns:vms="clr-namespace:TelegramBot.ViewModels"
         mc:Ignorable="d"
-        Title="Squad 47 Bot" 
-        Height="300" 
+        Title="Squad 47 Bot"
+        Height="320" 
         Width="500"
-        MinHeight="300"
+        MinHeight="320"
         MinWidth="500" 
         ResizeMode="CanMinimize"
         WindowStyle="SingleBorderWindow">
@@ -23,53 +23,72 @@
        
     </Window.Resources>
 
-    <Grid Background="#FF404040" >
+    <Grid Background="#404040" >
 
         <Button Content="Start Bot" 
                 HorizontalAlignment="Left" 
                 VerticalAlignment="Top"
                 Height="45" Width="110" 
-                Command="{Binding ActivateCommand}"
+                Command="{Binding ActivateCommand}" Margin="10,25,0,0"
                 />
 
         <Button Content="Stop Bot" 
                 HorizontalAlignment="Left" 
                 VerticalAlignment="Top" 
-                Height="45" Width="110" Margin="130,5,0,0" 
+                Height="45" Width="110" Margin="130,25,0,0" 
                 Command="{Binding DeactivateCommand}"
                 />
 
         <Button Content="Close" 
                 HorizontalAlignment="Left" 
                 VerticalAlignment="Top" 
-                Height="45" Width="230" Margin="10,210,0,0"
+                Height="45" Width="230" Margin="10,230,0,0"
                 Command="{Binding ExitApplicationCommand}"
-                />
-
-        <Button Content="Clear Log" 
-                HorizontalAlignment="Left" 
-                VerticalAlignment="Top" 
-                Width="230" Height="45" Margin="10,160,0,0"
-                Command="{Binding ClearLogCommand}"
                 />
 
         <Button Content="Files" 
                 HorizontalAlignment="Left" 
                 VerticalAlignment="Top" 
-                Height="45" Width="110" Margin="10,55,0,0"
+                Height="45" Width="110" Margin="10,75,0,0"
                 Command="{Binding OpenFilesFolderCommand}"
                 />
 
         <Button Content="Schedule" 
                 HorizontalAlignment="Left" 
                 VerticalAlignment="Top" 
-                Height="45" Width="110" Margin="130,55,0,0"
-                Command="{Binding OpenScheduleCommand}"
+                Height="45" Width="110" Margin="130,75,0,0"
                 />
         
+        <Menu Height="20"
+              VerticalAlignment="Top"
+              Background="#FF6C6C6C">
+            <MenuItem Header="File">
+                <MenuItem Header="Open Files"
+                          Command="{Binding OpenFilesFolderCommand}"
+                          />
+                <MenuItem Header="Open local files"
+                          Command="{Binding OpenLocalFilesCommand}"
+                          />
+                <MenuItem Header="Exit"
+                          Command="{Binding ExitApplicationCommand}" Background="{x:Null}"
+                          />
+            </MenuItem>
+            <MenuItem Header="Options">
+                <MenuItem Header="Clear Logs"
+                          Command="{Binding ClearLogCommand}"
+                          />
+            </MenuItem>
+            <MenuItem Header="Help">
+                <MenuItem Header="Sorry, bro, we can't help you"/>
+                <MenuItem Header="About"/>
+            </MenuItem>
+        </Menu>
+
+
+
         <TextBox x:Name="LogTextBox"
                  HorizontalAlignment="Left" 
-                 Margin="250,5,0,0"
+                 Margin="250,25,0,0"
                  TextWrapping="Wrap"
                  Text="{Binding Log, Mode=OneWay}"
                  VerticalAlignment="Top"
