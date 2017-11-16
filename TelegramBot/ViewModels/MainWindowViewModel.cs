@@ -163,6 +163,7 @@
                     "/rand - Случайное число от 1 до 47\r\n" +
                     "/scorebylitvinov - Твоя оценка по Литвинову\r\n" +
                     "/para - Проверь, нужно ли тебе идти на следующую пару\r\n" +
+                    "/rockpaperscissors - Камень, ножницы, бумага\r\n" +
                     "/help - Список всех команд";
             }
             else if (msg.Text.StartsWith("/flip"))
@@ -217,6 +218,64 @@
                 }
                 
                 Answer = "На следующую пару " + paraAnswer;
+            }
+            else if (msg.Text.StartsWith("/rockpaperscissors"))
+            {
+                Answer = "Камень, ножницы, бумага:\r\n" +
+                    "/scissors - Выбрать ножницы (\U0000270C)\r\n" +
+                    "/paper - Выбрать бумагу (\U0000270B)\r\n" +
+                    "/rock - Выбрать камень (\U0000270A)\r\n";
+            }
+            else if (msg.Text.StartsWith("/scissors"))
+            {
+                //\U0000270A - Камень
+                //\U0000270B - Бумага
+                //\U0000270C - Ножницы
+                int Random = Rnd.Next(0, 3);
+                switch (Random)
+                {
+                    case 0:
+                        Answer = "\U0000270C vs \U0000270A\r\n" + "Вы проиграли";
+                        break;
+                    case 1:
+                        Answer = "\U0000270C vs \U0000270C\r\n" + "Ничья";
+                        break;
+                    case 2:
+                        Answer = "\U0000270C vs \U0000270B\r\n" + "Вы победили";
+                        break;
+                }
+            }
+            else if (msg.Text.StartsWith("/paper"))
+            {
+                int Random = Rnd.Next(0, 3);
+                switch (Random)
+                {
+                    case 0:
+                        Answer = "\U0000270B vs \U0000270A\r\n" + "Вы выиграли";
+                        break;
+                    case 1:
+                        Answer = "\U0000270B vs \U0000270C\r\n" + "Вы проиграли";
+                        break;
+                    case 2:
+                        Answer = "\U0000270B vs \U0000270B\r\n" + "Ничья";
+                        break;
+                }
+            }
+            else if (msg.Text.StartsWith("/rock"))
+            {
+                int Random = Rnd.Next(0, 3);
+                switch (Random)
+                {
+                    case 0:
+                        Answer = "\U0000270A vs \U0000270A\r\n" + "Ничья";
+                        break;
+                    case 1:
+                        Answer = "\U0000270A vs \U0000270C\r\n" + "Вы победили";
+                        break;
+                    case 2:
+                        Answer = "\U0000270A vs Бумага\r\n" + "Вы проиграли";
+                        break;
+                }
             }
             else if (msg.Text.Contains("лаб"))
             {
