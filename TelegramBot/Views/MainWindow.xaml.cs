@@ -17,7 +17,6 @@
     {
         public MainWindow()
         {
-            DataContext = new MainWindowViewModel();
             InitializeComponent();
 #if DEBUG
             Title = "Squad 47 Bot: DEBUG";

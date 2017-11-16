@@ -67,6 +67,7 @@
     <Compile Include="Commands\ActivateBotCommand.cs" />
     <Compile Include="Commands\ClearLogCommand.cs" />
     <Compile Include="Commands\DeactivateBotCommand.cs" />
+    <Compile Include="Commands\OpenScheduleCommand.cs" />
     <Compile Include="ViewModels\ScheduleViewModel.cs" />
     <Compile Include="Views\ScheduleWindow.xaml.cs">
       <DependentUpon>ScheduleWindow.xaml</DependentUpon>

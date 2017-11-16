@@ -56,7 +56,14 @@
             get;
             private set;
         }
+
         public ICommand ClearLogCommand
+        {
+            get;
+            private set;
+        }
+
+        public ICommand OpenScheduleCommand
         {
             get;
             private set;
@@ -81,6 +88,14 @@
         {
             Log = "";
         }
+
+        private ScheduleViewModel _schedule;
+        public void OpenSchedule()
+        {
+            if (_schedule == null)
+                _schedule = new ScheduleViewModel();
+        }
+
         public MainWindowViewModel()
         {
 #if DEBUG
@@ -93,6 +108,8 @@
             ExitApplicationCommand = new ExitApplicationCommand(this);
             OpenFilesFolderCommand = new OpenFilesFolderCommand(this);
             ClearLogCommand = new ClearLogCommand(this);
+            OpenScheduleCommand = new OpenScheduleCommand(this);
+
             if (!Directory.Exists(@"файлы\"))
             {
                 Directory.CreateDirectory(@"файлы\");
