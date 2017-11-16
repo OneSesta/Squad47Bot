@@ -193,12 +193,13 @@
                 int RandLit = Rnd.Next(1, 11);
                 if (RandLit < 9)
                 {
-                    RandLit = Rnd.Next(1, 66);
+                    RandLit = Rnd.Next(1, 61);
                 }
-                else { RandLit = Rnd.Next(66, 101); }
+                else { RandLit = Rnd.Next(61, 101); }
 
-                if (RandLit < 60) { Answer = "Твоя оценка по Литвинову: " + RandLit.ToString();}
-                else { Answer = "Твоя оценка по Литвинову: " + RandLit.ToString() + ", везунчик))"; }
+                if (RandLit < 40) { Answer = "По Литвинову ты идешь на пересдачу"; }
+                else if (RandLit < 60) { Answer = "Твоя оценка по Литвинову: " + RandLit.ToString(); }
+                else { Answer = "Твоя оценка по Литвинову: " + RandLit.ToString() + ", гнида ебучая"; }
 
             }
             else if(msg.Text.StartsWith("/para"))
