@@ -47,5 +47,28 @@
             </Style.Triggers>
         </Style>
 
+        <Style TargetType="{x:Type MenuItem}">
+            <Style.Setters>
+                <Setter Property="Height" Value="20"/>
+                <Setter Property="Foreground" Value="White"/>
+                <Setter Property="Background" Value="#FF7C7C7C"/>
+
+            </Style.Setters>
+        </Style>
+        <ControlTemplate x:Key="{x:Static MenuItem.TopLevelHeaderTemplateKey}" TargetType="{x:Type MenuItem}">
+            <Border>
+                <Grid>
+                    <ContentPresenter Margin="5,2,5,2" ContentSource="Header" RecognizesAccessKey="True" />
+                    <Popup Placement="Bottom" IsOpen="{TemplateBinding IsSubmenuOpen}"  PopupAnimation="Fade">
+                        <Border Background="#FF7C7C7C">
+                            <StackPanel IsItemsHost="True" KeyboardNavigation.DirectionalNavigation="Cycle" />
+                        </Border>
+                    </Popup>
+                </Grid>
+            </Border>
+        </ControlTemplate>
+
+
     </Application.Resources>
+    
 </Application>
