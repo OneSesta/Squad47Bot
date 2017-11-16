@@ -2,7 +2,10 @@
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:local="clr-namespace:TelegramBot"
+             xmlns:vms="clr-namespace:TelegramBot.ViewModels"
+             xmlns:vs="clr-namespace:TelegramBot.Views"
              StartupUri="Views/MainWindow.xaml">
+    
     <Application.Resources>
         <Style TargetType="{x:Type Button}">
             <Style.Setters>
@@ -39,7 +42,6 @@
                 <Trigger Property="IsPressed" Value="True">
                     <Setter Property = "BitmapEffect" Value="{x:Null}"/>
                 </Trigger>
-
 
 
             </Style.Triggers>
