@@ -1,12 +1,13 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace TelegramBot.ViewModels
+﻿namespace TelegramBot.ViewModels
 {
     class ScheduleViewModel
     {
+        public string KEK
+        {
+            get
+            {
+                return "LOL VALIDOL";
+            }
+        }
     }
 }
