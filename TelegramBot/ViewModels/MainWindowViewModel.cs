@@ -184,7 +184,7 @@
                 else { RandLit = Rnd.Next(66, 101); }
 
                 if (RandLit < 60) { Answer = "Твоя оценка по Литвинову: " + RandLit.ToString();}
-                else { Answer = "Твоя оценка по Литвинову: " + RandLit.ToString() + ", гнида ебучая"; }
+                else { Answer = "Твоя оценка по Литвинову: " + RandLit.ToString() + ", везунчик))"; }
 
             }
             else if(msg.Text.StartsWith("/para"))
