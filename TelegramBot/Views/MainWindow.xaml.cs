@@ -17,6 +17,7 @@
     {
         public MainWindow()
         {
+            DataContext = new MainWindowViewModel();
             InitializeComponent();
 #if DEBUG
             Title = "Squad 47 Bot: DEBUG";
@@ -31,13 +32,19 @@
                     this.DragMove();
             };
 
+            // Same for menu DockPanel
+            MenuDockPanel.MouseDown += (o, e) =>
+            {
+                if (Mouse.LeftButton == MouseButtonState.Pressed)
+                    this.DragMove();
+            };
+
             // Scroll to end on new log entry
             LogTextBox.TextChanged += (o, e) =>
             {
                 (o as TextBox)?.ScrollToEnd();
             };
         }
-
     }
 
 }

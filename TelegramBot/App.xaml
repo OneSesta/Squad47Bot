@@ -52,9 +52,17 @@
                 <Setter Property="Height" Value="20"/>
                 <Setter Property="Foreground" Value="White"/>
                 <Setter Property="Background" Value="#FF7C7C7C"/>
-
             </Style.Setters>
         </Style>
+
+        <Style x:Key="DefaultWindowStyle">
+            <Style.Setters>
+                <Setter Property="Window.WindowStyle" Value="None"/>
+                <Setter Property="Window.BorderThickness" Value="2"/>
+                <Setter Property="Window.BorderBrush" Value="#FFCFCFCF"/>
+            </Style.Setters>
+        </Style>
+
         <ControlTemplate x:Key="{x:Static MenuItem.TopLevelHeaderTemplateKey}" TargetType="{x:Type MenuItem}">
             <Border>
                 <Grid>
