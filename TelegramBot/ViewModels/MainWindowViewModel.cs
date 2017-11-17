@@ -10,6 +10,7 @@
     using Telegram.Bot.Types.Enums;
     using TelegramBot.Commands;
     using TelegramBot.Models;
+    using TelegramBot.Views;
 
 
     /// <summary>
@@ -95,11 +96,11 @@
             Log = "";
         }
 
-        private ScheduleViewModel _schedule;
+        private ScheduleWindow _schedule;
         public void OpenSchedule()
         {
-            if (_schedule == null)
-                _schedule = new ScheduleViewModel();
+            _schedule = new ScheduleWindow();
+            _schedule.Show();
         }
 
         public MainWindowViewModel()
@@ -124,7 +125,6 @@
                 OpenFilesFolderCommand.Execute(null);
             }
             ActivateCommand.Execute(null);
-            //CommandManager.InvalidateRequerySuggested();
         }
 
         /// <summary>

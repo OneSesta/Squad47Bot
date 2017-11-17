@@ -37,7 +37,7 @@
                 (o as TextBox)?.ScrollToEnd();
             };
         }
-        
+
     }
 
 }
