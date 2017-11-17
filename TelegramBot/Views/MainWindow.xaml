@@ -8,19 +8,15 @@
         xmlns:vms="clr-namespace:TelegramBot.ViewModels"
         mc:Ignorable="d"
         Title="Squad 47 Bot"
-        Height="320" 
+        Height="283" 
         Width="500"
-        MinHeight="320"
+        MinHeight="283"
         MinWidth="500" 
         ResizeMode="CanMinimize"
-        WindowStyle="SingleBorderWindow">
-
-    <Window.DataContext>
-        <vms:MainWindowViewModel/>
-    </Window.DataContext>
+        Style="{StaticResource DefaultWindowStyle}">
 
     <Window.Resources>
-       
+
     </Window.Resources>
 
     <Grid Background="#404040" >
@@ -59,32 +55,39 @@
                 Height="45" Width="110" Margin="130,75,0,0"
                 Command="{Binding OpenScheduleCommand}"
                 />
-        
-        <Menu Height="20"
-              VerticalAlignment="Top"
-              Background="#FF6C6C6C">
-            <MenuItem Header="File">
-                <MenuItem Header="Open Files"
+
+        <DockPanel Height="20"
+                   VerticalAlignment="Top"
+                   x:Name="MenuDockPanel"
+                   Background="#FF6C6C6C"
+                   >
+            <Menu Height="20"
+                  DockPanel.Dock="Top"
+                  Background="#FF6C6C6C"
+                  x:Name="MainWindowMenu"
+                  HorizontalAlignment="Left" Width="{Binding }">
+                <MenuItem Header="File">
+                    <MenuItem Header="Open Files"
                           Command="{Binding OpenFilesFolderCommand}"
                           />
-                <MenuItem Header="Open local files"
+                    <MenuItem Header="Open local files"
                           Command="{Binding OpenLocalFilesCommand}"
                           />
-                <MenuItem Header="Exit"
-                          Command="{Binding ExitApplicationCommand}" Background="{x:Null}"
+                    <MenuItem Header="Exit"
+                          Command="{Binding ExitApplicationCommand}"
                           />
-            </MenuItem>
-            <MenuItem Header="Options">
-                <MenuItem Header="Clear Logs"
+                </MenuItem>
+                <MenuItem Header="Options">
+                    <MenuItem Header="Clear Logs"
                           Command="{Binding ClearLogCommand}"
                           />
-            </MenuItem>
-            <MenuItem Header="Help">
-                <MenuItem Header="Sorry, bro, we can't help you"/>
-                <MenuItem Header="About"/>
-            </MenuItem>
-        </Menu>
-
+                </MenuItem>
+                <MenuItem Header="Help">
+                    <MenuItem Header="Sorry, bro, we can't help you"/>
+                    <MenuItem Header="About"/>
+                </MenuItem>
+            </Menu>
+        </DockPanel>
 
 
         <TextBox x:Name="LogTextBox"
@@ -101,7 +104,7 @@
                  IsReadOnly="True" 
                  Foreground="White"
                  Padding="7,0,7,0">
-                 
+
             <TextBox.BitmapEffect>
 
                 <DropShadowBitmapEffect ShadowDepth="3" Softness="0.2"  Opacity="0.5"/>
@@ -109,7 +112,7 @@
             </TextBox.BitmapEffect>
 
         </TextBox>
-        
+
 
     </Grid>
 </Window>
