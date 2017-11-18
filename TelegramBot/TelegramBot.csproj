@@ -67,11 +67,17 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
-    <Compile Include="Commands\ActivateBotCommand.cs" />
-    <Compile Include="Commands\ClearLogCommand.cs" />
-    <Compile Include="Commands\DeactivateBotCommand.cs" />
-    <Compile Include="Commands\OpenLocalFilesCommand.cs" />
-    <Compile Include="Commands\OpenScheduleCommand.cs" />
+    <Compile Include="Models\BaseCommands.cs" />
+    <Compile Include="Models\IBotCommand.cs" />
+    <Compile Include="Models\Utils.cs" />
+    <Compile Include="Models\RandomBasedCommands.cs" />
+    <Compile Include="Models\RockPaperScissorsGame.cs" />
+    <Compile Include="UICommands\ActivateBotCommand.cs" />
+    <Compile Include="UICommands\ClearLogCommand.cs" />
+    <Compile Include="UICommands\DeactivateBotCommand.cs" />
+    <Compile Include="UICommands\OpenLocalFilesCommand.cs" />
+    <Compile Include="UICommands\OpenScheduleCommand.cs" />
+    <Compile Include="Models\UpdateDispatcher.cs" />
     <Compile Include="ViewModels\ScheduleViewModel.cs" />
     <Compile Include="Views\ScheduleWindow.xaml.cs">
       <DependentUpon>ScheduleWindow.xaml</DependentUpon>
@@ -84,8 +90,8 @@
       <DependentUpon>App.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="Commands\ExitApplicationCommand.cs" />
-    <Compile Include="Commands\OpenFilesFolderCommand.cs" />
+    <Compile Include="UICommands\ExitApplicationCommand.cs" />
+    <Compile Include="UICommands\OpenFilesFolderCommand.cs" />
     <Compile Include="Models\FilesAccessor.cs" />
     <Compile Include="ViewModels\MainWindowViewModel.cs" />
     <Compile Include="Views\MainWindow.xaml.cs">
