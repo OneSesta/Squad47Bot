@@ -9,6 +9,7 @@
     using System.Windows.Controls;
     using System.Windows.Data;
     using System.Windows.Input;
+    using TelegramBot.Models;
     using TelegramBot.ViewModels;
     /// <summary>
     /// Interaction logic for MainWindow.xaml
@@ -19,11 +20,7 @@
         {
             DataContext = new MainWindowViewModel();
             InitializeComponent();
-#if DEBUG
-            Title = "Squad 47 Bot: DEBUG";
-#else
-            Title = "Squad 47 Bot: RELEASE"; 
-#endif
+            Title = Utils.BotTitle;
 
             // Easy moving of window if dragged outside ony element
             MainWindowView.MouseDown += (o, e) =>

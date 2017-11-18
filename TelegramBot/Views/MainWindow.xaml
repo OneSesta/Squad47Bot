@@ -19,7 +19,7 @@
 
     </Window.Resources>
 
-    <Grid Background="#404040" >
+    <Grid>
 
         <Button Content="Start Bot" 
                 HorizontalAlignment="Left" 

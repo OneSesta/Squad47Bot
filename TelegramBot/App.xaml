@@ -60,6 +60,7 @@
                 <Setter Property="Window.WindowStyle" Value="None"/>
                 <Setter Property="Window.BorderThickness" Value="2"/>
                 <Setter Property="Window.BorderBrush" Value="#FFCFCFCF"/>
+                <Setter Property="Grid.Background" Value="#404040"/>
             </Style.Setters>
         </Style>
 

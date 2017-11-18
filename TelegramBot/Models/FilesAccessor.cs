@@ -7,12 +7,28 @@
     using System.Text;
     using System.Text.RegularExpressions;
     using System.Threading.Tasks;
+    using Telegram.Bot;
+    using Telegram.Bot.Types;
+    using Telegram.Bot.Types.Enums;
 
     /// <summary>
     /// This class is responsible for gaining access to documents that people want to acquire by typing commands
     /// </summary>
-    class FilesAccessor
+    class FilesAccessor : IBotCommandHandler
     {
+        private TelegramBotClient _client;
+
+        public FilesAccessor(TelegramBotClient client)
+        {
+            _client = client;
+        }
+
+        public void HandleUpdate(Update update)
+        {
+            FileStream stream =  GetFileByCommand(update.Message.Text.ToLower());
+            _client.SendDocumentAsync(update.Message.Chat.Id, new FileToSend(stream.Name, stream), "Лови", false, update.Message.MessageId);
+        }
+
         /// <summary>
         /// Gets file by requested string of text (user command)
         /// </summary>
@@ -24,22 +40,20 @@
         /// </code>
         /// </example>
         /// <returns>FileStream associated with file described in the "command" paramether</returns>
-        public static FileStream GetFileByCommand(string command)
+        public static FileStream GetFileByCommand(string request)
         {
-            command = command.ToLower();
+            string path = "файлы/";
 
-            string path="файлы/";
-
-            if (command.Contains("лавренюк"))
+            if (request.Contains("лавренюк"))
             {
                 path += "лабы/лавренюк/";
             }
-            else if (command.Contains("алгоритм"))
+            else if (request.Contains("алгоритм"))
             {
                 path += "лабы/алгоритмы/";
             }
 
-            MatchCollection matches = Regex.Matches(command, @"\d+");
+            MatchCollection matches = Regex.Matches(request, @"\d+");
             if (matches.Count != 1)
                 throw new InvalidOperationException();
             string[] files = Directory.GetFiles(path, "*"+matches[0].Value+"*").Where(f => f.Contains(matches[0].Value)).ToArray();
@@ -48,7 +62,25 @@
                 throw new InvalidOperationException();
 
             var file = new FileStream(files[0], FileMode.Open);
+
             return file;
+        }
+
+        public bool CanHandleUpdate(Update update)
+        {
+            if (update.Type != UpdateType.MessageUpdate)
+                return false;
+
+            try
+            {
+                GetFileByCommand(update.Message.Text.ToLower()).Dispose();
+                return true;
+            }
+            catch
+            {
+                return false;
+            }
+
         }
     }
 }
