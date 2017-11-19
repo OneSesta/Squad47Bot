@@ -23,10 +23,10 @@
             _client = client;
         }
 
-        public void HandleUpdate(Update update)
+        public async void HandleUpdate(Update update)
         {
-            FileStream stream =  GetFileByCommand(update.Message.Text.ToLower());
-            _client.SendDocumentAsync(update.Message.Chat.Id, new FileToSend(stream.Name, stream), "Лови", false, update.Message.MessageId);
+            FileStream stream = GetFileByCommand(update.Message.Text.ToLower());
+            var message = await _client.SendDocumentAsync(update.Message.Chat.Id, new FileToSend(stream.Name, stream), caption: "Лови", replyToMessageId: update.Message.MessageId);
         }
 
         /// <summary>
@@ -54,13 +54,7 @@
             }
 
             MatchCollection matches = Regex.Matches(request, @"\d+");
-            if (matches.Count != 1)
-                return null;
             string[] files = Directory.GetFiles(path, "*"+matches[0].Value+"*").Where(f => f.Contains(matches[0].Value)).ToArray();
-            Console.WriteLine();
-            if (files.Length != 1)
-                return null;
-
             var file = new FileStream(files[0], FileMode.Open);
 
             return file;
@@ -71,17 +65,26 @@
             if (update.Type != UpdateType.MessageUpdate)
                 return false;
 
-            try
+            string request = update.Message.Text;
+            string path = "файлы/";
+
+            if (request.Contains("лавренюк"))
             {
-                if (GetFileByCommand(update.Message.Text.ToLower()) == null)
-                    return false;
-                return true;
+                path += "лабы/лавренюк/";
             }
-            catch
+            else if (request.Contains("алгоритм"))
             {
-                return false;
+                path += "лабы/алгоритмы/";
             }
 
+            MatchCollection matches = Regex.Matches(request, @"\d+");
+            if (matches.Count != 1)
+                return false;
+            string[] files = Directory.GetFiles(path, "*" + matches[0].Value + "*").Where(f => f.Contains(matches[0].Value)).ToArray();
+            if (files.Length != 1)
+                return false;
+
+            return true;
         }
     }
 }
