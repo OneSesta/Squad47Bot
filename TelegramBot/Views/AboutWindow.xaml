@@ -35,8 +35,8 @@
                    TextWrapping="Wrap"
                    TextAlignment="Center">
             <Bold><Run FontSize="15">Squad47 Bot</Run></Bold><LineBreak/>
-            <Run Foreground="DarkGray">(c) Деградотряд (А. Сердюков, В. Губа) 2k17</Run><LineBreak/>
-            <Run Foreground="DarkGray">All rights reserved by Деградотряд.</Run>
+            <Run Foreground="DarkGray">© Деградотряд (А. Сердюков, В. Губа), 2k17</Run><LineBreak/>
+            <Run Foreground="DarkGray">All rights reserved</Run>
         </TextBlock>
     </Grid>
 </Window>
