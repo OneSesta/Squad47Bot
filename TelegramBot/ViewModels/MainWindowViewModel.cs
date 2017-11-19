@@ -27,7 +27,8 @@
             get { return Bot; }
         }
 
-        public bool IsActive {
+        public bool IsActive
+        {
             get
             {
                 return Bot.IsReceiving;
@@ -77,6 +78,12 @@
             private set;
         }
 
+        public ICommand OpenAboutCommand
+        {
+            get;
+            private set;
+        }
+
         #endregion
 
         private string _log = "";
@@ -97,13 +104,6 @@
             Log = "";
         }
 
-        private ScheduleWindow _schedule;
-        public void OpenSchedule()
-        {
-            _schedule = new ScheduleWindow();
-            _schedule.Show();
-        }
-
         public MainWindowViewModel()
         {
 #if DEBUG
@@ -116,7 +116,8 @@
             ExitApplicationCommand = new ExitApplicationCommand(this);
             OpenFilesFolderCommand = new OpenFilesFolderCommand(this);
             ClearLogCommand = new ClearLogCommand(this);
-            OpenScheduleCommand = new OpenScheduleCommand(this);
+            OpenScheduleCommand = new OpenScheduleCommand();
+            OpenAboutCommand = new OpenAboutWindowCommand();
             OpenLocalFilesCommand = new OpenLocalFilesCommand(this);
 
             if (!Directory.Exists(@"файлы\"))
@@ -306,7 +307,7 @@
         //    Log += $"\r\n\r\n{DateTime.Now.ToLocalTime().ToString()}:\r\nCommand received:\r\n{e.Message.Text}\r\nFrom: {e.Message.From.FirstName} {e.Message.From.LastName}\r\nAnswered with: {Answer}";
 
         //}
-    //}
+        //}
         #endregion
 
     }

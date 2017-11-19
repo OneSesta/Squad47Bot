@@ -23,6 +23,15 @@
         {
             DataContext = new ScheduleViewModel();
             InitializeComponent();
+            IsClosed = false;
+        }
+
+        public bool IsClosed { get; private set; }
+
+        protected override void OnClosed(EventArgs e)
+        {
+            base.OnClosed(e);
+            IsClosed = true;
         }
     }
 }

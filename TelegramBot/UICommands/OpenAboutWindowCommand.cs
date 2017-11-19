@@ -2,23 +2,38 @@
 {
     using System;
     using System.Diagnostics;
+    using System.Windows;
     using System.Windows.Input;
     using TelegramBot.ViewModels;
+    using TelegramBot.Views;
 
     /// <summary>
     /// This command is responsible for opening folder with documents.
     /// </summary>
-    class OpenFilesFolderCommand : ICommand
+    class OpenAboutWindowCommand : ICommand
     {
-        private MainWindowViewModel _viewModel;
+
+        private AboutWindow _schedule;
+        public void OpenAbout()
+        {
+            if (_schedule == null || _schedule.IsClosed)
+            {
+                _schedule = new AboutWindow();
+                _schedule.Show();
+            }
+            else
+            {
+                _schedule.Show();
+                _schedule.WindowState = WindowState.Normal;
+                _schedule.Activate();
+            }
+        }
 
         /// <summary>
         /// Constructor
         /// </summary>
-        /// <param name="viewModel">Target ViewModel</param>
-        public OpenFilesFolderCommand(MainWindowViewModel viewModel)
+        public OpenAboutWindowCommand()
         {
-            _viewModel = viewModel;
         }
 
         #region ICommand implementation
@@ -41,7 +56,7 @@
 
         public void Execute(object parameter)
         {
-            Process.Start(@"файлы\");
+            OpenAbout();
         }
         #endregion
     }

@@ -25,9 +25,11 @@
 
         public async void HandleUpdate(Update update)
         {
-            FileStream stream = GetFileByCommand(update.Message.Text.ToLower());
-            var message = await _client.SendDocumentAsync(update.Message.Chat.Id, new FileToSend(stream.Name, stream), caption: "Лови", replyToMessageId: update.Message.MessageId);
-            stream.Close();
+            using (FileStream stream = GetFileByCommand(update.Message.Text.ToLower()))
+            {
+                var message = await _client.SendDocumentAsync(update.Message.Chat.Id, new FileToSend(stream.Name, stream), caption: "Лови", replyToMessageId: update.Message.MessageId);
+                stream.Close();
+            }
         }
 
         /// <summary>
@@ -55,7 +57,7 @@
             }
 
             MatchCollection matches = Regex.Matches(request, @"\d+");
-            string[] files = Directory.GetFiles(path, "*"+matches[0].Value+"*").Where(f => f.Contains(matches[0].Value)).ToArray();
+            string[] files = Directory.GetFiles(path, "*" + matches[0].Value + "*").Where(f => f.Contains(matches[0].Value)).ToArray();
             var file = new FileStream(files[0], FileMode.Open, FileAccess.Read, FileShare.Read, 4096, true);
             return file;
         }
