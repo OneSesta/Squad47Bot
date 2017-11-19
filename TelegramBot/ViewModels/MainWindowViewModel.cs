@@ -138,7 +138,7 @@
         public void Activate()
         {
             Bot.OnUpdate += dispatcher.HandleUpdate;
-            Bot.StartReceiving(new UpdateType[] { UpdateType.All });
+            Bot.StartReceiving(new UpdateType[] { UpdateType.CallbackQueryUpdate, UpdateType.MessageUpdate });
         }
         /// <summary>
         /// Deactivates the bot (unhooks MessageUpdate handler and stops receiving)

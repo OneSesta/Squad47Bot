@@ -15,100 +15,143 @@
     {
         private TelegramBotClient _client;
 
-        //private class Game
-        //{
-        //    public Message gameMessage;
-        //    public User player1;
-        //    public User player2;
-        //}
+        private class Game
+        {
+            public Message gameMessage = null;
+            public User player1 = null;
+            public int player1Answer;
+            public User player2 = null;
+            public int player2Answer;
+        }
 
-        //private List<Game> currentGames;
+        private List<Game> currentGames;
 
         public RockPaperScissorsGame(TelegramBotClient client)
         {
             _client = client;
-            //currentGames = new List<Game>(10);
+            currentGames = new List<Game>(10);
         }
 
-        public void HandleUpdate(Update update)
+        public async void HandleUpdate(Update update)
         {
-
-            string request = Utils.PrettifyCommand(update.Message.Text);
             string answer;
 
-            string[] variants = new string[] { "/scissors", "/paper", "/rock" };
+            //string[] variants = new string[] { "/scissors", "/paper", "/rock" };
 
             //\U0000270A - Камень
             //\U0000270B - Бумага
             //\U0000270C - Ножницы
-            string[] presentations = new string[] { "\U0000270C", "\U0000270B", "\U0000270A" };
-
+            string[] presentations = new string[] { "\U0000270A", "\U0000270B", "\U0000270C" };
+            var keyboard = new InlineKeyboardMarkup(new InlineKeyboardButton[][]
+            {
+                new InlineKeyboardButton[]
+                {
+                    new InlineKeyboardCallbackButton(presentations[0], presentations[0]),
+                    new InlineKeyboardCallbackButton(presentations[1], presentations[1]),
+                    new InlineKeyboardCallbackButton(presentations[2], presentations[2])
+                }
+            });
 
             //if someone just wants to start a game
-            if (request == "/rockpaperscissors")
+            if (update.Type == UpdateType.MessageUpdate
+               && Utils.PrettifyCommand(update.Message.Text) == "/rockpaperscissors")
             {
-                //var keyboard = new InlineKeyboardMarkup(new InlineKeyboardButton[][]
-                //{
-                //    new InlineKeyboardButton[]
-                //    {
-                //        new InlineKeyboardCallbackButton(presentations[0], variants[0]),
-                //        new InlineKeyboardCallbackButton(presentations[1], variants[1]),
-                //        new InlineKeyboardCallbackButton(presentations[2], variants[2])
-                //    }
-                //});
-                answer = "Камень, ножницы, бумага:\r\n" +
-                    "/scissors - Выбрать ножницы (\U0000270C)\r\n" +
-                    "/paper - Выбрать бумагу (\U0000270B)\r\n" +
-                    "/rock - Выбрать камень (\U0000270A)\r\n";
-                _client.SendTextMessageAsync(update.Message.Chat.Id, answer, ParseMode.Default, false, false, update.Message.MessageId/*, keyboard*/);
+                answer = "Камень, ножницы, бумага:";
+                Game game = new Game
+                {
+                    gameMessage = await _client.SendTextMessageAsync(update.Message.Chat.Id, answer, replyToMessageId: update.Message.MessageId, replyMarkup: keyboard)
+                };
+                currentGames.Add(game);
                 return;
             }
 
-            int playerAnswer = Array.IndexOf(variants, request);
-            int botAnswer = (new Random()).Next(3);
-
-            string outcome;
-            if (playerAnswer == botAnswer)
+            if (update.Type == UpdateType.CallbackQueryUpdate)
             {
-                outcome = "Ганьба.";
+                if (currentGames.FindAll(
+                    g =>
+                    (g.gameMessage.Chat.Id == update.CallbackQuery.Message.Chat.Id
+                    && g.gameMessage.MessageId == update.CallbackQuery.Message.MessageId))
+                .Count != 1)
+                {
+                    var popup = _client.AnswerCallbackQueryAsync(update.CallbackQuery.Id, "Низзя!");
+                    return;
+                }
+
+                int gameIndex = currentGames.FindIndex(g =>
+                    (g.gameMessage.Chat.Id == update.CallbackQuery.Message.Chat.Id
+                    && g.gameMessage.MessageId == update.CallbackQuery.Message.MessageId));
+
+                Game game = currentGames[gameIndex];
+
+                if (game.player1 == null)
+                {
+                    game.player1 = update.CallbackQuery.From;
+                    game.player1Answer = Array.IndexOf(presentations, update.CallbackQuery.Data);
+
+                    answer = "Камень, ножницы, бумага:\r\n" +
+                        $"{game.player1.FirstName} {game.player1.LastName}\r\n" +
+                        $"vs\r\n" +
+                        $"Пока никого... Сыграй!";
+                    var edit = _client.EditMessageTextAsync(game.gameMessage.Chat, game.gameMessage.MessageId, answer, replyMarkup: keyboard);
+                }
+                else if (game.player2 == null)
+                {
+                    //if (game.player1.Id == update.CallbackQuery.From.Id)
+                    //{
+                    //    var popup = _client.AnswerCallbackQueryAsync(update.CallbackQuery.Id, "Низзя!");
+                    //    return;
+                    //}
+
+                    game.player2 = update.CallbackQuery.From;
+                    game.player2Answer = Array.IndexOf(presentations, update.CallbackQuery.Data);
+
+                    string outcome;
+                    if (game.player1Answer == game.player2Answer)
+                    {
+                        outcome = "Ганьба, это ничья.";
+                    }
+                    else if ((game.player1Answer == game.player2Answer + 1) || (game.player1Answer == 0 && game.player2Answer == 2))
+                    {
+                        outcome = $"{game.player1.FirstName} {game.player1.LastName}, це перемога!";
+                    }
+                    else
+                    {
+                        outcome = $"{game.player2.FirstName} {game.player2.LastName}, це перемога!";
+                    }
+
+                    answer = $"{game.player1.FirstName} {game.player1.LastName}: {presentations[game.player1Answer]}\r\n" +
+                        $"vs\r\n" +
+                        $"{game.player2.FirstName} {game.player2.LastName}: {presentations[game.player2Answer]}\r\n" +
+                        $"Результат: {outcome}";
+
+                    var edit = _client.EditMessageTextAsync(game.gameMessage.Chat, game.gameMessage.MessageId, answer);
+                }
             }
-            else if ((playerAnswer == botAnswer + 1) || (playerAnswer == 0 && botAnswer == 2))
-            {
-                outcome = "Поразка";
-            }
-            else
-            {
-                outcome = "Перемога!";
-            }
-
-            answer = $"{presentations[playerAnswer]} vs {presentations[botAnswer]}\r\n{outcome}";
-
-            _client.SendTextMessageAsync(update.Message.Chat.Id, answer, ParseMode.Default, false, false, update.Message.MessageId);
-
-
         }
 
         public bool CanHandleUpdate(Update update)
         {
+            //var type = update.Type == UpdateType.CallbackQueryUpdate;
+            //var games = currentGames.FindAll(
+            //        g =>
+            //        (g.gameMessage.Chat.Id == update.CallbackQuery.Message.Chat.Id
+            //        && g.gameMessage.MessageId == update.CallbackQuery.Message.MessageId));
 
-            //if ((update.Type == UpdateType.CallbackQueryUpdate)
-            //    && currentGames.FindAll(
-            //        g => 
-            //        (g.gameMessage.Chat.Id == update.Message.Chat.Id
-            //        && g.gameMessage.MessageId == update.Message.MessageId))
-            //    .Count == 1)
-            //{
-            //    return true;
-            //}
+            if ((update.Type == UpdateType.CallbackQueryUpdate)
+                && currentGames.FindAll(
+                    g =>
+                    (g.gameMessage.Chat.Id == update.CallbackQuery.Message.Chat.Id
+                    && g.gameMessage.MessageId == update.CallbackQuery.Message.MessageId))
+                .Count == 1)
+            {
+                return true;
+            }
 
             if (update.Type == UpdateType.MessageUpdate)
             {
                 string request = Utils.PrettifyCommand(update.Message.Text);
 
-                return request == "/rock"
-                    || request == "/scissors"
-                    || request == "/paper"
-                    || request == "/rockpaperscissors";
+                return request == "/rockpaperscissors";
             }
             return false;
         }

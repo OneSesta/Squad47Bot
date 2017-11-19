@@ -55,11 +55,11 @@
 
             MatchCollection matches = Regex.Matches(request, @"\d+");
             if (matches.Count != 1)
-                throw new InvalidOperationException();
+                return null;
             string[] files = Directory.GetFiles(path, "*"+matches[0].Value+"*").Where(f => f.Contains(matches[0].Value)).ToArray();
             Console.WriteLine();
             if (files.Length != 1)
-                throw new InvalidOperationException();
+                return null;
 
             var file = new FileStream(files[0], FileMode.Open);
 
@@ -73,7 +73,8 @@
 
             try
             {
-                GetFileByCommand(update.Message.Text.ToLower()).Dispose();
+                if (GetFileByCommand(update.Message.Text.ToLower()) == null)
+                    return false;
                 return true;
             }
             catch
