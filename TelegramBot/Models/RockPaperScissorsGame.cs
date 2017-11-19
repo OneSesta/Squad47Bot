@@ -96,11 +96,11 @@
                 }
                 else if (game.player2 == null)
                 {
-                    //if (game.player1.Id == update.CallbackQuery.From.Id)
-                    //{
-                    //    var popup = _client.AnswerCallbackQueryAsync(update.CallbackQuery.Id, "Низзя!");
-                    //    return;
-                    //}
+                    if (game.player1.Id == update.CallbackQuery.From.Id)
+                    {
+                        var popup = _client.AnswerCallbackQueryAsync(update.CallbackQuery.Id, "Низзя!");
+                        return;
+                    }
 
                     game.player2 = update.CallbackQuery.From;
                     game.player2Answer = Array.IndexOf(presentations, update.CallbackQuery.Data);
