@@ -9,9 +9,9 @@
         mc:Ignorable="d"
         Title="Squad 47 Bot"
         Height="283" 
-        Width="500"
+        Width="490"
         MinHeight="283"
-        MinWidth="500" 
+        MinWidth="490" 
         ResizeMode="CanMinimize"
         Style="{StaticResource DefaultWindowStyle}">
 
@@ -19,100 +19,56 @@
 
     </Window.Resources>
 
-    <Grid>
-
-        <Button Content="Start Bot" 
-                HorizontalAlignment="Left" 
-                VerticalAlignment="Top"
-                Height="45" Width="110" 
-                Command="{Binding ActivateCommand}" Margin="10,25,0,0"
-                />
-
-        <Button Content="Stop Bot" 
-                HorizontalAlignment="Left" 
-                VerticalAlignment="Top" 
-                Height="45" Width="110" Margin="130,25,0,0" 
-                Command="{Binding DeactivateCommand}"
-                />
-
-        <Button Content="Close" 
-                HorizontalAlignment="Left" 
-                VerticalAlignment="Top" 
-                Height="45" Width="230" Margin="10,230,0,0"
-                Command="{Binding ExitApplicationCommand}"
-                />
-
-        <Button Content="Files" 
-                HorizontalAlignment="Left" 
-                VerticalAlignment="Top" 
-                Height="45" Width="110" Margin="10,75,0,0"
-                Command="{Binding OpenFilesFolderCommand}"
-                />
-
-        <Button Content="Schedule" 
-                HorizontalAlignment="Left" 
-                VerticalAlignment="Top" 
-                Height="45" Width="110" Margin="130,75,0,0"
-                Command="{Binding OpenScheduleCommand}"
-                />
-
+    <Grid Background="#FF323232" >
+        
+        <Grid.RowDefinitions>
+            <RowDefinition Height="20"/>
+            <RowDefinition/>
+        </Grid.RowDefinitions>
+        
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="250"/>
+            <ColumnDefinition/>
+        </Grid.ColumnDefinitions>
+        
         <DockPanel Height="20"
-                   VerticalAlignment="Top"
                    x:Name="MenuDockPanel"
-                   Background="#FF6C6C6C"
+                   Background="#FF515151"
+                   Grid.ColumnSpan="2"
                    >
-            <Menu Height="20"
-                  DockPanel.Dock="Top"
-                  Background="#FF6C6C6C"
-                  x:Name="MainWindowMenu"
-                  HorizontalAlignment="Left" Width="{Binding }">
+            <Menu x:Name="MainWindowMenu">
                 <MenuItem Header="File">
-                    <MenuItem Header="Open Files"
-                          Command="{Binding OpenFilesFolderCommand}"
-                          />
-                    <MenuItem Header="Open local files"
-                          Command="{Binding OpenLocalFilesCommand}"
-                          />
-                    <MenuItem Header="Exit"
-                          Command="{Binding ExitApplicationCommand}"
-                          />
+                    <MenuItem Header="Open Files" Command="{Binding OpenFilesFolderCommand}"/>
+                    <MenuItem Header="Open local files" Command="{Binding OpenLocalFilesCommand}"/>
+                    <MenuItem Header="Exit" Command="{Binding ExitApplicationCommand}"/>
                 </MenuItem>
+                
                 <MenuItem Header="Options">
-                    <MenuItem Header="Clear Logs"
-                          Command="{Binding ClearLogCommand}"
-                          />
+                    <MenuItem Header="Clear Logs" Command="{Binding ClearLogCommand}"/>
                 </MenuItem>
+                
                 <MenuItem Header="Help">
                     <MenuItem Header="Sorry, bro, we can't help you"/>
                     <MenuItem Header="About"/>
                 </MenuItem>
             </Menu>
+
+            <Menu HorizontalAlignment="Right">
+                <MenuItem Header="_" Click="Button_Click"/>
+                <MenuItem Header="X" Command="{Binding ExitApplicationCommand}"/>
+            </Menu>
         </DockPanel>
 
+        <WrapPanel Grid.Row="1">
+            <Button Content="Start Bot" Command="{Binding ActivateCommand}"/>
+            <Button Content="Stop Bot" Command="{Binding DeactivateCommand}"/>
+            <Button Content="Files" Command="{Binding OpenFilesFolderCommand}"/>
+            <Button Content="Schedule" Command="{Binding OpenScheduleCommand}"/>
+        </WrapPanel>
 
-        <TextBox x:Name="LogTextBox"
-                 HorizontalAlignment="Left" 
-                 Margin="250,25,0,0"
-                 TextWrapping="Wrap"
-                 Text="{Binding Log, Mode=OneWay}"
-                 VerticalAlignment="Top"
-                 Height="250" Width="230"
-                 Background="#FF575757"
-                 BorderBrush="{x:Null}"
-                 ScrollViewer.CanContentScroll="True"
-                 ScrollViewer.VerticalScrollBarVisibility="Visible"
-                 IsReadOnly="True" 
-                 Foreground="White"
-                 Padding="7,0,7,0">
-
-            <TextBox.BitmapEffect>
-
-                <DropShadowBitmapEffect ShadowDepth="3" Softness="0.2"  Opacity="0.5"/>
-
-            </TextBox.BitmapEffect>
-
-        </TextBox>
-
+        <Grid Grid.Column="1" Grid.Row="1">
+            <TextBox x:Name="LogTextBox" Text="{Binding Log, Mode=OneWay}"/>
+        </Grid>
 
     </Grid>
 </Window>
