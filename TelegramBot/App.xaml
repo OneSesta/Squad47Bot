@@ -5,33 +5,44 @@
              xmlns:vms="clr-namespace:TelegramBot.ViewModels"
              xmlns:vs="clr-namespace:TelegramBot.Views"
              StartupUri="Views/MainWindow.xaml">
-    
+
     <Application.Resources>
         <Style TargetType="{x:Type Button}">
             <Style.Setters>
-                <Setter Property="Background" Value="#FF575757" />
-                <Setter Property="FontSize" Value="18" />
-                <Setter Property="Width" Value="230" />
-                <Setter Property="Height" Value="85" />
-                <Setter Property="Foreground" Value="White" />
-                <Setter Property="FontWeight" Value="Bold" />
-                <Setter Property="Margin" Value="10,5,0,0"/>
-                <Setter Property="BorderBrush" Value="{x:Null}"/>
-                <Setter Property ="FontFamily" Value="Candara"/>
-                <Setter Property ="FontSize" Value="19"/>
+                <Setter Property="Background"   Value="#FF515151" />
+                <Setter Property="FontSize"     Value="18" />
+                <Setter Property="Width"        Value="230" />
+                <Setter Property="Height"       Value="85" />
+                <Setter Property="Foreground"   Value="White" />
+                <Setter Property="FontWeight"   Value="Bold" />
+                <Setter Property="Margin"       Value="10,5,0,0"/>
+                <Setter Property="BorderBrush"  Value="{x:Null}"/>
+                <Setter Property="FontFamily"   Value="Candara"/>
+                <Setter Property="FontSize"     Value="19"/>
+                <Setter Property="Height"       Value="45"/>
+                <Setter Property="Width"        Value="110"/>
 
                 <Setter Property = "BitmapEffect">
-
                     <Setter.Value>
                         <DropShadowBitmapEffect ShadowDepth="3" Softness="0.2"  Opacity="0.5"/>
+                    </Setter.Value>
+                </Setter>
+
+                <Setter Property="Template">
+                    <Setter.Value>
+                        <ControlTemplate TargetType="Button">
+                            <Grid Background="{TemplateBinding Background}">
+                                <ContentPresenter Content="{TemplateBinding Content}" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                            </Grid>
+                        </ControlTemplate>
                     </Setter.Value>
                 </Setter>
             </Style.Setters>
 
             <Style.Triggers>
-
                 <Trigger Property="IsMouseOver" Value="True">
                     <Setter Property="Foreground" Value="Black"/>
+                    <Setter Property="Background" Value="#FFEEEEEE"/>
                     <Setter Property = "BitmapEffect" >
                         <Setter.Value>
                             <DropShadowBitmapEffect ShadowDepth="3" Softness="0.2" Opacity="0.5" Color="#FFCFCFCF"/>
@@ -42,42 +53,70 @@
                 <Trigger Property="IsPressed" Value="True">
                     <Setter Property = "BitmapEffect" Value="{x:Null}"/>
                 </Trigger>
-
-
+                <Trigger Property="IsEnabled" Value="false">
+                    <Setter Property="Background" Value="#FF8F8F8F"/>
+                    <Setter Property="Foreground" Value="#FF323232"/>
+                </Trigger>
             </Style.Triggers>
-        </Style>
-
-        <Style TargetType="{x:Type MenuItem}">
-            <Style.Setters>
-                <Setter Property="Height" Value="20"/>
-                <Setter Property="Foreground" Value="White"/>
-                <Setter Property="Background" Value="#FF7C7C7C"/>
-            </Style.Setters>
         </Style>
 
         <Style x:Key="DefaultWindowStyle">
             <Style.Setters>
-                <Setter Property="Window.WindowStyle" Value="None"/>
-                <Setter Property="Window.BorderThickness" Value="2"/>
-                <Setter Property="Window.BorderBrush" Value="#FFCFCFCF"/>
-                <Setter Property="Grid.Background" Value="#404040"/>
+                <Setter Property="Window.WindowStyle"       Value="None"/>
+                <Setter Property="Window.BorderThickness"   Value="1"/>
+                <Setter Property="Window.BorderBrush"       Value="Black"/>
             </Style.Setters>
         </Style>
 
-        <ControlTemplate x:Key="{x:Static MenuItem.TopLevelHeaderTemplateKey}" TargetType="{x:Type MenuItem}">
-            <Border>
-                <Grid>
-                    <ContentPresenter Margin="5,2,5,2" ContentSource="Header" RecognizesAccessKey="True" />
-                    <Popup Placement="Bottom" IsOpen="{TemplateBinding IsSubmenuOpen}"  PopupAnimation="Fade">
-                        <Border Background="#FF7C7C7C">
-                            <StackPanel IsItemsHost="True" KeyboardNavigation.DirectionalNavigation="Cycle" />
-                        </Border>
-                    </Popup>
-                </Grid>
-            </Border>
+        <ControlTemplate x:Key="{x:Static MenuItem.TopLevelHeaderTemplateKey}" TargetType="{x:Type MenuItem}" >
+            <Grid>
+                <ContentPresenter Margin="5,2,5,2" ContentSource="Header" RecognizesAccessKey="True" />
+                <Popup Placement="Bottom" IsOpen="{TemplateBinding IsSubmenuOpen}"  PopupAnimation="Fade">
+                    <Border Background="#FF7C7C7C" >
+                        <StackPanel IsItemsHost="True" KeyboardNavigation.DirectionalNavigation="Cycle" />
+                    </Border>
+                </Popup>
+            </Grid>
         </ControlTemplate>
 
+        <Style TargetType="{x:Type Menu}">
+            <Setter Property="Height"               Value="20"/>
+            <Setter Property="Background"           Value="#FF515151"/>
+            <Setter Property="VerticalAlignment"    Value="Top"/>
+        </Style>
 
+        <Style TargetType="{x:Type MenuItem}">
+            <Style.Setters>
+                <Setter Property="Height"       Value="20"/>
+                <Setter Property="Foreground"   Value="White"/>
+                <Setter Property="Background"   Value="#FF7C7C7C"/>
+            </Style.Setters>
+            <Style.Triggers>
+                <Trigger Property="IsMouseOver" Value="True">
+                    <Setter Property="Foreground" Value="Black"/>
+                </Trigger>
+            </Style.Triggers>
+        </Style>
+
+        <Style TargetType="{x:Type TextBox}">
+            <Setter Property="Margin"       Value="5"/>
+            <Setter Property="TextWrapping" Value="Wrap"/>
+            <Setter Property="Height"       Value="250"/>
+            <Setter Property="Width"        Value="230"/>
+            <Setter Property="Background"   Value="#FF575757"/>
+            <Setter Property="BorderBrush"  Value="{x:Null}"/>
+            <Setter Property="IsReadOnly"   Value="True"/>
+            <Setter Property="Foreground"   Value="White"/>
+            <Setter Property="Padding"      Value="7,0,7,0"/>
+            <Setter Property="ScrollViewer.CanContentScroll" Value="True"/>
+            <Setter Property="ScrollViewer.VerticalScrollBarVisibility" Value="Visible"/>
+            <Setter Property = "BitmapEffect">
+                <Setter.Value>
+                    <DropShadowBitmapEffect ShadowDepth="3" Softness="0.2"  Opacity="0.5"/>
+                </Setter.Value>
+            </Setter>
+        </Style>
+        
     </Application.Resources>
-    
+
 </Application>

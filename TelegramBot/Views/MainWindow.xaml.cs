@@ -42,6 +42,11 @@
                 (o as TextBox)?.ScrollToEnd();
             };
         }
+
+        private void Button_Click(object sender, RoutedEventArgs e)
+        {
+            WindowState = WindowState.Minimized;
+        }
     }
 
 }
