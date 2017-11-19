@@ -15,6 +15,7 @@
     {
         private TelegramBotClient _client;
 
+        //class to contain game message and info about players
         private class Game
         {
             public Message gameMessage = null;
@@ -35,8 +36,6 @@
         public async void HandleUpdate(Update update)
         {
             string answer;
-
-            //string[] variants = new string[] { "/scissors", "/paper", "/rock" };
 
             //\U0000270A - Камень
             //\U0000270B - Бумага
@@ -61,41 +60,51 @@
                 {
                     gameMessage = await _client.SendTextMessageAsync(update.Message.Chat.Id, answer, replyToMessageId: update.Message.MessageId, replyMarkup: keyboard)
                 };
+                //adding new game to list of current games
                 currentGames.Add(game);
                 return;
             }
 
+            //if someone presses the button
             if (update.Type == UpdateType.CallbackQueryUpdate)
             {
+                //check if this game exist
                 if (currentGames.FindAll(
                     g =>
                     (g.gameMessage.Chat.Id == update.CallbackQuery.Message.Chat.Id
                     && g.gameMessage.MessageId == update.CallbackQuery.Message.MessageId))
                 .Count != 1)
                 {
+                    //if it doesn't, GTFO
                     var popup = _client.AnswerCallbackQueryAsync(update.CallbackQuery.Id, "Низзя!");
                     return;
                 }
 
+                //if yes then obtaining its index
                 int gameIndex = currentGames.FindIndex(g =>
                     (g.gameMessage.Chat.Id == update.CallbackQuery.Message.Chat.Id
                     && g.gameMessage.MessageId == update.CallbackQuery.Message.MessageId));
 
                 Game game = currentGames[gameIndex];
 
+                //if there's no one playing yet, then someone who pressed is the first player
                 if (game.player1 == null)
                 {
                     game.player1 = update.CallbackQuery.From;
                     game.player1Answer = Array.IndexOf(presentations, update.CallbackQuery.Data);
 
+                    //edit game message
                     answer = "Камень, ножницы, бумага:\r\n" +
                         $"{game.player1.FirstName} {game.player1.LastName}\r\n" +
                         $"vs\r\n" +
                         $"Пока никого... Сыграй!";
                     var edit = _client.EditMessageTextAsync(game.gameMessage.Chat, game.gameMessage.MessageId, answer, replyMarkup: keyboard);
                 }
+
+                //else he is the second player
                 else if (game.player2 == null)
                 {
+                    //if player1 and player2 are same user
                     if (game.player1.Id == update.CallbackQuery.From.Id)
                     {
                         var popup = _client.AnswerCallbackQueryAsync(update.CallbackQuery.Id, "Низзя!");
@@ -105,6 +114,7 @@
                     game.player2 = update.CallbackQuery.From;
                     game.player2Answer = Array.IndexOf(presentations, update.CallbackQuery.Data);
 
+                    //determining R-P-S outcome
                     string outcome;
                     if (game.player1Answer == game.player2Answer)
                     {
@@ -119,24 +129,23 @@
                         outcome = $"{game.player2.FirstName} {game.player2.LastName}, це перемога!";
                     }
 
+                    //editing game message with results
                     answer = $"{game.player1.FirstName} {game.player1.LastName}: {presentations[game.player1Answer]}\r\n" +
                         $"vs\r\n" +
                         $"{game.player2.FirstName} {game.player2.LastName}: {presentations[game.player2Answer]}\r\n" +
                         $"Результат: {outcome}";
 
                     var edit = _client.EditMessageTextAsync(game.gameMessage.Chat, game.gameMessage.MessageId, answer);
+
+                    //removing game from list of current games
+                    currentGames.RemoveAt(gameIndex);
                 }
             }
         }
 
         public bool CanHandleUpdate(Update update)
         {
-            //var type = update.Type == UpdateType.CallbackQueryUpdate;
-            //var games = currentGames.FindAll(
-            //        g =>
-            //        (g.gameMessage.Chat.Id == update.CallbackQuery.Message.Chat.Id
-            //        && g.gameMessage.MessageId == update.CallbackQuery.Message.MessageId));
-
+            //check if it's callback from buttons on already going game
             if ((update.Type == UpdateType.CallbackQueryUpdate)
                 && currentGames.FindAll(
                     g =>
@@ -147,10 +156,10 @@
                 return true;
             }
 
+            //or if it's someone wants to start a game
             if (update.Type == UpdateType.MessageUpdate)
             {
                 string request = Utils.PrettifyCommand(update.Message.Text);
-
                 return request == "/rockpaperscissors";
             }
             return false;
