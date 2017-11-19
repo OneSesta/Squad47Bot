@@ -130,13 +130,21 @@
     <Compile Include="UICommands\ActivateBotCommand.cs" />
     <Compile Include="UICommands\ClearLogCommand.cs" />
     <Compile Include="UICommands\DeactivateBotCommand.cs" />
+    <Compile Include="UICommands\OpenAboutWindowCommand.cs" />
     <Compile Include="UICommands\OpenLocalFilesCommand.cs" />
     <Compile Include="UICommands\OpenScheduleCommand.cs" />
     <Compile Include="Models\UpdateDispatcher.cs" />
     <Compile Include="ViewModels\ScheduleViewModel.cs" />
+    <Compile Include="Views\AboutWindow.xaml.cs">
+      <DependentUpon>AboutWindow.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Views\ScheduleWindow.xaml.cs">
       <DependentUpon>ScheduleWindow.xaml</DependentUpon>
     </Compile>
+    <Page Include="Views\AboutWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Views\MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -187,6 +195,11 @@
   </ItemGroup>
   <ItemGroup>
     <Resource Include="47squad.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Chromosome.jpg">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

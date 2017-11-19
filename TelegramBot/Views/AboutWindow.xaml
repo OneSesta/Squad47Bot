@@ -1,0 +1,42 @@
+﻿<Window x:Class="TelegramBot.Views.AboutWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:TelegramBot.Views"
+        mc:Ignorable="d"
+        WindowStyle="None"
+        ResizeMode="NoResize"
+        Title="AboutWindow" Height="280" Width="300"
+        Background="Black"
+        x:Name="AboutWindowView">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="20"/>
+            <RowDefinition Height="200"/>
+            <RowDefinition/>
+        </Grid.RowDefinitions>
+
+        <DockPanel Height="20"
+                   x:Name="MenuDockPanel"
+                   Background="#FF515151">
+            <Menu HorizontalAlignment="Right">
+                <MenuItem Header="X" x:Name="CloseButton"/>
+            </Menu>
+        </DockPanel>
+
+        <Image Source="/TelegramBot;component/Chromosome.jpg"
+               VerticalAlignment="Top"
+               Height="200"
+               Grid.Row="1"/>
+
+        <TextBlock Foreground="White"
+                   Grid.Row="2"
+                   TextWrapping="Wrap"
+                   TextAlignment="Center">
+            <Bold><Run FontSize="15">Squad47 Bot</Run></Bold><LineBreak/>
+            <Run Foreground="DarkGray">(c) Деградотряд (А. Сердюков, В. Губа) 2k17</Run><LineBreak/>
+            <Run Foreground="DarkGray">All rights reserved by Деградотряд.</Run>
+        </TextBlock>
+    </Grid>
+</Window>

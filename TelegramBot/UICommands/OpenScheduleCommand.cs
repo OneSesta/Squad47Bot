@@ -1,29 +1,38 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace TelegramBot.Commands
+﻿namespace TelegramBot.Commands
 {
     using System;
+    using System.Windows;
     using System.Windows.Input;
     using TelegramBot.ViewModels;
+    using TelegramBot.Views;
 
     /// <summary>
     /// This command is responsible for bot activation
     /// </summary>
     class OpenScheduleCommand : ICommand
     {
-        private MainWindowViewModel _viewModel;
-
         /// <summary>
         /// Constructor
         /// </summary>
         /// <param name="viewModel">Target ViewModel</param>
-        public OpenScheduleCommand(MainWindowViewModel viewModel)
+        public OpenScheduleCommand()
         {
-            _viewModel = viewModel;
+        }
+
+        private ScheduleWindow _schedule;
+        public void OpenSchedule()
+        {
+            if (_schedule == null || _schedule.IsClosed)
+            {
+                _schedule = new ScheduleWindow();
+                _schedule.Show();
+            }
+            else
+            {
+                _schedule.Show();
+                _schedule.WindowState = WindowState.Normal;
+                _schedule.Activate();
+            }
         }
 
         #region ICommand implementation
@@ -46,7 +55,7 @@ namespace TelegramBot.Commands
 
         public void Execute(object parameter)
         {
-            _viewModel.OpenSchedule();
+            OpenSchedule();
         }
         #endregion
     }

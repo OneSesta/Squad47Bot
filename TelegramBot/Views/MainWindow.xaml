@@ -49,7 +49,7 @@
                 
                 <MenuItem Header="Help">
                     <MenuItem Header="Sorry, bro, we can't help you"/>
-                    <MenuItem Header="About"/>
+                    <MenuItem Header="About" Command="{Binding OpenAboutCommand}"/>
                 </MenuItem>
             </Menu>
 
