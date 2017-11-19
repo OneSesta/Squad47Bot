@@ -63,7 +63,7 @@
 
         public bool CanHandleUpdate(Update update)
         {
-            if (update.Type != UpdateType.MessageUpdate)
+            if (update.Type != UpdateType.MessageUpdate || update.Message.Type != MessageType.TextMessage)
                 return false;
 
             string request = Utils.PrettifyCommand(update.Message.Text);

@@ -27,6 +27,7 @@
         {
             FileStream stream = GetFileByCommand(update.Message.Text.ToLower());
             var message = await _client.SendDocumentAsync(update.Message.Chat.Id, new FileToSend(stream.Name, stream), caption: "Лови", replyToMessageId: update.Message.MessageId);
+            stream.Close();
         }
 
         /// <summary>
@@ -55,14 +56,13 @@
 
             MatchCollection matches = Regex.Matches(request, @"\d+");
             string[] files = Directory.GetFiles(path, "*"+matches[0].Value+"*").Where(f => f.Contains(matches[0].Value)).ToArray();
-            var file = new FileStream(files[0], FileMode.Open);
-
+            var file = new FileStream(files[0], FileMode.Open, FileAccess.Read, FileShare.Read, 4096, true);
             return file;
         }
 
         public bool CanHandleUpdate(Update update)
         {
-            if (update.Type != UpdateType.MessageUpdate)
+            if (update.Type != UpdateType.MessageUpdate || update.Message.Type != MessageType.TextMessage)
                 return false;
 
             string request = update.Message.Text;

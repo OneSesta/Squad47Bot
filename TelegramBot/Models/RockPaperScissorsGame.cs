@@ -157,7 +157,7 @@
             }
 
             //or if it's someone wants to start a game
-            if (update.Type == UpdateType.MessageUpdate)
+            if (update.Type == UpdateType.MessageUpdate && update.Message.Type == MessageType.TextMessage)
             {
                 string request = Utils.PrettifyCommand(update.Message.Text);
                 return request == "/rockpaperscissors";
