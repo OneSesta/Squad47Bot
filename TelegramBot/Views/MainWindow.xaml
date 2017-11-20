@@ -67,7 +67,8 @@
         </WrapPanel>
 
         <Grid Grid.Column="1" Grid.Row="1">
-            <TextBox x:Name="LogTextBox" Text="{Binding Log, Mode=OneWay}"/>
+            <TextBox x:Name="LogTextBox" Text="{Binding Log, Mode=OneWay}"
+                     RenderOptions.EdgeMode="Aliased"/>
         </Grid>
 
     </Grid>

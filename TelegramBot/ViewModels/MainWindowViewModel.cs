@@ -103,6 +103,10 @@
         {
             Log = "";
         }
+        public void AddLog(string logEntry)
+        {
+            Log += logEntry;
+        }
 
         public MainWindowViewModel()
         {
@@ -111,6 +115,8 @@
 #else
             Bot = new TelegramBotClient("473027046:AAEWIMqj41Oc33sFIc_yrDcM07XbRDw-Omg");
 #endif
+            Logger.NewLogEntry += AddLog;
+
             ActivateCommand = new ActivateBotCommand(this);
             DeactivateCommand = new DeactivateBotCommand(this);
             ExitApplicationCommand = new ExitApplicationCommand(this);
@@ -127,10 +133,10 @@
             }
             ActivateCommand.Execute(null);
 
-            dispatcher.AddHandler(new RockPaperScissorsGame(Bot));
-            dispatcher.AddHandler(new RandomBasedCommands(Bot));
-            dispatcher.AddHandler(new FilesAccessor(Bot));
-            dispatcher.AddHandler(new BaseCommands(Bot));
+            dispatcher.AddHandler(new RockPaperScissorsGame(this));
+            dispatcher.AddHandler(new RandomBasedCommands(this));
+            dispatcher.AddHandler(new FilesAccessor(this));
+            dispatcher.AddHandler(new BaseCommands(this));
         }
 
         /// <summary>

@@ -10,10 +10,12 @@
     using Telegram.Bot.Types.Enums;
     using Telegram.Bot.Types.InlineKeyboardButtons;
     using Telegram.Bot.Types.ReplyMarkups;
+    using TelegramBot.ViewModels;
 
     class RockPaperScissorsGame : IBotCommandHandler
     {
         private TelegramBotClient _client;
+        private MainWindowViewModel model;
 
         //class to contain game message and info about players
         private class Game
@@ -27,9 +29,10 @@
 
         private List<Game> currentGames;
 
-        public RockPaperScissorsGame(TelegramBotClient client)
+        public RockPaperScissorsGame(MainWindowViewModel client)
         {
-            _client = client;
+            model = client;
+            _client = client.BotClient;
             currentGames = new List<Game>(10);
         }
 
@@ -60,6 +63,7 @@
                 {
                     gameMessage = await _client.SendTextMessageAsync(update.Message.Chat.Id, answer, replyToMessageId: update.Message.MessageId, replyMarkup: keyboard)
                 };
+                Logger.Log(update, game.gameMessage);
                 //adding new game to list of current games
                 currentGames.Add(game);
                 return;
@@ -76,7 +80,8 @@
                 .Count != 1)
                 {
                     //if it doesn't, GTFO
-                    var popup = _client.AnswerCallbackQueryAsync(update.CallbackQuery.Id, "Низзя!");
+                    var popup = await _client.AnswerCallbackQueryAsync(update.CallbackQuery.Id, "Низзя!");
+                    Logger.Log(update, answerQuery: "Низзя!");
                     return;
                 }
 
@@ -98,7 +103,8 @@
                         $"{game.player1.FirstName} {game.player1.LastName}\r\n" +
                         $"vs\r\n" +
                         $"Пока никого... Сыграй!";
-                    var edit = _client.EditMessageTextAsync(game.gameMessage.Chat, game.gameMessage.MessageId, answer, replyMarkup: keyboard);
+                    var edit = await _client.EditMessageTextAsync(game.gameMessage.Chat, game.gameMessage.MessageId, answer, replyMarkup: keyboard);
+                    Logger.Log(update, edit);
                 }
 
                 //else he is the second player
@@ -107,7 +113,8 @@
                     //if player1 and player2 are same user
                     if (game.player1.Id == update.CallbackQuery.From.Id)
                     {
-                        var popup = _client.AnswerCallbackQueryAsync(update.CallbackQuery.Id, "Низзя!");
+                        var popup = await _client.AnswerCallbackQueryAsync(update.CallbackQuery.Id, "Низзя!");
+                        Logger.Log(update, answerQuery: "Низзя!");
                         return;
                     }
 
@@ -135,7 +142,8 @@
                         $"{game.player2.FirstName} {game.player2.LastName}: {presentations[game.player2Answer]}\r\n" +
                         $"Результат: {outcome}";
 
-                    var edit = _client.EditMessageTextAsync(game.gameMessage.Chat, game.gameMessage.MessageId, answer);
+                    var edit = await _client.EditMessageTextAsync(game.gameMessage.Chat, game.gameMessage.MessageId, answer);
+                    Logger.Log(update, edit);
 
                     //removing game from list of current games
                     currentGames.RemoveAt(gameIndex);

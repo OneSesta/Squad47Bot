@@ -10,6 +10,7 @@
     using Telegram.Bot;
     using Telegram.Bot.Types;
     using Telegram.Bot.Types.Enums;
+    using TelegramBot.ViewModels;
 
     /// <summary>
     /// This class is responsible for gaining access to documents that people want to acquire by typing commands
@@ -17,10 +18,12 @@
     class FilesAccessor : IBotCommandHandler
     {
         private TelegramBotClient _client;
+        private MainWindowViewModel model;
 
-        public FilesAccessor(TelegramBotClient client)
+        public FilesAccessor(MainWindowViewModel client)
         {
-            _client = client;
+            model = client;
+            _client = client.BotClient;
         }
 
         public async void HandleUpdate(Update update)
@@ -29,6 +32,7 @@
             {
                 var message = await _client.SendDocumentAsync(update.Message.Chat.Id, new FileToSend(stream.Name, stream), caption: "Лови", replyToMessageId: update.Message.MessageId);
                 stream.Close();
+                Logger.Log(update, message);
             }
         }
 
