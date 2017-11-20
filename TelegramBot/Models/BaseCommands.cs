@@ -8,14 +8,17 @@
     using Telegram.Bot;
     using Telegram.Bot.Types;
     using Telegram.Bot.Types.Enums;
+    using TelegramBot.ViewModels;
 
     class BaseCommands : IBotCommandHandler
     {
         private TelegramBotClient _client;
+        private MainWindowViewModel model;
 
-        public BaseCommands(TelegramBotClient client)
+        public BaseCommands(MainWindowViewModel client)
         {
-            _client = client;
+            model = client;
+            _client = client.BotClient;
         }
 
         public bool CanHandleUpdate(Update update)
@@ -29,7 +32,7 @@
                 || request == "/help";
         }
 
-        public void HandleUpdate(Update update)
+        public async void HandleUpdate(Update update)
         {
             string answer = "Список доступных команд:\r\n" +
                 "/flip - Подбросить монетку\r\n" +
@@ -38,7 +41,8 @@
                 "/para - Проверь, нужно ли тебе идти на следующую пару\r\n" +
                 "/rockpaperscissors - Камень, ножницы, бумага\r\n" +
                 "/help - Список всех команд";
-            _client.SendTextMessageAsync(update.Message.Chat.Id, answer, ParseMode.Default, false, false, update.Message.MessageId);
+            var message = await _client.SendTextMessageAsync(update.Message.Chat.Id, answer, ParseMode.Default, false, false, update.Message.MessageId);
+            Logger.Log(update, message);
         }
     }
 }

@@ -123,7 +123,8 @@
       <SubType>Designer</SubType>
     </ApplicationDefinition>
     <Compile Include="Models\BaseCommands.cs" />
-    <Compile Include="Models\IBotCommand.cs" />
+    <Compile Include="Models\IBotCommandHandler.cs" />
+    <Compile Include="Models\Logger.cs" />
     <Compile Include="Models\Utils.cs" />
     <Compile Include="Models\RandomBasedCommands.cs" />
     <Compile Include="Models\RockPaperScissorsGame.cs" />

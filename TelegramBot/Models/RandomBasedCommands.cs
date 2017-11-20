@@ -8,17 +8,20 @@
     using Telegram.Bot;
     using Telegram.Bot.Types;
     using Telegram.Bot.Types.Enums;
+    using TelegramBot.ViewModels;
 
     class RandomBasedCommands : IBotCommandHandler
     {
+        private MainWindowViewModel model;
         private TelegramBotClient _client;
 
-        public RandomBasedCommands(TelegramBotClient client)
+        public RandomBasedCommands(MainWindowViewModel client)
         {
-            _client = client;
+            model = client;
+            _client = client.BotClient;
         }
 
-        public void HandleUpdate(Update update)
+        public async void HandleUpdate(Update update)
         {
             string request = Utils.PrettifyCommand(update.Message.Text);
             string answer="";
@@ -57,8 +60,12 @@
                     break;
             }
 
-            if (answer!="")
-                _client.SendTextMessageAsync(update.Message.Chat.Id, answer, ParseMode.Default, false, false, update.Message.MessageId);
+            Message message;
+            if (answer != "")
+            {
+                message = await _client.SendTextMessageAsync(update.Message.Chat.Id, answer, ParseMode.Default, false, false, update.Message.MessageId);
+                Logger.Log(update, message);
+            }
         }
 
         public bool CanHandleUpdate(Update update)
