@@ -38,6 +38,7 @@
                 "/scorebylitvinov - Твоя оценка по Литвинову\r\n" +
                 "/para - Проверь, нужно ли тебе идти на следующую пару\r\n" +
                 "/rockpaperscissors - Камень, ножницы, бумага\r\n" +
+                "/numbers - Мобильные номера группы\r\n" +
                 "/help - Список всех команд";
             var message = await _client.SendTextMessageAsync(update.Message.Chat.Id, answer, ParseMode.Default, false, false, update.Message.MessageId);
             Logger.Log(update, message);
