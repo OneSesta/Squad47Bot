@@ -137,6 +137,7 @@
             dispatcher.AddHandler(new RandomBasedCommands(BotClient));
             dispatcher.AddHandler(new FilesAccessor(BotClient));
             dispatcher.AddHandler(new BaseCommands(BotClient));
+            dispatcher.AddHandler(new NumberCommands(BotClient));
         }
 
         /// <summary>
