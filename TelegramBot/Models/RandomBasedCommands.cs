@@ -12,13 +12,11 @@
 
     class RandomBasedCommands : IBotCommandHandler
     {
-        private MainWindowViewModel model;
-        private TelegramBotClient _client;
+        private ITelegramBotClient _client;
 
-        public RandomBasedCommands(MainWindowViewModel client)
+        public RandomBasedCommands(ITelegramBotClient client)
         {
-            model = client;
-            _client = client.BotClient;
+            _client = client;
         }
 
         public async void HandleUpdate(Update update)

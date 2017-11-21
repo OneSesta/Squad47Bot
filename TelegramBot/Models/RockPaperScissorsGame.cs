@@ -14,8 +14,7 @@
 
     class RockPaperScissorsGame : IBotCommandHandler
     {
-        private TelegramBotClient _client;
-        private MainWindowViewModel model;
+        private ITelegramBotClient _client;
 
         //class to contain game message and info about players
         private class Game
@@ -29,10 +28,9 @@
 
         private List<Game> currentGames;
 
-        public RockPaperScissorsGame(MainWindowViewModel client)
+        public RockPaperScissorsGame(ITelegramBotClient client)
         {
-            model = client;
-            _client = client.BotClient;
+            _client = client;
             currentGames = new List<Game>(10);
         }
 
