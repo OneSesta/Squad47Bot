@@ -12,13 +12,11 @@
 
     class BaseCommands : IBotCommandHandler
     {
-        private TelegramBotClient _client;
-        private MainWindowViewModel model;
+        private ITelegramBotClient _client;
 
-        public BaseCommands(MainWindowViewModel client)
+        public BaseCommands(ITelegramBotClient client)
         {
-            model = client;
-            _client = client.BotClient;
+            _client = client;
         }
 
         public bool CanHandleUpdate(Update update)

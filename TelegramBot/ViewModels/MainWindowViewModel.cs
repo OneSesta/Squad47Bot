@@ -19,10 +19,10 @@
     class MainWindowViewModel : INotifyPropertyChanged
     {
         public event PropertyChangedEventHandler PropertyChanged;
-        private TelegramBotClient Bot;
+        private ITelegramBotClient Bot;
         private UpdateDispatcher dispatcher = new UpdateDispatcher();
 
-        public TelegramBotClient BotClient
+        public ITelegramBotClient BotClient
         {
             get { return Bot; }
         }
@@ -133,10 +133,10 @@
             }
             ActivateCommand.Execute(null);
 
-            dispatcher.AddHandler(new RockPaperScissorsGame(this));
-            dispatcher.AddHandler(new RandomBasedCommands(this));
-            dispatcher.AddHandler(new FilesAccessor(this));
-            dispatcher.AddHandler(new BaseCommands(this));
+            dispatcher.AddHandler(new RockPaperScissorsGame(BotClient));
+            dispatcher.AddHandler(new RandomBasedCommands(BotClient));
+            dispatcher.AddHandler(new FilesAccessor(BotClient));
+            dispatcher.AddHandler(new BaseCommands(BotClient));
         }
 
         /// <summary>

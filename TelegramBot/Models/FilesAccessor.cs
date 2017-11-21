@@ -17,13 +17,11 @@
     /// </summary>
     class FilesAccessor : IBotCommandHandler
     {
-        private TelegramBotClient _client;
-        private MainWindowViewModel model;
+        private ITelegramBotClient _client;
 
-        public FilesAccessor(MainWindowViewModel client)
+        public FilesAccessor(ITelegramBotClient client)
         {
-            model = client;
-            _client = client.BotClient;
+            _client = client;
         }
 
         public async void HandleUpdate(Update update)
