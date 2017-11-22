@@ -130,14 +130,10 @@
     <Compile Include="Models\Utils.cs" />
     <Compile Include="Models\RandomBasedCommands.cs" />
     <Compile Include="Models\RockPaperScissorsGame.cs" />
-    <Compile Include="UICommands\ActivateBotCommand.cs" />
-    <Compile Include="UICommands\ClearLogCommand.cs" />
-    <Compile Include="UICommands\DeactivateBotCommand.cs" />
     <Compile Include="UICommands\OpenAboutWindowCommand.cs" />
-    <Compile Include="UICommands\OpenLocalFilesCommand.cs" />
     <Compile Include="UICommands\OpenScheduleCommand.cs" />
     <Compile Include="Models\UpdateDispatcher.cs" />
-    <Compile Include="UICommands\SaveInfoCommand.cs" />
+    <Compile Include="UICommands\RelayCommand.cs" />
     <Compile Include="ViewModels\ScheduleViewModel.cs" />
     <Compile Include="Views\AboutWindow.xaml.cs">
       <DependentUpon>AboutWindow.xaml</DependentUpon>
@@ -160,8 +156,6 @@
       <DependentUpon>App.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="UICommands\ExitApplicationCommand.cs" />
-    <Compile Include="UICommands\OpenFilesFolderCommand.cs" />
     <Compile Include="Models\FilesAccessor.cs" />
     <Compile Include="ViewModels\MainWindowViewModel.cs" />
     <Compile Include="Views\MainWindow.xaml.cs">
