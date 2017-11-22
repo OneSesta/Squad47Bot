@@ -1,5 +1,6 @@
 ﻿namespace TelegramBot.ViewModels
 {
+    using Newtonsoft.Json;
     using System;
     using System.ComponentModel;
     using System.IO;
@@ -83,6 +84,11 @@
             get;
             private set;
         }
+        public ICommand SaveInfoCommand
+        {
+            get;
+            private set;
+        }
 
         #endregion
 
@@ -108,6 +114,21 @@
             Log += logEntry;
         }
 
+        private string _info = "";
+        public string Info
+        {
+            get
+            {
+                return _info;
+            }
+            private set
+            {
+                _info = value;
+                PropertyChanged(this, new PropertyChangedEventArgs("Info"));
+
+            }
+        }
+
         public MainWindowViewModel()
         {
 #if DEBUG
@@ -125,6 +146,7 @@
             OpenScheduleCommand = new OpenScheduleCommand();
             OpenAboutCommand = new OpenAboutWindowCommand();
             OpenLocalFilesCommand = new OpenLocalFilesCommand(this);
+            SaveInfoCommand = new SaveInfoCommand(this);
 
             if (!Directory.Exists(@"файлы\"))
             {
@@ -137,8 +159,24 @@
             dispatcher.AddHandler(new RandomBasedCommands(BotClient));
             dispatcher.AddHandler(new FilesAccessor(BotClient));
             dispatcher.AddHandler(new BaseCommands(BotClient));
-            dispatcher.AddHandler(new NumberCommands(BotClient));
+
+            Person[] persons;
+            //{
+            //new Person{FirstName = "kek", LastName = "lol", PhoneNumber = "228"},
+            //new Person{FirstName = "vali", LastName = "dol", PhoneNumber = "1337"},
+            //};
+            //string converted = JsonConvert.SerializeObject(persons);
+            if (System.IO.File.Exists("файлы/Info.json"))
+                {
+                string converted = System.IO.File.ReadAllText("файлы/Info.json");
+                persons = JsonConvert.DeserializeObject < Person[]>(converted);
+                }
+        
+        dispatcher.AddHandler(new NumberCommands(BotClient));
+
+
         }
+
 
         /// <summary>
         /// Activates the bot (hooks MessageUpdate handler and starts receiving)
