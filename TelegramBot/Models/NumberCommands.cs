@@ -10,36 +10,15 @@
     using Telegram.Bot.Types.Enums;
     using TelegramBot.ViewModels;
     using System.IO;
+    using Newtonsoft.Json;
 
     class NumberCommands : IBotCommandHandler
     {
-        //enum Numbers
-        //{
-        //    Авилова,
-        //    Белый,
-        //    Губа,
-        //    Демиденко,
-        //    Зайчук,
-        //    Закладной,
-        //    Канивец,
-        //    Кобзев,
-        //    Коваль,
-        //    Косинов,
-        //    Кравец,
-        //    Крутенко,
-        //    Минич,
-        //    Мусиенко,
-        //    Прилипа,
-        //    Сердюков,
-        //    Синатор,
-        //    Цвилий,
-        //    Черкасенко,
-        //    Чулков,
-        //    Шипуля,
-        //    Шкребтан
-        //}
 
         private ITelegramBotClient _client;
+        private Person[] _persons;
+
+
 
         public NumberCommands(ITelegramBotClient client)
         {
@@ -77,6 +56,15 @@
             {
                 message = await _client.SendTextMessageAsync(update.Message.Chat.Id, answer, ParseMode.Default, false, false, update.Message.MessageId);
                 Logger.Log(update, message);
+            }
+        }
+
+        public void LoadInfo()
+        {
+            if (System.IO.File.Exists("файлы/Info.json"))
+            {
+                string converted = System.IO.File.ReadAllText("файлы/Info.json");
+                _persons = JsonConvert.DeserializeObject<Person[]>(converted);
             }
         }
 

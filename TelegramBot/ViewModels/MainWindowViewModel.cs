@@ -3,7 +3,9 @@
     using Newtonsoft.Json;
     using System;
     using System.ComponentModel;
+    using System.Diagnostics;
     using System.IO;
+    using System.Reflection;
     using System.Windows.Input;
     using Telegram.Bot;
     using Telegram.Bot.Args;
@@ -11,6 +13,7 @@
     using Telegram.Bot.Types.Enums;
     using TelegramBot.Commands;
     using TelegramBot.Models;
+    using TelegramBot.UICommands;
     using TelegramBot.Views;
 
 
@@ -138,15 +141,20 @@
 #endif
             Logger.NewLogEntry += AddLog;
 
-            ActivateCommand = new ActivateBotCommand(this);
-            DeactivateCommand = new DeactivateBotCommand(this);
-            ExitApplicationCommand = new ExitApplicationCommand(this);
-            OpenFilesFolderCommand = new OpenFilesFolderCommand(this);
-            ClearLogCommand = new ClearLogCommand(this);
-            OpenScheduleCommand = new OpenScheduleCommand();
+            ActivateCommand = new RelayCommand<object>(o => this.Activate(), o => !IsActive);
+            DeactivateCommand = new RelayCommand<object>(o => this.Deactivate(), o => IsActive);
+            ExitApplicationCommand = new RelayCommand<object>(o =>
+            {
+                if (IsActive)
+                    Deactivate();
+                App.Current.Shutdown();
+            }, (o) => true);
+            OpenFilesFolderCommand = new RelayCommand<object>(o => Process.Start(@"файлы\"), o => true);
+            ClearLogCommand = new RelayCommand<object>(o => Log = "", o => Log != "");
+            OpenScheduleCommand = new RelayCommand<object>(o => Process.Start(@"файлы\"), o => true);
             OpenAboutCommand = new OpenAboutWindowCommand();
-            OpenLocalFilesCommand = new OpenLocalFilesCommand(this);
-            SaveInfoCommand = new SaveInfoCommand(this);
+            OpenLocalFilesCommand = new RelayCommand<object>(o => Process.Start(Path.GetDirectoryName(Assembly.GetEntryAssembly().Location)), o => true);
+            SaveInfoCommand = new RelayCommand<object>(o => { }, o => true);
 
             if (!Directory.Exists(@"файлы\"))
             {
@@ -167,12 +175,12 @@
             //};
             //string converted = JsonConvert.SerializeObject(persons);
             if (System.IO.File.Exists("файлы/Info.json"))
-                {
+            {
                 string converted = System.IO.File.ReadAllText("файлы/Info.json");
-                persons = JsonConvert.DeserializeObject < Person[]>(converted);
-                }
-        
-        dispatcher.AddHandler(new NumberCommands(BotClient));
+                persons = JsonConvert.DeserializeObject<Person[]>(converted);
+            }
+
+            dispatcher.AddHandler(new NumberCommands(BotClient));
 
 
         }
