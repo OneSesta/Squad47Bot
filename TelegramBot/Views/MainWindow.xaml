@@ -12,7 +12,8 @@
         Width="490"
         MinHeight="283"
         MinWidth="490" 
-        ResizeMode="CanMinimize"
+        AllowsTransparency="True"
+        ResizeMode="CanResizeWithGrip"
         Style="{StaticResource DefaultWindowStyle}">
 
     <Window.Resources>
@@ -65,7 +66,9 @@
         </WrapPanel>
 
         <Grid Grid.Column="1" Grid.Row="1">
-            <TabControl Height="261" VerticalAlignment="Top" BorderThickness="0">
+            <TabControl Height="{Binding Path=ActualHeight,
+         RelativeSource={RelativeSource Mode=FindAncestor,
+            AncestorType={x:Type Grid}}}" VerticalAlignment="Top" BorderThickness="0">
                 <TabItem Header="Logs" BorderThickness="0">
                     <Grid>
                         <Grid.RowDefinitions>
@@ -87,7 +90,7 @@
                         </Grid.RowDefinitions>
                         <TextBox x:Name="InfoText" Margin="0" Width="Auto" Height="Auto" Grid.ColumnSpan="2"/>
                         <Button Content="Save" 
-                                Command="{Binding ActivateCommand}" 
+                                Command="{Binding SaveInfoCommand}" 
                                 Grid.Row="1" 
                                 Height="Auto"
                                 Width="Auto"
