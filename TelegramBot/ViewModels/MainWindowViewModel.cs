@@ -2,6 +2,8 @@
 {
     using Newtonsoft.Json;
     using System;
+    using System.Collections.ObjectModel;
+    using System.Collections.Generic;
     using System.ComponentModel;
     using System.Diagnostics;
     using System.IO;
@@ -22,7 +24,7 @@
     /// </summary>
     class MainWindowViewModel : INotifyPropertyChanged
     {
-        public event PropertyChangedEventHandler PropertyChanged;
+        public event PropertyChangedEventHandler PropertyChanged = delegate { };
         private ITelegramBotClient Bot;
         private UpdateDispatcher dispatcher = new UpdateDispatcher();
 
@@ -128,7 +130,26 @@
             {
                 _info = value;
                 PropertyChanged(this, new PropertyChangedEventArgs("Info"));
+            }
+        }
 
+        public string DecodeInfo(List<Person> encodeFrom)
+        {
+            string result = "";
+            foreach (Person p in encodeFrom)
+            {
+                result += $"{p.FirstName} {p.LastName} {p.PhoneNumber}\r\n";
+            }
+            return result;
+        }
+        public void EncodeInfo(string encodeFrom, List<Person> encodeTo)
+        {
+            encodeTo.Clear();
+            string[] personsLines = encodeFrom.Split(new string[] { "\r\n" }, StringSplitOptions.RemoveEmptyEntries);
+            foreach (string line in personsLines)
+            {
+                string[] splitted = line.Split(' ');
+                encodeTo.Add(new Person() { FirstName = splitted[0], LastName = splitted[1], PhoneNumber = splitted[2] });
             }
         }
 
@@ -154,7 +175,6 @@
             OpenScheduleCommand = new OpenScheduleCommand();
             OpenAboutCommand = new OpenAboutWindowCommand();
             OpenLocalFilesCommand = new RelayCommand<object>(o => Process.Start(Path.GetDirectoryName(Assembly.GetEntryAssembly().Location)), o => true);
-            SaveInfoCommand = new RelayCommand<object>(o => { }, o => true);
 
             if (!Directory.Exists(@"файлы\"))
             {
@@ -168,21 +188,37 @@
             dispatcher.AddHandler(new FilesAccessor(BotClient));
             dispatcher.AddHandler(new BaseCommands(BotClient));
 
-            Person[] persons;
+            //Person[] persons;
             //{
             //new Person{FirstName = "kek", LastName = "lol", PhoneNumber = "228"},
             //new Person{FirstName = "vali", LastName = "dol", PhoneNumber = "1337"},
             //};
             //string converted = JsonConvert.SerializeObject(persons);
-            if (System.IO.File.Exists("файлы/Info.json"))
+            //if (System.IO.File.Exists("файлы/Info.json"))
+            //{
+            //    string converted = System.IO.File.ReadAllText("файлы/Info.json");
+            //    persons = JsonConvert.DeserializeObject<Person[]>(converted);
+            //}
+            var numberCommandsHandler = new NumberCommands(BotClient);
+            SaveInfoCommand = new RelayCommand<object>(o =>
             {
-                string converted = System.IO.File.ReadAllText("файлы/Info.json");
-                persons = JsonConvert.DeserializeObject<Person[]>(converted);
-            }
+                EncodeInfo((o as string), numberCommandsHandler.Persons);
+                numberCommandsHandler.SaveInfo();
+            }, o =>
+            {
+                string info = DecodeInfo(numberCommandsHandler.Persons);
+                return (o as string)?.Trim() != info.Trim();
+            });
 
-            dispatcher.AddHandler(new NumberCommands(BotClient));
-
-
+            numberCommandsHandler.PropertyChanged += (o, e) =>
+                {
+                    if (e.PropertyName == "Persons")
+                    {
+                        Info = DecodeInfo((o as NumberCommands).Persons);
+                    }
+                };
+            Info = DecodeInfo(numberCommandsHandler.Persons);
+            dispatcher.AddHandler(numberCommandsHandler);
         }
 
 
