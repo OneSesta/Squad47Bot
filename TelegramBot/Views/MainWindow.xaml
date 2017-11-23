@@ -27,7 +27,7 @@
         </Grid.RowDefinitions>
 
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="250"/>
+            <ColumnDefinition Width="130"/>
             <ColumnDefinition/>
         </Grid.ColumnDefinitions>
 
@@ -62,22 +62,22 @@
         <WrapPanel Grid.Row="1">
             <Button Content="Start Bot" Command="{Binding ActivateCommand}"/>
             <Button Content="Stop Bot" Command="{Binding DeactivateCommand}"/>
-            <Button Content="Files" Command="{Binding OpenFilesFolderCommand}"/>
-            <Button Content="Schedule" Command="{Binding OpenScheduleCommand}"/>
         </WrapPanel>
 
         <Grid Grid.Column="1" Grid.Row="1">
-            <TabControl HorizontalAlignment="Left" Height="251" VerticalAlignment="Top" Width="228" BorderThickness="0">
-
+            <TabControl Height="261" VerticalAlignment="Top" BorderThickness="0">
                 <TabItem Header="Logs" BorderThickness="0">
-
-                    <TextBox x:Name="LogTextBox" Text="{Binding Log, Mode=OneWay}"
-                     RenderOptions.EdgeMode="Aliased" Margin="0,-2,-1,0" Width="Auto" Height="Auto"/>
-                
+                    <Grid>
+                        <Grid.RowDefinitions>
+                            <RowDefinition/>
+                        </Grid.RowDefinitions>
+                        <TextBox x:Name="LogTextBox" Text="{Binding Log, Mode=OneWay}"
+                     RenderOptions.EdgeMode="Aliased" Margin="0" Width="Auto" Height="Auto"/>
+                    </Grid>
                 </TabItem>
                 <TabItem Header="Schedule">
                     <TextBox 
-                     RenderOptions.EdgeMode="Aliased" Margin="0,-2,-1,0" Width="Auto" Height="Auto"/>
+                     RenderOptions.EdgeMode="Aliased" Margin="0" Width="Auto" Height="Auto"/>
                 </TabItem>
                 <TabItem Header="Info" BorderThickness="0">
                     <Grid>
@@ -85,20 +85,20 @@
                             <RowDefinition/>
                             <RowDefinition Height="45"/>
                         </Grid.RowDefinitions>
-                        <TextBox x:Name="InfoText" Margin="0" Width="Auto" Height="Auto"/>
+                        <TextBox x:Name="InfoText" Margin="0" Width="Auto" Height="Auto" Grid.ColumnSpan="2"/>
                         <Button Content="Save" 
                                 Command="{Binding ActivateCommand}" 
                                 Grid.Row="1" 
                                 Height="Auto"
                                 Width="Auto"
-                                Margin="0"
+                                Margin="0" Grid.ColumnSpan="2"
                                 />
-                        
+
                     </Grid>
 
 
                 </TabItem>
-                
+
             </TabControl>
         </Grid>
 

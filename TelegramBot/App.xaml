@@ -11,8 +11,6 @@
             <Style.Setters>
                 <Setter Property="Background"   Value="#FF515151" />
                 <Setter Property="FontSize"     Value="18" />
-                <Setter Property="Width"        Value="230" />
-                <Setter Property="Height"       Value="85" />
                 <Setter Property="Foreground"   Value="White" />
                 <Setter Property="FontWeight"   Value="Bold" />
                 <Setter Property="Margin"       Value="10,5,0,0"/>
@@ -116,7 +114,48 @@
                 </Setter.Value>
             </Setter>
         </Style>
-        
+
+        <Style TargetType="{x:Type TabItem}">
+            <Setter Property="Background"       Value="#FF515151" />
+            <Setter Property="FontSize"         Value="14" />
+            <Setter Property="Foreground"       Value="White" />
+            <Setter Property="FontWeight"       Value="Bold" />
+            <Setter Property="BorderThickness"  Value="0"/>
+            <Setter Property="FontFamily"       Value="Candara"/>
+            <Setter Property="Padding"          Value="10, 4"/>
+
+            <Setter Property = "BitmapEffect">
+                <Setter.Value>
+                    <DropShadowBitmapEffect ShadowDepth="3" Softness="0.2"  Opacity="0.5"/>
+                </Setter.Value>
+            </Setter>
+
+            <Style.Triggers>
+                <Trigger Property="IsMouseOver" Value="True">
+                    <Setter Property="Foreground" Value="Black"/>
+                    <Setter Property = "BitmapEffect" >
+                        <Setter.Value>
+                            <DropShadowBitmapEffect ShadowDepth="3" Softness="0.2" Opacity="0.5" Color="#FFCFCFCF"/>
+                        </Setter.Value>
+                    </Setter>
+                </Trigger>
+
+                <Trigger Property="IsSelected" Value="True">
+                    <Setter Property="BitmapEffect" Value="{x:Null}"/>
+                    <Setter Property="Foreground" Value="#FF323232"/>
+                </Trigger>
+                <Trigger Property="IsEnabled" Value="false">
+                    <Setter Property="Background" Value="#FF8F8F8F"/>
+                    <Setter Property="Foreground" Value="#FF323232"/>
+                </Trigger>
+            </Style.Triggers>
+            
+        </Style>
+
+        <Style TargetType="{x:Type TabControl}">
+            <Setter Property="Padding" Value="0"/>
+        </Style>
+
     </Application.Resources>
 
 </Application>
