@@ -67,8 +67,10 @@
 
         <Grid Grid.Column="1" Grid.Row="1">
             <TabControl Height="{Binding Path=ActualHeight,
-         RelativeSource={RelativeSource Mode=FindAncestor,
-            AncestorType={x:Type Grid}}}" VerticalAlignment="Top" BorderThickness="0">
+                                         RelativeSource={RelativeSource Mode=FindAncestor,
+                                         AncestorType={x:Type Grid}}}" 
+                        VerticalAlignment="Top" 
+                        BorderThickness="0">
                 <TabItem Header="Logs" BorderThickness="0">
                     <Grid>
                         <Grid.RowDefinitions>
@@ -88,9 +90,17 @@
                             <RowDefinition/>
                             <RowDefinition Height="45"/>
                         </Grid.RowDefinitions>
-                        <TextBox x:Name="InfoText" Margin="0" Width="Auto" Height="Auto" Grid.ColumnSpan="2"/>
+                        <TextBox x:Name="InfoText" 
+                                 Margin="0"
+                                 Width="Auto"
+                                 Height="Auto"
+                                 Grid.ColumnSpan="2"
+                                 IsReadOnly="False"
+                                 AcceptsReturn="True"
+                                 Text="{Binding Info, Mode=OneWay}"/>
                         <Button Content="Save" 
-                                Command="{Binding SaveInfoCommand}" 
+                                Command="{Binding SaveInfoCommand}"
+                                CommandParameter="{Binding Text, ElementName=InfoText}"
                                 Grid.Row="1" 
                                 Height="Auto"
                                 Width="Auto"

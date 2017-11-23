@@ -11,18 +11,34 @@
     using TelegramBot.ViewModels;
     using System.IO;
     using Newtonsoft.Json;
+    using System.ComponentModel;
+    using System.Collections.ObjectModel;
 
-    class NumberCommands : IBotCommandHandler
+    class NumberCommands : IBotCommandHandler, INotifyPropertyChanged
     {
 
         private ITelegramBotClient _client;
-        private Person[] _persons;
+        private List<Person> _persons;
 
+        public List<Person> Persons {
+            get
+            {
+                return _persons;
+            }
+            private set
+            {
+                _persons = value;
+                PropertyChanged(this, new PropertyChangedEventArgs("Persons"));
+            }
+        }
 
+        public event PropertyChangedEventHandler PropertyChanged = delegate { };
 
         public NumberCommands(ITelegramBotClient client)
         {
             _client = client;
+            _persons = new List<Person>();
+            LoadInfo();
         }
 
         public async void HandleUpdate(Update update)
@@ -64,8 +80,13 @@
             if (System.IO.File.Exists("файлы/Info.json"))
             {
                 string converted = System.IO.File.ReadAllText("файлы/Info.json");
-                _persons = JsonConvert.DeserializeObject<Person[]>(converted);
+                _persons = JsonConvert.DeserializeObject<List<Person>>(converted);
             }
+        }
+
+        public void SaveInfo()
+        {
+            System.IO.File.WriteAllText("файлы/Info.json", JsonConvert.SerializeObject(_persons));
         }
 
         public bool CanHandleUpdate(Update update)
