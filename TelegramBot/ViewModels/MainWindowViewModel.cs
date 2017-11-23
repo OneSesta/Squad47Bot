@@ -151,7 +151,7 @@
             }, (o) => true);
             OpenFilesFolderCommand = new RelayCommand<object>(o => Process.Start(@"файлы\"), o => true);
             ClearLogCommand = new RelayCommand<object>(o => Log = "", o => Log != "");
-            OpenScheduleCommand = new RelayCommand<object>(o => Process.Start(@"файлы\"), o => true);
+            OpenScheduleCommand = new OpenScheduleCommand();
             OpenAboutCommand = new OpenAboutWindowCommand();
             OpenLocalFilesCommand = new RelayCommand<object>(o => Process.Start(Path.GetDirectoryName(Assembly.GetEntryAssembly().Location)), o => true);
             SaveInfoCommand = new RelayCommand<object>(o => { }, o => true);
