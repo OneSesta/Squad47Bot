@@ -131,18 +131,10 @@
     <Compile Include="Models\RandomBasedCommands.cs" />
     <Compile Include="Models\RockPaperScissorsGame.cs" />
     <Compile Include="UICommands\OpenAboutWindowCommand.cs" />
-    <Compile Include="UICommands\OpenScheduleCommand.cs" />
     <Compile Include="Models\UpdateDispatcher.cs" />
     <Compile Include="UICommands\RelayCommand.cs" />
-    <Compile Include="ViewModels\ScheduleViewModel.cs" />
     <Compile Include="Views\AboutWindow.xaml.cs">
       <DependentUpon>AboutWindow.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Views\ScheduleWindow.xaml.cs">
-      <DependentUpon>ScheduleWindow.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Views\StudentInfoWindow.xaml.cs">
-      <DependentUpon>StudentInfoWindow.xaml</DependentUpon>
     </Compile>
     <Page Include="Views\AboutWindow.xaml">
       <SubType>Designer</SubType>
@@ -162,14 +154,6 @@
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
-    <Page Include="Views\ScheduleWindow.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Views\StudentInfoWindow.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Properties\AssemblyInfo.cs">
