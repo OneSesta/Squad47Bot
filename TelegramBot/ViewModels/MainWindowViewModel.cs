@@ -91,6 +91,7 @@
 
         #endregion
 
+        #region Log
         private string _log = "";
         public string Log
         {
@@ -112,7 +113,9 @@
         {
             Log += logEntry;
         }
+        #endregion Log
 
+        #region Student Info
         private string _info = "";
         public string Info
         {
@@ -127,6 +130,11 @@
             }
         }
 
+        /// <summary>
+        /// Decodes list of persons to string to show in TextBox
+        /// </summary>
+        /// <param name="encodeFrom">List of persons</param>
+        /// <returns></returns>
         public string DecodeInfo(List<Person> encodeFrom)
         {
             string result = "";
@@ -136,16 +144,24 @@
             }
             return result;
         }
-        public void EncodeInfo(string encodeFrom, List<Person> encodeTo)
+
+        /// <summary>
+        /// Encodes string from TextBox into List of Persons
+        /// </summary>
+        /// <param name="encodeFrom">String from TextBox</param>
+        /// <returns></returns>
+        public List<Person> EncodeInfo(string encodeFrom)
         {
-            encodeTo.Clear();
+            List<Person> persons = new List<Person>();
             string[] personsLines = encodeFrom.Split(new string[] { "\r\n" }, StringSplitOptions.RemoveEmptyEntries);
             foreach (string line in personsLines)
             {
                 string[] splitted = line.Split(' ');
-                encodeTo.Add(new Person() { FirstName = splitted[0], LastName = splitted[1], PhoneNumber = splitted[2] });
+                persons.Add(new Person() { FirstName = splitted[0], LastName = splitted[1], PhoneNumber = splitted[2] });
             }
+            return persons;
         }
+        #endregion
 
         public MainWindowViewModel()
         {
@@ -156,6 +172,7 @@
 #endif
             Logger.NewLogEntry += AddLog;
 
+            // initializing ViewModel UI commands
             ActivateCommand = new RelayCommand<object>(o => this.Activate(), o => !IsActive);
             DeactivateCommand = new RelayCommand<object>(o => this.Deactivate(), o => IsActive);
             ExitApplicationCommand = new RelayCommand<object>(o =>
@@ -169,33 +186,28 @@
             OpenAboutCommand = new OpenAboutWindowCommand();
             OpenLocalFilesCommand = new RelayCommand<object>(o => Process.Start(Path.GetDirectoryName(Assembly.GetEntryAssembly().Location)), o => true);
 
+            // create files directory and open it, if it doesn't exist
             if (!Directory.Exists(@"файлы\"))
             {
                 Directory.CreateDirectory(@"файлы\");
                 OpenFilesFolderCommand.Execute(null);
             }
+
+            // auto-activate on startup
             ActivateCommand.Execute(null);
 
+            // to the end: adding bot command handlers
             dispatcher.AddHandler(new RockPaperScissorsGame(BotClient));
             dispatcher.AddHandler(new RandomBasedCommands(BotClient));
             dispatcher.AddHandler(new FilesAccessor(BotClient));
             dispatcher.AddHandler(new BaseCommands(BotClient));
 
-            //Person[] persons;
-            //{
-            //new Person{FirstName = "kek", LastName = "lol", PhoneNumber = "228"},
-            //new Person{FirstName = "vali", LastName = "dol", PhoneNumber = "1337"},
-            //};
-            //string converted = JsonConvert.SerializeObject(persons);
-            //if (System.IO.File.Exists("файлы/Info.json"))
-            //{
-            //    string converted = System.IO.File.ReadAllText("файлы/Info.json");
-            //    persons = JsonConvert.DeserializeObject<Person[]>(converted);
-            //}
             var numberCommandsHandler = new NumberCommands(BotClient);
+
+            // bind Save command to handler
             SaveInfoCommand = new RelayCommand<object>(o =>
             {
-                EncodeInfo((o as string), numberCommandsHandler.Persons);
+                numberCommandsHandler.Persons = EncodeInfo(o as string);
                 numberCommandsHandler.SaveInfo();
             }, o =>
             {
