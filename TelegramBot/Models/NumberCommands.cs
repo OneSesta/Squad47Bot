@@ -25,7 +25,7 @@
             {
                 return _persons;
             }
-            private set
+            set
             {
                 _persons = value;
                 PropertyChanged(this, new PropertyChangedEventArgs("Persons"));
@@ -45,9 +45,10 @@
         {
             string request = Utils.PrettifyCommand(update.Message.Text);
             string answer = "";
+            Message message;
             //string[] Arr1 = new string[1];
             //string[] Arr = System.IO.File.ReadAllLines(@"C:\Users\deses\source\repos\Squad47Bot\TelegramBot\bin\Debug\Numbers.txt", System.Text.Encoding.Default);
-            string Arr = System.IO.File.ReadAllText(@"C:\Users\deses\source\repos\Squad47Bot\TelegramBot\bin\Debug\Numbers.txt", System.Text.Encoding.Default);
+            //string Arr = System.IO.File.ReadAllText(@"C:\Users\deses\source\repos\Squad47Bot\TelegramBot\bin\Debug\Numbers.txt", System.Text.Encoding.Default);
             //Arr1[0] = Arr[0];
             //switch (request)
             //{
@@ -66,8 +67,7 @@
             //{
 
             //}
-            answer = Arr;
-            Message message;
+            //answer = Arr;
             if (answer != "")
             {
                 message = await _client.SendTextMessageAsync(update.Message.Chat.Id, answer, ParseMode.Default, false, false, update.Message.MessageId);
@@ -96,7 +96,7 @@
 
             string request = Utils.PrettifyCommand(update.Message.Text);
 
-            return request == "/numbers";
+            return request.StartsWith("/numbers");
         }
     }
 }
