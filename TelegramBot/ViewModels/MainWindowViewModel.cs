@@ -140,7 +140,7 @@
             string result = "";
             foreach (Person p in encodeFrom)
             {
-                result += $"{p.FirstName} {p.LastName} {p.PhoneNumber}\r\n";
+                result += $"{p.LastName} {p.FirstName} {p.Patronymic} {p.PhoneNumber}\r\n";
             }
             return result;
         }
@@ -157,7 +157,7 @@
             foreach (string line in personsLines)
             {
                 string[] splitted = line.Split(' ');
-                persons.Add(new Person() { FirstName = splitted[0], LastName = splitted[1], PhoneNumber = splitted[2] });
+                persons.Add(new Person(splitted[0], splitted[1], splitted[2], splitted.Length>=4?splitted[3]:""));
             }
             return persons;
         }
@@ -202,7 +202,7 @@
             dispatcher.AddHandler(new FilesAccessor(BotClient));
             dispatcher.AddHandler(new BaseCommands(BotClient));
 
-            var numberCommandsHandler = new NumberCommands(BotClient);
+            var numberCommandsHandler = new PersonsInfoCommands(BotClient);
 
             // bind Save command to handler
             SaveInfoCommand = new RelayCommand<object>(o =>
@@ -219,7 +219,7 @@
                 {
                     if (e.PropertyName == "Persons")
                     {
-                        Info = DecodeInfo((o as NumberCommands).Persons);
+                        Info = DecodeInfo((o as PersonsInfoCommands).Persons);
                     }
                 };
             Info = DecodeInfo(numberCommandsHandler.Persons);
