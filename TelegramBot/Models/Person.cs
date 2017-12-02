@@ -8,9 +8,18 @@ namespace TelegramBot.Models
 {
     class Person
     {
-        public string FirstName { get; set; }
-        public string LastName { get; set; }
-        public string PhoneNumber { get; set; }
+        public string LastName { get; private set; }
+        public string FirstName { get; private set; }
+        public string Patronymic { get; private set; }
+        public string PhoneNumber { get; private set; }
+
+        public Person(string lastName, string firstName, string patronymic, string phoneNumber)
+        {
+            LastName = lastName;
+            FirstName = firstName;
+            Patronymic = patronymic;
+            PhoneNumber = phoneNumber;
+        }
     }
 
 }

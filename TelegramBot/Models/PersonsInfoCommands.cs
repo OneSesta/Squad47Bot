@@ -14,13 +14,14 @@
     using System.ComponentModel;
     using System.Collections.ObjectModel;
 
-    class NumberCommands : IBotCommandHandler, INotifyPropertyChanged
+    class PersonsInfoCommands : IBotCommandHandler, INotifyPropertyChanged
     {
 
         private ITelegramBotClient _client;
         private List<Person> _persons;
 
-        public List<Person> Persons {
+        public List<Person> Persons
+        {
             get
             {
                 return _persons;
@@ -34,7 +35,7 @@
 
         public event PropertyChangedEventHandler PropertyChanged = delegate { };
 
-        public NumberCommands(ITelegramBotClient client)
+        public PersonsInfoCommands(ITelegramBotClient client)
         {
             _client = client;
             _persons = new List<Person>();
@@ -68,11 +69,25 @@
 
             //}
             //answer = Arr;
-            if (answer != "")
+            request = request.Remove(0, "/info ".Length);
+
+            foreach (Person p in _persons)
             {
-                message = await _client.SendTextMessageAsync(update.Message.Chat.Id, answer, ParseMode.Default, false, false, update.Message.MessageId);
-                Logger.Log(update, message);
+                if (p.FirstName.ToLower() == request
+                    || p.LastName.ToLower() == request
+                    || p.Patronymic.ToLower() == request)
+                {
+                    answer += $"{p.LastName} {p.FirstName} {p.Patronymic} {p.PhoneNumber}\r\n";
+                }
             }
+
+            if (answer == "")
+            {
+                answer = "Хз";
+            }
+
+            message = await _client.SendTextMessageAsync(update.Message.Chat.Id, answer, ParseMode.Default, false, false, update.Message.MessageId);
+            Logger.Log(update, message);
         }
 
         public void LoadInfo()
@@ -96,7 +111,7 @@
 
             string request = Utils.PrettifyCommand(update.Message.Text);
 
-            return request.StartsWith("/numbers");
+            return request.StartsWith("/info ");
         }
     }
 }
