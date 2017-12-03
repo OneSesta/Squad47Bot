@@ -8,10 +8,10 @@
         xmlns:vms="clr-namespace:TelegramBot.ViewModels"
         mc:Ignorable="d"
         Title="Squad 47 Bot"
-        Height="283" 
-        Width="490"
-        MinHeight="283"
-        MinWidth="490" 
+        Height="300" 
+        Width="400"
+        MinHeight="300"
+        MinWidth="400" 
         AllowsTransparency="True"
         ResizeMode="CanResizeWithGrip"
         Style="{StaticResource DefaultWindowStyle}">
@@ -23,16 +23,58 @@
     <Grid Background="#FF323232" >
 
         <Grid.RowDefinitions>
-            <RowDefinition Height="20"/>
+            <RowDefinition Height="25"/>
             <RowDefinition/>
         </Grid.RowDefinitions>
 
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="130"/>
+            <ColumnDefinition Width="0"/>
             <ColumnDefinition/>
         </Grid.ColumnDefinitions>
 
-        <DockPanel Height="20"
+        <DockPanel Grid.ColumnSpan="2"
+                   x:Name="MenuDockPanel"
+                   Background="#FF323232">
+            <Menu>
+                <MenuItem Header="File">
+                    <MenuItem Header="Open Files" Command="{Binding OpenFilesFolderCommand}"/>
+                    <MenuItem Header="Open local files" Command="{Binding OpenLocalFilesCommand}"/>
+                    <MenuItem Header="Exit" Command="{Binding ExitApplicationCommand}"/>
+                </MenuItem>
+                <MenuItem Header="Options">
+                    <MenuItem Header="Clear Logs" Command="{Binding ClearLogCommand}"/>
+                </MenuItem>
+
+                <MenuItem Header="Help">
+                    <MenuItem Header="Sorry, bro, we can't help you"/>
+                    <MenuItem Header="About" Command="{Binding OpenAboutCommand}"/>
+                </MenuItem>
+                <MenuItem  Command="{Binding ActivateCommand}">
+                    <MenuItem.Icon>
+                        <Image Source="..\Images\Start.png"/>
+                    </MenuItem.Icon>
+
+                    <MenuItem.Header>
+                        <TextBlock Text="Start" HorizontalAlignment="Right" VerticalAlignment="Center" />
+                    </MenuItem.Header>
+                </MenuItem>
+                <MenuItem Command="{Binding DeactivateCommand}">
+                    <MenuItem.Icon>
+                        <Image Source="..\Images\Stop.png"/>
+                    </MenuItem.Icon>
+                    <MenuItem.Header>
+                        <TextBlock Text="Stop" HorizontalAlignment="Right" VerticalAlignment="Center"/>
+                    </MenuItem.Header>
+                </MenuItem>
+            </Menu>
+
+            <Menu 
+              HorizontalAlignment="Right">
+                <MenuItem Header="___" Click="Button_Click" Width="24"/>
+                <MenuItem Header="X" Command="{Binding ExitApplicationCommand}" Width="24"/>
+            </Menu>
+        </DockPanel>
+        <!--<DockPanel Height="20"
                    x:Name="MenuDockPanel"
                    Background="#FF515151"
                    Grid.ColumnSpan="2"
@@ -52,25 +94,25 @@
                     <MenuItem Header="Sorry, bro, we can't help you"/>
                     <MenuItem Header="About" Command="{Binding OpenAboutCommand}"/>
                 </MenuItem>
+
             </Menu>
 
             <Menu HorizontalAlignment="Right">
                 <MenuItem Header="_" Click="Button_Click"/>
                 <MenuItem Header="X" Command="{Binding ExitApplicationCommand}"/>
             </Menu>
-        </DockPanel>
+        </DockPanel>-->
 
-        <WrapPanel Grid.Row="1">
+
+
+        <!--<WrapPanel Grid.Row="1">
             <Button Content="Start Bot" Command="{Binding ActivateCommand}"/>
             <Button Content="Stop Bot" Command="{Binding DeactivateCommand}"/>
-        </WrapPanel>
+        </WrapPanel>-->
 
         <Grid Grid.Column="1" Grid.Row="1">
-            <TabControl Height="{Binding Path=ActualHeight,
-                                         RelativeSource={RelativeSource Mode=FindAncestor,
-                                         AncestorType={x:Type Grid}}}" 
-                        VerticalAlignment="Top" 
-                        BorderThickness="0">
+            <TabControl 
+                        BorderThickness="0" Margin="0,5,0,1">
                 <TabItem Header="Logs" BorderThickness="0">
                     <Grid>
                         <Grid.RowDefinitions>
