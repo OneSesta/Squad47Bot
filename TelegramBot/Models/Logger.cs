@@ -8,7 +8,7 @@ using Telegram.Bot.Types.Enums;
 
 namespace TelegramBot.Models
 {
-    static class Logger
+    internal static class Logger
     {
         public delegate void ForEvent(string log);
         static public event ForEvent NewLogEntry = delegate { };

@@ -8,7 +8,7 @@
     using Telegram.Bot.Args;
     using Telegram.Bot.Types;
 
-    class UpdateDispatcher
+    internal class UpdateDispatcher
     {
         private List<IBotCommandHandler> handlers;
 

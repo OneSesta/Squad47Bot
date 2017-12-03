@@ -15,7 +15,7 @@
     /// <summary>
     /// This class is responsible for gaining access to documents that people want to acquire by typing commands
     /// </summary>
-    class FilesAccessor : IBotCommandHandler
+    internal class FilesAccessor : IBotCommandHandler
     {
         private ITelegramBotClient _client;
 

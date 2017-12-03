@@ -14,7 +14,7 @@
     using System.ComponentModel;
     using System.Collections.ObjectModel;
 
-    class PersonsInfoCommands : IBotCommandHandler, INotifyPropertyChanged
+    internal class PersonsInfoCommands : IBotCommandHandler, INotifyPropertyChanged
     {
 
         private ITelegramBotClient _client;
