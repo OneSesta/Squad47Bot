@@ -66,7 +66,7 @@
             </Style.Setters>
         </Style>
 
-        <ControlTemplate x:Key="{x:Static MenuItem.TopLevelHeaderTemplateKey}" TargetType="{x:Type MenuItem}" >
+        <!--<ControlTemplate x:Key="{x:Static MenuItem.TopLevelHeaderTemplateKey}" TargetType="{x:Type MenuItem}" >
             <Grid>
                 <ContentPresenter Margin="5,2,5,2" ContentSource="Header" RecognizesAccessKey="True" />
                 <Popup Placement="Bottom" IsOpen="{TemplateBinding IsSubmenuOpen}"  PopupAnimation="Fade">
@@ -75,23 +75,21 @@
                     </Border>
                 </Popup>
             </Grid>
-        </ControlTemplate>
+        </ControlTemplate>-->
 
         <Style TargetType="{x:Type Menu}">
-            <Setter Property="Height"               Value="20"/>
-            <Setter Property="Background"           Value="#FF515151"/>
+            <Setter Property="Height"               Value="24"/>
             <Setter Property="VerticalAlignment"    Value="Top"/>
         </Style>
 
         <Style TargetType="{x:Type MenuItem}">
             <Style.Setters>
-                <Setter Property="Height"       Value="20"/>
-                <Setter Property="Foreground"   Value="White"/>
-                <Setter Property="Background"   Value="#FF7C7C7C"/>
+                <Setter Property="Height"       Value="24"/>
             </Style.Setters>
             <Style.Triggers>
-                <Trigger Property="IsMouseOver" Value="True">
-                    <Setter Property="Foreground" Value="Black"/>
+                <Trigger Property="IsEnabled" Value="false">
+                    <Setter Property="Background" Value="Gainsboro"/>
+                    <Setter Property="Foreground" Value="Gray"/>
                 </Trigger>
             </Style.Triggers>
         </Style>
