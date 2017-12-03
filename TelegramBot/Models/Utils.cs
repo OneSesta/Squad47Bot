@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace TelegramBot.Models
 {
-    static class Utils
+    internal static class Utils
     {
 #if DEBUG
         static public string BotPostfix = "Squad47Testbot";

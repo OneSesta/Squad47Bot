@@ -10,7 +10,7 @@
     /// <summary>
     /// This command is responsible for opening folder with documents.
     /// </summary>
-    class OpenAboutWindowCommand : ICommand
+    internal class OpenAboutWindowCommand : ICommand
     {
 
         private AboutWindow _schedule;

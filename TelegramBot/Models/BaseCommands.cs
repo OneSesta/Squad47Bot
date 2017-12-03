@@ -10,7 +10,7 @@
     using Telegram.Bot.Types.Enums;
     using TelegramBot.ViewModels;
 
-    class BaseCommands : IBotCommandHandler
+    internal class BaseCommands : IBotCommandHandler
     {
         private ITelegramBotClient _client;
 

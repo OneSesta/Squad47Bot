@@ -22,7 +22,7 @@
     /// <summary>
     /// This class is responsible for the main window.
     /// </summary>
-    class MainWindowViewModel : INotifyPropertyChanged
+    internal class MainWindowViewModel : INotifyPropertyChanged
     {
         public event PropertyChangedEventHandler PropertyChanged = delegate { };
         private ITelegramBotClient Bot;
