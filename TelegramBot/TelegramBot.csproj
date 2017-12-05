@@ -38,7 +38,7 @@
     </StartupObject>
   </PropertyGroup>
   <PropertyGroup>
-    <ApplicationIcon>Squad47.ico</ApplicationIcon>
+    <ApplicationIcon>Images\Squad47.ico</ApplicationIcon>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="Microsoft.Win32.Primitives, Version=4.0.2.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
@@ -183,13 +183,10 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="47squad.ico" />
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="Chromosome.jpg">
+    <Content Include="Images\Chromosome.jpg">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <Resource Include="Squad47.ico" />
+    <Resource Include="Images\Squad47.ico" />
     <Resource Include="Images\Stop.png" />
     <Resource Include="Images\Start.png" />
   </ItemGroup>

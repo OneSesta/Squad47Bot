@@ -25,7 +25,7 @@
             </Menu>
         </DockPanel>
 
-        <Image Source="/TelegramBot;component/Chromosome.jpg"
+        <Image Source="/TelegramBot;component/Images/Chromosome.jpg"
                VerticalAlignment="Top"
                Height="200"
                Grid.Row="1"/>
