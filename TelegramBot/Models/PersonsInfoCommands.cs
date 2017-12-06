@@ -14,7 +14,7 @@
     using System.ComponentModel;
     using System.Collections.ObjectModel;
 
-    internal class PersonsInfoCommands : IBotCommandHandler, INotifyPropertyChanged
+    internal class PersonsInfoCommands : ObservableModelBase, IBotCommandHandler
     {
 
         private ITelegramBotClient _client;
@@ -29,11 +29,9 @@
             set
             {
                 _persons = value;
-                PropertyChanged(this, new PropertyChangedEventArgs("Persons"));
+                OnPropertyChanged();
             }
         }
-
-        public event PropertyChangedEventHandler PropertyChanged = delegate { };
 
         public PersonsInfoCommands(ITelegramBotClient client)
         {
