@@ -65,12 +65,6 @@
             private set;
         }
 
-        public ICommand ClearLogCommand
-        {
-            get;
-            private set;
-        }
-
         public ICommand OpenLocalFilesCommand
         {
             get;
@@ -89,30 +83,6 @@
         }
 
         #endregion
-
-        #region Log
-        private string _log = "";
-        public string Log
-        {
-            get
-            {
-                return _log;
-            }
-            private set
-            {
-                _log = value;
-                OnPropertyChanged();
-            }
-        }
-        public void ClearLog()
-        {
-            Log = "";
-        }
-        public void AddLog(string logEntry)
-        {
-            Log += logEntry;
-        }
-        #endregion Log
 
         #region Student Info
         private string _info = "";
@@ -169,7 +139,6 @@
 #else
             Bot = new TelegramBotClient("473027046:AAEWIMqj41Oc33sFIc_yrDcM07XbRDw-Omg");
 #endif
-            Logger.NewLogEntry += AddLog;
 
             // initializing ViewModel UI commands
             ActivateCommand = new RelayCommand<object>(o => this.Activate(), o => !IsActive);
@@ -181,7 +150,6 @@
                 App.Current.Shutdown();
             }, (o) => true);
             OpenFilesFolderCommand = new RelayCommand<object>(o => Process.Start(@"файлы\"), o => true);
-            ClearLogCommand = new RelayCommand<object>(o => Log = "", o => Log != "");
             OpenAboutCommand = new OpenAboutWindowCommand();
             OpenLocalFilesCommand = new RelayCommand<object>(o => Process.Start(Path.GetDirectoryName(Assembly.GetEntryAssembly().Location)), o => true);
 

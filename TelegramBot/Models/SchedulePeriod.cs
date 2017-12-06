@@ -1,6 +1,4 @@
-﻿using System.ComponentModel;
-
-namespace TelegramBot.Models
+﻿namespace TelegramBot.Models
 {
     internal class SchedulePeriod : ObservableModelBase
     {
