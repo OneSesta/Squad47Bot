@@ -22,9 +22,8 @@
     /// <summary>
     /// This class is responsible for the main window.
     /// </summary>
-    internal class MainWindowViewModel : INotifyPropertyChanged
+    internal class MainWindowViewModel : ObservableModelBase
     {
-        public event PropertyChangedEventHandler PropertyChanged = delegate { };
         private ITelegramBotClient Bot;
         private UpdateDispatcher dispatcher = new UpdateDispatcher();
 
@@ -102,7 +101,7 @@
             private set
             {
                 _log = value;
-                PropertyChanged(this, new PropertyChangedEventArgs("Log"));
+                OnPropertyChanged();
             }
         }
         public void ClearLog()
@@ -126,7 +125,7 @@
             private set
             {
                 _info = value;
-                PropertyChanged(this, new PropertyChangedEventArgs("Info"));
+                OnPropertyChanged();
             }
         }
 
