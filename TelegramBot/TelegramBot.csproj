@@ -137,6 +137,7 @@
     <Compile Include="UICommands\OpenAboutWindowCommand.cs" />
     <Compile Include="Models\UpdateDispatcher.cs" />
     <Compile Include="UICommands\RelayCommand.cs" />
+    <Compile Include="ViewModels\LogViewModel.cs" />
     <Compile Include="Views\AboutWindow.xaml.cs">
       <DependentUpon>AboutWindow.xaml</DependentUpon>
     </Compile>

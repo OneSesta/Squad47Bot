@@ -8,16 +8,16 @@
         xmlns:vms="clr-namespace:TelegramBot.ViewModels"
         mc:Ignorable="d"
         Title="Squad 47 Bot"
-        Height="300" 
-        Width="400"
-        MinHeight="300"
-        MinWidth="400" 
+        Height="400" 
+        Width="700"
+        MinHeight="400"
+        MinWidth="700" 
         AllowsTransparency="True"
         ResizeMode="CanResizeWithGrip"
         Style="{StaticResource DefaultWindowStyle}">
 
     <Window.Resources>
-
+        <vms:LogViewModel x:Key="LogViewModel"/>
     </Window.Resources>
 
     <Grid Background="#FF323232" >
@@ -42,7 +42,7 @@
                     <MenuItem Header="Exit" Command="{Binding ExitApplicationCommand}"/>
                 </MenuItem>
                 <MenuItem Header="Options">
-                    <MenuItem Header="Clear Logs" Command="{Binding ClearLogCommand}"/>
+                    <MenuItem DataContext="{StaticResource LogViewModel}" Header="Clear Logs" Command="{Binding ClearLogCommand}"/>
                 </MenuItem>
 
                 <MenuItem Header="Help">
@@ -118,7 +118,7 @@
                         <Grid.RowDefinitions>
                             <RowDefinition/>
                         </Grid.RowDefinitions>
-                        <TextBox x:Name="LogTextBox" Text="{Binding Log, Mode=OneWay}"
+                        <TextBox DataContext="{StaticResource LogViewModel}" x:Name="LogTextBox" Text="{Binding Log, Mode=OneWay}"
                      RenderOptions.EdgeMode="Aliased" Margin="0" Width="Auto" Height="Auto"/>
                     </Grid>
                 </TabItem>
