@@ -123,8 +123,15 @@
                     </Grid>
                 </TabItem>
                 <TabItem Header="Schedule">
-                    <TextBox 
-                     RenderOptions.EdgeMode="Aliased" Margin="0" Width="Auto" Height="Auto"/>
+                    <ListView HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
+                        <ListView.ItemTemplate>
+                            <DataTemplate>
+                                <Grid>
+                                    
+                                </Grid>
+                            </DataTemplate>
+                        </ListView.ItemTemplate>
+                    </ListView>
                 </TabItem>
                 <TabItem Header="Info" BorderThickness="0">
                     <Grid>
