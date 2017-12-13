@@ -6,6 +6,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:TelegramBot"
         xmlns:vms="clr-namespace:TelegramBot.ViewModels"
+        xmlns:regions="http://prismlibrary.com/"
         mc:Ignorable="d"
         Title="Squad 47 Bot"
         Height="400" 

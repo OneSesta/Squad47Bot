@@ -1,5 +1,7 @@
 ﻿namespace TelegramBot
 {
+    using Prism.Ioc;
+    using Prism.Unity;
     using System;
     using System.Collections.Generic;
     using System.Configuration;
@@ -7,11 +9,17 @@
     using System.Linq;
     using System.Threading.Tasks;
     using System.Windows;
-    /// <summary>
-    /// Interaction logic for App.xaml
-    /// </summary>
-    public partial class App : Application
-    {
+    using TelegramBot.Views;
 
+    public partial class App : PrismApplication
+    {
+        protected override Window CreateShell()
+        {
+            return new MainWindow();
+        }
+        protected override void RegisterTypes(IContainerRegistry containerRegistry)
+        {
+            return;
+        }
     }
 }
