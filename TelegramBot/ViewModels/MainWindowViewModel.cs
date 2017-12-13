@@ -17,6 +17,7 @@
     using TelegramBot.Models;
     using TelegramBot.UICommands;
     using TelegramBot.Views;
+    using TelegramBot.Interfaces;
 
 
     /// <summary>

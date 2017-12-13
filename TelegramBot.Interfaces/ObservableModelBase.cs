@@ -1,9 +1,9 @@
-﻿namespace TelegramBot.Models
+﻿namespace TelegramBot.Interfaces
 {
     using System.ComponentModel;
     using System.Runtime.CompilerServices;
 
-    internal abstract class ObservableModelBase : INotifyPropertyChanged
+    public abstract class ObservableModelBase : INotifyPropertyChanged
     {
         public event PropertyChangedEventHandler PropertyChanged = delegate { };
 

@@ -29,12 +29,6 @@
                 if (Mouse.LeftButton == MouseButtonState.Pressed)
                     this.DragMove();
             };
-
-            // Scroll to end on new log entry
-            LogTextBox.TextChanged += (o, e) =>
-            {
-                (o as TextBox)?.ScrollToEnd();
-            };
         }
 
         private void Button_Click(object sender, RoutedEventArgs e)

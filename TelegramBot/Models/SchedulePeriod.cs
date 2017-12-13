@@ -1,4 +1,6 @@
-﻿namespace TelegramBot.Models
+﻿using TelegramBot.Interfaces;
+
+namespace TelegramBot.Models
 {
     internal class SchedulePeriod : ObservableModelBase
     {

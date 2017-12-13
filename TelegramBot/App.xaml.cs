@@ -1,6 +1,8 @@
 ﻿namespace TelegramBot
 {
+    using CommonServiceLocator;
     using Prism.Ioc;
+    using Prism.Modularity;
     using Prism.Unity;
     using System;
     using System.Collections.Generic;
@@ -10,16 +12,28 @@
     using System.Threading.Tasks;
     using System.Windows;
     using TelegramBot.Views;
+    using Unity;
+    using Unity.ServiceLocation;
 
     public partial class App : PrismApplication
     {
+
         protected override Window CreateShell()
         {
-            return new MainWindow();
+            return Container.Resolve<MainWindow>();
         }
+        
         protected override void RegisterTypes(IContainerRegistry containerRegistry)
         {
             return;
         }
+        
+        protected override IModuleCatalog CreateModuleCatalog()
+        {
+            var catalog = new DirectoryModuleCatalog() { ModulePath = @"./Modules" };
+            catalog.Initialize();
+            return catalog;
+        }
+        
     }
 }
