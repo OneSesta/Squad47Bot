@@ -26,7 +26,7 @@
     {
         private ITelegramBotClient Bot;
         private UpdateDispatcher dispatcher = new UpdateDispatcher();
-
+        
         public bool IsActive
         {
             get
