@@ -10,21 +10,21 @@
 
     internal class UpdateDispatcher
     {
-        private List<IBotCommandHandler> handlers;
+        private List<IBotUpdateHandler> handlers;
 
         public UpdateDispatcher()
         {
-            handlers = new List<IBotCommandHandler>();
+            handlers = new List<IBotUpdateHandler>();
         }
 
-        public void AddHandler(IBotCommandHandler handler)
+        public void AddHandler(IBotUpdateHandler handler)
         {
             handlers.Add(handler);
         }
 
         public void HandleUpdate(object sender, UpdateEventArgs update)
         {
-            foreach (IBotCommandHandler handler in handlers)
+            foreach (IBotUpdateHandler handler in handlers)
             {
                 if (handler.CanHandleUpdate(update.Update))
                 {
