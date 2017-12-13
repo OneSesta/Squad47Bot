@@ -12,7 +12,7 @@
     using Telegram.Bot.Types.ReplyMarkups;
     using TelegramBot.ViewModels;
 
-    internal class RockPaperScissorsGame : IBotCommandHandler
+    internal class RockPaperScissorsGame : IBotUpdateHandler
     {
         private ITelegramBotClient _client;
 

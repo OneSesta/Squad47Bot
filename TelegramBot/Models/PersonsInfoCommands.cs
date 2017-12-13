@@ -14,7 +14,7 @@
     using System.ComponentModel;
     using System.Collections.ObjectModel;
 
-    internal class PersonsInfoCommands : ObservableModelBase, IBotCommandHandler
+    internal class PersonsInfoCommands : ObservableModelBase, IBotUpdateHandler
     {
 
         private ITelegramBotClient _client;
