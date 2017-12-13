@@ -9,6 +9,8 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Modules", "Modules", "{56E3
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TelegramBot.Interfaces", "TelegramBot.Interfaces\TelegramBot.Interfaces.csproj", "{B757CB42-51CD-4B47-95FD-1706B6C92725}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LoggerModule", "LoggerModule\LoggerModule.csproj", "{CBEE75DA-26F7-44E2-83CB-B4E5B1592523}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -23,9 +25,16 @@ Global
 		{B757CB42-51CD-4B47-95FD-1706B6C92725}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{B757CB42-51CD-4B47-95FD-1706B6C92725}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{B757CB42-51CD-4B47-95FD-1706B6C92725}.Release|Any CPU.Build.0 = Release|Any CPU
+		{CBEE75DA-26F7-44E2-83CB-B4E5B1592523}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{CBEE75DA-26F7-44E2-83CB-B4E5B1592523}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{CBEE75DA-26F7-44E2-83CB-B4E5B1592523}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{CBEE75DA-26F7-44E2-83CB-B4E5B1592523}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{CBEE75DA-26F7-44E2-83CB-B4E5B1592523} = {56E3A395-E705-4935-BCE2-1A970A990419}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {5E246D7D-2AAA-49AE-8D52-59939D350D4B}

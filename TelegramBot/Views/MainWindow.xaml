@@ -1,4 +1,5 @@
 ﻿<Window x:Class="TelegramBot.Views.MainWindow"
+        WindowStartupLocation="CenterScreen"
         x:Name="MainWindowView"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
@@ -18,7 +19,7 @@
         Style="{StaticResource DefaultWindowStyle}">
 
     <Window.Resources>
-        <vms:LogViewModel x:Key="LogViewModel"/>
+        
     </Window.Resources>
 
     <Grid Background="#FF323232" >
@@ -43,7 +44,7 @@
                     <MenuItem Header="Exit" Command="{Binding ExitApplicationCommand}"/>
                 </MenuItem>
                 <MenuItem Header="Options">
-                    <MenuItem DataContext="{StaticResource LogViewModel}" Header="Clear Logs" Command="{Binding ClearLogCommand}"/>
+                    <!--<MenuItem DataContext="{StaticResource LogViewModel}" Header="Clear Logs" Command="{Binding ClearLogCommand}"/>-->
                 </MenuItem>
 
                 <MenuItem Header="Help">
@@ -75,53 +76,19 @@
                 <MenuItem Header="X" Command="{Binding ExitApplicationCommand}" Width="24"/>
             </Menu>
         </DockPanel>
-        <!--<DockPanel Height="20"
-                   x:Name="MenuDockPanel"
-                   Background="#FF515151"
-                   Grid.ColumnSpan="2"
-                   >
-            <Menu x:Name="MainWindowMenu">
-                <MenuItem Header="File">
-                    <MenuItem Header="Open Files" Command="{Binding OpenFilesFolderCommand}"/>
-                    <MenuItem Header="Open local files" Command="{Binding OpenLocalFilesCommand}"/>
-                    <MenuItem Header="Exit" Command="{Binding ExitApplicationCommand}"/>
-                </MenuItem>
-
-                <MenuItem Header="Options">
-                    <MenuItem Header="Clear Logs" Command="{Binding ClearLogCommand}"/>
-                </MenuItem>
-
-                <MenuItem Header="Help">
-                    <MenuItem Header="Sorry, bro, we can't help you"/>
-                    <MenuItem Header="About" Command="{Binding OpenAboutCommand}"/>
-                </MenuItem>
-
-            </Menu>
-
-            <Menu HorizontalAlignment="Right">
-                <MenuItem Header="_" Click="Button_Click"/>
-                <MenuItem Header="X" Command="{Binding ExitApplicationCommand}"/>
-            </Menu>
-        </DockPanel>-->
-
-
-
-        <!--<WrapPanel Grid.Row="1">
-            <Button Content="Start Bot" Command="{Binding ActivateCommand}"/>
-            <Button Content="Stop Bot" Command="{Binding DeactivateCommand}"/>
-        </WrapPanel>-->
 
         <Grid Grid.Column="1" Grid.Row="1">
             <TabControl 
                         BorderThickness="0" Margin="0,5,0,1">
                 <TabItem Header="Logs" BorderThickness="0">
-                    <Grid>
+                    <ContentControl regions:RegionManager.RegionName="Log"></ContentControl>
+                    <!--<Grid>
                         <Grid.RowDefinitions>
                             <RowDefinition/>
                         </Grid.RowDefinitions>
                         <TextBox DataContext="{StaticResource LogViewModel}" x:Name="LogTextBox" Text="{Binding Log, Mode=OneWay}"
                      RenderOptions.EdgeMode="Aliased" Margin="0" Width="Auto" Height="Auto"/>
-                    </Grid>
+                    </Grid>-->
                 </TabItem>
                 <TabItem Header="Schedule">
                     <ListView HorizontalAlignment="Stretch" VerticalAlignment="Stretch">

@@ -1,10 +1,14 @@
-﻿namespace TelegramBot.ViewModels
-{
-    using System.Windows.Input;
-    using TelegramBot.Models;
-    using TelegramBot.UICommands;
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using System.Windows.Input;
+using TelegramBot.Interfaces;
 
-    class LogViewModel : ObservableModelBase
+namespace LoggerModule.ViewModels
+{
+    public class LoggerViewModel : ObservableModelBase
     {
         private string _log = "";
         public string Log
@@ -34,10 +38,10 @@
             private set;
         }
 
-        public LogViewModel()
+        public LoggerViewModel()
         {
-            Logger.NewLogEntry += AddLog;
-            ClearLogCommand = new RelayCommand<object>(o => Log = "", o => Log != "");
+            //Logger.NewLogEntry += AddLog;
+            //ClearLogCommand = new RelayCommand<object>(o => Log = "", o => Log != "");
         }
     }
 }
