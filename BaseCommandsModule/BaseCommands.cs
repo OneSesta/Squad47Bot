@@ -8,7 +8,7 @@
     using Telegram.Bot;
     using Telegram.Bot.Types;
     using Telegram.Bot.Types.Enums;
-    using TelegramBot.ViewModels;
+    using TelegramBot.Interfaces;
 
     internal class BaseCommands : IBotUpdateHandler
     {
@@ -41,7 +41,7 @@
                 "/numbers - Мобильные номера группы\r\n" +
                 "/help - Список всех команд";
             var message = await _client.SendTextMessageAsync(update.Message.Chat.Id, answer, ParseMode.Default, false, false, update.Message.MessageId);
-            Logger.Log(update, message);
+            //Logger.Log(update, message);
         }
     }
 }

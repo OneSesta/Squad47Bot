@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace TelegramBot.Interfaces
 {
-    interface IBotApiKeyService
+    public interface IBotApiKeyService
     {
         string GetApiKey();
     }

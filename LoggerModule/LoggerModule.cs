@@ -28,7 +28,7 @@ namespace LoggerModule
         public void Initialize()
         {
             _container.RegisterInstance<IBotUpdateLogger>(new BotUpdateLoggerService());
-            _regionManager.RegisterViewWithRegion("Log", typeof(LoggerView));
+            _regionManager.RegisterViewWithRegion("ModulesSettingsRegion", typeof(LoggerView));
         }
     }
 }

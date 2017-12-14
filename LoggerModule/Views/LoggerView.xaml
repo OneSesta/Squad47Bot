@@ -10,7 +10,7 @@
         <Grid.RowDefinitions>
             <RowDefinition/>
         </Grid.RowDefinitions>
-        <TextBox x:Name="LogTextBox" Text="{Binding Log, Mode=OneWay}" Height="20" Width="50" Background="Black"
+        <TextBox x:Name="LogTextBox" Text="{Binding Log, Mode=OneWay}"
                 Margin="0" />
     </Grid>
 </UserControl>
