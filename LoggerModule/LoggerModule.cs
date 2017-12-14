@@ -1,5 +1,4 @@
-﻿using LoggerModule.Views;
-using Prism.Events;
+﻿using Prism.Events;
 using Prism.Logging;
 using Prism.Modularity;
 using Prism.Regions;
@@ -8,6 +7,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using TelegramBot.Common;
 using Unity;
 
 namespace LoggerModule
@@ -27,8 +27,7 @@ namespace LoggerModule
 
         public void Initialize()
         {
-            _container.RegisterInstance<IBotUpdateLogger>(new BotUpdateLoggerService());
-            _regionManager.RegisterViewWithRegion("ModulesSettingsRegion", typeof(LoggerView));
+            _container.RegisterInstance<IBotLogger>(new BotLoggerService());
         }
     }
 }

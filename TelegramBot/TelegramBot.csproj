@@ -179,7 +179,6 @@
     <Compile Include="Models\RockPaperScissorsGame.cs" />
     <Compile Include="UICommands\OpenAboutWindowCommand.cs" />
     <Compile Include="Models\UpdateDispatcher.cs" />
-    <Compile Include="UICommands\RelayCommand.cs" />
     <Compile Include="Views\AboutWindow.xaml.cs">
       <DependentUpon>AboutWindow.xaml</DependentUpon>
     </Compile>
@@ -242,9 +241,9 @@
       <Project>{c8b55f00-91c1-44e6-a8a9-4b2d116d75a8}</Project>
       <Name>ApiKeyModule</Name>
     </ProjectReference>
-    <ProjectReference Include="..\TelegramBot.Interfaces\TelegramBot.Interfaces.csproj">
+    <ProjectReference Include="..\TelegramBot.Interfaces\TelegramBot.Common.csproj">
       <Project>{b757cb42-51cd-4b47-95fd-1706b6c92725}</Project>
-      <Name>TelegramBot.Interfaces</Name>
+      <Name>TelegramBot.Common</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

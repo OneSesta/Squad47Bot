@@ -1,4 +1,4 @@
-﻿namespace TelegramBot.Interfaces
+﻿namespace TelegramBot.Common
 {
     using System.ComponentModel;
     using System.Runtime.CompilerServices;

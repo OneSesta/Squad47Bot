@@ -1,4 +1,4 @@
-﻿namespace TelegramBot.Commands
+﻿namespace TelegramBot.UICommands
 {
     using System;
     using System.Diagnostics;

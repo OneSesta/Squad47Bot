@@ -1,4 +1,4 @@
-﻿using TelegramBot.Interfaces;
+﻿using TelegramBot.Common;
 
 namespace TelegramBot.Models
 {

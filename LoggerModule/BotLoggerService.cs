@@ -5,14 +5,20 @@ using System.Text;
 using System.Threading.Tasks;
 using Telegram.Bot.Types;
 using Telegram.Bot.Types.Enums;
+using TelegramBot.Common;
 
 namespace LoggerModule
 {
-    class BotUpdateLoggerService : IBotUpdateLogger
+    public class BotLoggerService : IBotLogger
     {
         public event Action<string> NewLogEntry = delegate { };
 
-        public void Log(Update incomingUpdate = null, Message answerMessage = null, string answerQuery = null)
+        public void LogAction(string action)
+        {
+            NewLogEntry($"\r\n{DateTime.Now.ToLocalTime().ToString()}:\r\n{action}");
+        }
+
+        public void LogUpdate(Update incomingUpdate = null, Message answerMessage = null, string answerQuery = null)
         {
             if (incomingUpdate == null || answerMessage == null)
                 return;

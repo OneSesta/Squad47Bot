@@ -13,7 +13,7 @@
     using Newtonsoft.Json;
     using System.ComponentModel;
     using System.Collections.ObjectModel;
-    using TelegramBot.Interfaces;
+    using TelegramBot.Common;
 
     internal class PersonsInfoCommands : ObservableModelBase, IBotUpdateHandler
     {

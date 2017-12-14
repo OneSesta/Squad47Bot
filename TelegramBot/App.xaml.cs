@@ -12,7 +12,7 @@
     using System.Linq;
     using System.Threading.Tasks;
     using System.Windows;
-    using TelegramBot.Interfaces;
+    using TelegramBot.Common;
     using TelegramBot.Views;
     using Unity;
     using Unity.ServiceLocation;
@@ -22,6 +22,7 @@
 
         protected override Window CreateShell()
         {
+            InitializeModules();
             return Container.Resolve<MainWindow>();
         }
         
@@ -37,6 +38,5 @@
             catalog.Initialize();
             return catalog;
         }
-        
     }
 }

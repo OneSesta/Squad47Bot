@@ -1,4 +1,4 @@
-﻿using LoggerModule.ViewModels;
+﻿using LoggerViewerModule.ViewModels;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -14,7 +14,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 
-namespace LoggerModule.Views
+namespace LoggerViewerModule.Views
 {
     /// <summary>
     /// Логика взаимодействия для LoggerView.xaml

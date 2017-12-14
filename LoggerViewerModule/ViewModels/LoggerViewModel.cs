@@ -4,9 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Input;
-using TelegramBot.Interfaces;
+using TelegramBot.Common;
 
-namespace LoggerModule.ViewModels
+namespace LoggerViewerModule.ViewModels
 {
     public class LoggerViewModel : ObservableModelBase
     {
@@ -32,16 +32,19 @@ namespace LoggerModule.ViewModels
             Log += logEntry;
         }
 
+        private IBotLogger _logger;
+
         public ICommand ClearLogCommand
         {
             get;
             private set;
         }
 
-        public LoggerViewModel()
+        public LoggerViewModel(IBotLogger logger)
         {
-            //Logger.NewLogEntry += AddLog;
-            //ClearLogCommand = new RelayCommand<object>(o => Log = "", o => Log != "");
+            _logger = logger;
+            _logger.NewLogEntry += AddLog;
+            ClearLogCommand = new RelayCommand<object>(o => Log = "", o => Log != "");
         }
     }
 }

@@ -13,11 +13,10 @@
     using Telegram.Bot.Args;
     using Telegram.Bot.Types;
     using Telegram.Bot.Types.Enums;
-    using TelegramBot.Commands;
-    using TelegramBot.Models;
     using TelegramBot.UICommands;
+    using TelegramBot.Models;
     using TelegramBot.Views;
-    using TelegramBot.Interfaces;
+    using TelegramBot.Common;
 
 
     /// <summary>
@@ -27,6 +26,8 @@
     {
         private ITelegramBotClient Bot;
         private UpdateDispatcher dispatcher = new UpdateDispatcher();
+
+        private IBotLogger _logger;
         
         public bool IsActive
         {
@@ -128,10 +129,12 @@
         }
         #endregion
 
-        public MainWindowViewModel(IBotApiKeyService keyService)
+        public MainWindowViewModel(IBotApiKeyService keyService, IBotLogger logger)
         {
             Bot = new TelegramBotClient(keyService.GetApiKey());
+            _logger = logger;
 
+            _logger.LogAction("Initializing...");
             // initializing ViewModel UI commands
             ActivateCommand = new RelayCommand<object>(o => this.Activate(), o => !IsActive);
             DeactivateCommand = new RelayCommand<object>(o => this.Deactivate(), o => IsActive);
@@ -193,6 +196,7 @@
         {
             Bot.OnUpdate += dispatcher.HandleUpdate;
             Bot.StartReceiving(new UpdateType[] { UpdateType.CallbackQueryUpdate, UpdateType.MessageUpdate });
+            _logger.LogAction("Bot activated");
         }
         /// <summary>
         /// Deactivates the bot (unhooks MessageUpdate handler and stops receiving)
@@ -201,6 +205,7 @@
         {
             Bot.StopReceiving();
             Bot.OnUpdate -= dispatcher.HandleUpdate;
+            _logger.LogAction("Bot deactivated");
         }
 
     }
