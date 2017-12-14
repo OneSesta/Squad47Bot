@@ -23,7 +23,7 @@
     /// <summary>
     /// This class is responsible for the main window.
     /// </summary>
-    internal class MainWindowViewModel : ObservableModelBase
+    public class MainWindowViewModel : ObservableModelBase
     {
         private ITelegramBotClient Bot;
         private UpdateDispatcher dispatcher = new UpdateDispatcher();
@@ -128,13 +128,9 @@
         }
         #endregion
 
-        public MainWindowViewModel()
+        public MainWindowViewModel(IBotApiKeyService keyService)
         {
-#if DEBUG
-            Bot = new TelegramBotClient("447136859:AAGMz8BN0p21JLO7i9Ob4ridbKTUDpCAD1E");
-#else
-            Bot = new TelegramBotClient("473027046:AAEWIMqj41Oc33sFIc_yrDcM07XbRDw-Omg");
-#endif
+            Bot = new TelegramBotClient(keyService.GetApiKey());
 
             // initializing ViewModel UI commands
             ActivateCommand = new RelayCommand<object>(o => this.Activate(), o => !IsActive);
@@ -163,7 +159,7 @@
             dispatcher.AddHandler(new RockPaperScissorsGame(Bot));
             dispatcher.AddHandler(new RandomBasedCommands(Bot));
             dispatcher.AddHandler(new FilesAccessor(Bot));
-            dispatcher.AddHandler(new BaseCommands(Bot));
+            //dispatcher.AddHandler(new BaseCommands(Bot));
 
             var numberCommandsHandler = new PersonsInfoCommands(Bot);
 

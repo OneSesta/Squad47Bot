@@ -10,9 +10,9 @@
     /// </summary>
     public partial class MainWindow : Window
     {
-        public MainWindow()
+        public MainWindow(MainWindowViewModel wm)
         {
-            DataContext = new MainWindowViewModel();
+            DataContext = wm;
             InitializeComponent();
             Title = Utils.BotTitle;
 

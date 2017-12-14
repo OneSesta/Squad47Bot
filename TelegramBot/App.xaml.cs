@@ -1,5 +1,6 @@
 ﻿namespace TelegramBot
 {
+    using ApiKeyModule;
     using CommonServiceLocator;
     using Prism.Ioc;
     using Prism.Modularity;
@@ -11,6 +12,7 @@
     using System.Linq;
     using System.Threading.Tasks;
     using System.Windows;
+    using TelegramBot.Interfaces;
     using TelegramBot.Views;
     using Unity;
     using Unity.ServiceLocation;
@@ -25,6 +27,7 @@
         
         protected override void RegisterTypes(IContainerRegistry containerRegistry)
         {
+            containerRegistry.Register<IBotApiKeyService, ApiKeyService>();
             return;
         }
         

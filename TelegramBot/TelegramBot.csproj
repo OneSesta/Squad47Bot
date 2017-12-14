@@ -168,7 +168,6 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
-    <Compile Include="Models\BaseCommands.cs" />
     <Compile Include="Models\IBotCommandHandler.cs" />
     <Compile Include="Models\Logger.cs" />
     <Compile Include="Models\PersonsInfoCommands.cs" />
@@ -176,7 +175,6 @@
     <Compile Include="Models\ScheduleDay.cs" />
     <Compile Include="Models\SchedulePeriod.cs" />
     <Compile Include="Models\ScheduleWeek.cs" />
-    <Compile Include="Models\Utils.cs" />
     <Compile Include="Models\RandomBasedCommands.cs" />
     <Compile Include="Models\RockPaperScissorsGame.cs" />
     <Compile Include="UICommands\OpenAboutWindowCommand.cs" />
@@ -240,6 +238,10 @@
     <Resource Include="Images\Start.png" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\ApiKeyModule\ApiKeyModule.csproj">
+      <Project>{c8b55f00-91c1-44e6-a8a9-4b2d116d75a8}</Project>
+      <Name>ApiKeyModule</Name>
+    </ProjectReference>
     <ProjectReference Include="..\TelegramBot.Interfaces\TelegramBot.Interfaces.csproj">
       <Project>{b757cb42-51cd-4b47-95fd-1706b6c92725}</Project>
       <Name>TelegramBot.Interfaces</Name>
