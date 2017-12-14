@@ -5,7 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Telegram.Bot.Types;
 
-namespace TelegramBot.Interfaces
+namespace TelegramBot.Common
 {
     public interface IBotUpdateHandler
     {

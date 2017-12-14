@@ -10,6 +10,7 @@
     using Telegram.Bot.Types.Enums;
     using Telegram.Bot.Types.InlineKeyboardButtons;
     using Telegram.Bot.Types.ReplyMarkups;
+    using TelegramBot.Common;
     using TelegramBot.ViewModels;
 
     internal class RockPaperScissorsGame : IBotUpdateHandler

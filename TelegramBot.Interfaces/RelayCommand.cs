@@ -1,4 +1,4 @@
-﻿namespace TelegramBot.UICommands
+﻿namespace TelegramBot.Common
 {
     using System;
     using System.Collections.Generic;

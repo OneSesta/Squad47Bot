@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace TelegramBot.Interfaces
+namespace TelegramBot.Common
 {
     public interface IBotApiKeyService
     {
