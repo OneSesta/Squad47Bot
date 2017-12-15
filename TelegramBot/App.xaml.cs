@@ -25,13 +25,9 @@
             InitializeModules();
             return Container.Resolve<MainWindow>();
         }
-        
-        protected override void RegisterTypes(IContainerRegistry containerRegistry)
-        {
-            containerRegistry.Register<IBotApiKeyService, ApiKeyService>();
-            return;
-        }
-        
+
+        protected override void RegisterTypes(IContainerRegistry containerRegistry) { }
+
         protected override IModuleCatalog CreateModuleCatalog()
         {
             var catalog = new DirectoryModuleCatalog() { ModulePath = @"./Modules" };

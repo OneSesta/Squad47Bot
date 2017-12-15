@@ -168,7 +168,6 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
-    <Compile Include="Models\IBotCommandHandler.cs" />
     <Compile Include="Models\Logger.cs" />
     <Compile Include="Models\PersonsInfoCommands.cs" />
     <Compile Include="Models\Person.cs" />
@@ -178,7 +177,6 @@
     <Compile Include="Models\RandomBasedCommands.cs" />
     <Compile Include="Models\RockPaperScissorsGame.cs" />
     <Compile Include="UICommands\OpenAboutWindowCommand.cs" />
-    <Compile Include="Models\UpdateDispatcher.cs" />
     <Compile Include="Views\AboutWindow.xaml.cs">
       <DependentUpon>AboutWindow.xaml</DependentUpon>
     </Compile>

@@ -17,15 +17,26 @@
     using TelegramBot.Models;
     using TelegramBot.Views;
     using TelegramBot.Common;
+    using Unity;
+    using Prism.Modularity;
 
 
     /// <summary>
     /// This class is responsible for the main window.
     /// </summary>
-    public class MainWindowViewModel : ObservableModelBase
+    /*[Module]
+    [ModuleDependency("BotProviderModule")]
+    [ModuleDependency("LoggerModule")]
+    [ModuleDependency("BotUpdateDispatcherModule")]*/
+    public class MainWindowViewModel : ObservableModelBase, IModule
     {
         private ITelegramBotClient Bot;
-        private UpdateDispatcher dispatcher = new UpdateDispatcher();
+        private IUnityContainer _unityContainer;
+        private IBotUpdateDispatcher _dispatcher;
+
+        public void Initialize()
+        {
+        }
 
         private IBotLogger _logger;
         
@@ -129,10 +140,14 @@
         }
         #endregion
 
-        public MainWindowViewModel(IBotApiKeyService keyService, IBotLogger logger)
+
+        public MainWindowViewModel(IUnityContainer unityContainer, IBotProvider botProvider, IBotUpdateDispatcher dispatcher, IBotLogger logger)
         {
-            Bot = new TelegramBotClient(keyService.GetApiKey());
             _logger = logger;
+            _unityContainer = unityContainer;
+            _dispatcher = dispatcher;
+
+            Bot = botProvider.GetBotClient();
 
             _logger.LogAction("Initializing...");
             // initializing ViewModel UI commands
@@ -159,9 +174,9 @@
             ActivateCommand.Execute(null);
 
             // to the end: adding bot command handlers
-            dispatcher.AddHandler(new RockPaperScissorsGame(Bot));
-            dispatcher.AddHandler(new RandomBasedCommands(Bot));
-            dispatcher.AddHandler(new FilesAccessor(Bot));
+            _dispatcher.AddHandler(new RockPaperScissorsGame(Bot));
+            _dispatcher.AddHandler(new RandomBasedCommands(Bot));
+            _dispatcher.AddHandler(new FilesAccessor(Bot));
             //dispatcher.AddHandler(new BaseCommands(Bot));
 
             var numberCommandsHandler = new PersonsInfoCommands(Bot);
@@ -185,7 +200,7 @@
                     }
                 };
             Info = DecodeInfo(numberCommandsHandler.Persons);
-            dispatcher.AddHandler(numberCommandsHandler);
+            _dispatcher.AddHandler(numberCommandsHandler);
         }
 
 
@@ -194,7 +209,7 @@
         /// </summary>
         public void Activate()
         {
-            Bot.OnUpdate += dispatcher.HandleUpdate;
+            Bot.OnUpdate += _dispatcher.HandleUpdate;
             Bot.StartReceiving(new UpdateType[] { UpdateType.CallbackQueryUpdate, UpdateType.MessageUpdate });
             _logger.LogAction("Bot activated");
         }
@@ -204,7 +219,7 @@
         public void Deactivate()
         {
             Bot.StopReceiving();
-            Bot.OnUpdate -= dispatcher.HandleUpdate;
+            Bot.OnUpdate -= _dispatcher.HandleUpdate;
             _logger.LogAction("Bot deactivated");
         }
 

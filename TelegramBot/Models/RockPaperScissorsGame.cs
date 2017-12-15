@@ -13,7 +13,7 @@
     using TelegramBot.Common;
     using TelegramBot.ViewModels;
 
-    internal class RockPaperScissorsGame : IBotUpdateHandler
+    public class RockPaperScissorsGame : IBotUpdateHandler
     {
         private ITelegramBotClient _client;
 
