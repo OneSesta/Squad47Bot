@@ -9,6 +9,7 @@ using Unity;
 
 namespace ApiKeyModule
 {
+    [Module(ModuleName = "ApiKeyProviderModule")]
     public class ApiKeyModule : IModule
     {
         IUnityContainer _container;
@@ -20,7 +21,7 @@ namespace ApiKeyModule
 
         public void Initialize()
         {
-            _container.RegisterInstance(typeof(IBotApiKeyService), new ApiKeyService());
+            _container.RegisterInstance(typeof(IBotApiKeyProvider), new ApiKeyService());
         }
     }
 }

@@ -12,6 +12,7 @@ using Unity;
 
 namespace LoggerModule
 {
+    [Module(ModuleName = "LoggerModule")]
     public class LoggerModule : IModule
     {
         IUnityContainer _container;

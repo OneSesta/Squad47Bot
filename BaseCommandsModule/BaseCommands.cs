@@ -1,4 +1,4 @@
-﻿namespace TelegramBot.Models
+﻿namespace BaseCommandsModule
 {
     using System;
     using System.Collections.Generic;
@@ -10,9 +10,13 @@
     using Telegram.Bot.Types.Enums;
     using TelegramBot.Common;
 
-    internal class BaseCommands : IBotUpdateHandler
+    public class BaseCommands : IBotUpdateHandler
     {
         private ITelegramBotClient _client;
+
+        public BaseCommands()
+        {
+        }
 
         public BaseCommands(ITelegramBotClient client)
         {

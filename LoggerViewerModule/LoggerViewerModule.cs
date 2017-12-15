@@ -9,6 +9,8 @@ using System.Threading.Tasks;
 
 namespace LoggerViewerModule
 {
+    [Module]
+    [ModuleDependency("LoggerModule")]
     public class LoggerViewerModule : IModule
     {
         private IRegionManager _regionManager;

@@ -8,7 +8,7 @@ using TelegramBot.Common;
 
 namespace ApiKeyModule
 {
-    public class ApiKeyService : IBotApiKeyService
+    public class ApiKeyService : IBotApiKeyProvider
     {
         public string GetApiKey()
         {
