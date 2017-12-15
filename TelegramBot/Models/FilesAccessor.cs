@@ -25,7 +25,7 @@
             _client = client;
         }
 
-        public async void HandleUpdate(Update update)
+        public async void HandleUpdate(Update update, ITelegramBotClient client)
         {
             using (FileStream stream = GetFileByCommand(update.Message.Text.ToLower()))
             {
@@ -65,7 +65,7 @@
             return file;
         }
 
-        public bool CanHandleUpdate(Update update)
+        public bool CanHandleUpdate(Update update, ITelegramBotClient client=null)
         {
             if (update.Type != UpdateType.MessageUpdate || update.Message.Type != MessageType.TextMessage)
                 return false;

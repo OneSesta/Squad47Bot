@@ -30,7 +30,7 @@
     [ModuleDependency("BotUpdateDispatcherModule")]*/
     public class MainWindowViewModel : ObservableModelBase, IModule
     {
-        private ITelegramBotClient Bot;
+        private ITelegramBotClient _botClient;
         private IUnityContainer _unityContainer;
         private IBotUpdateDispatcher _dispatcher;
 
@@ -44,7 +44,7 @@
         {
             get
             {
-                return Bot.IsReceiving;
+                return _botClient.IsReceiving;
             }
         }
 
@@ -141,13 +141,12 @@
         #endregion
 
 
-        public MainWindowViewModel(IUnityContainer unityContainer, IBotProvider botProvider, IBotUpdateDispatcher dispatcher, IBotLogger logger)
+        public MainWindowViewModel(IUnityContainer unityContainer, ITelegramBotClient botClient, IBotUpdateDispatcher dispatcher, IBotLogger logger)
         {
             _logger = logger;
             _unityContainer = unityContainer;
             _dispatcher = dispatcher;
-
-            Bot = botProvider.GetBotClient();
+            _botClient = botClient;
 
             _logger.LogAction("Initializing...");
             // initializing ViewModel UI commands
@@ -174,12 +173,12 @@
             ActivateCommand.Execute(null);
 
             // to the end: adding bot command handlers
-            _dispatcher.AddHandler(new RockPaperScissorsGame(Bot));
-            _dispatcher.AddHandler(new RandomBasedCommands(Bot));
-            _dispatcher.AddHandler(new FilesAccessor(Bot));
+            _dispatcher.AddHandler(new RockPaperScissorsGame(_botClient));
+            _dispatcher.AddHandler(new RandomBasedCommands(_botClient));
+            _dispatcher.AddHandler(new FilesAccessor(_botClient));
             //dispatcher.AddHandler(new BaseCommands(Bot));
 
-            var numberCommandsHandler = new PersonsInfoCommands(Bot);
+            var numberCommandsHandler = new PersonsInfoCommands(_botClient);
 
             // bind Save command to handler
             SaveInfoCommand = new RelayCommand<object>(o =>
@@ -209,8 +208,8 @@
         /// </summary>
         public void Activate()
         {
-            Bot.OnUpdate += _dispatcher.HandleUpdate;
-            Bot.StartReceiving(new UpdateType[] { UpdateType.CallbackQueryUpdate, UpdateType.MessageUpdate });
+            _botClient.OnUpdate += _dispatcher.HandleUpdate;
+            _botClient.StartReceiving(new UpdateType[] { UpdateType.CallbackQueryUpdate, UpdateType.MessageUpdate });
             _logger.LogAction("Bot activated");
         }
         /// <summary>
@@ -218,8 +217,8 @@
         /// </summary>
         public void Deactivate()
         {
-            Bot.StopReceiving();
-            Bot.OnUpdate -= _dispatcher.HandleUpdate;
+            _botClient.StopReceiving();
+            _botClient.OnUpdate -= _dispatcher.HandleUpdate;
             _logger.LogAction("Bot deactivated");
         }
 

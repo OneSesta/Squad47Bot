@@ -15,18 +15,18 @@ namespace BotUpdateDispatcherModule
     [ModuleDependency("BotProviderModule")]
     public class BotUpdateDispatcherModule : IModule
     {
-        private IBotProvider _botProvider;
+        private ITelegramBotClient _client;
         private IUnityContainer _container;
 
-        public BotUpdateDispatcherModule(IBotProvider botProvider, IUnityContainer container)
+        public BotUpdateDispatcherModule(ITelegramBotClient client, IUnityContainer container)
         {
-            _botProvider = botProvider;
+            _client = client;
             _container = container;
         }
 
         public void Initialize()
         {
-            _container.RegisterInstance<IBotUpdateDispatcher>(new BotUpdateDispatcher(_botProvider));
+            _container.RegisterInstance<IBotUpdateDispatcher>(new BotUpdateDispatcher(_client));
         }
     }
 }
