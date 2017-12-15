@@ -12,11 +12,11 @@ namespace BotUpdateDispatcherModule
     public class BotUpdateDispatcher : IBotUpdateDispatcher
     {
         private List<IBotUpdateHandler> handlers;
-        private IBotProvider _botProvider;
+        private ITelegramBotClient _client;
 
-        public BotUpdateDispatcher(IBotProvider botProvider)
+        public BotUpdateDispatcher(ITelegramBotClient client)
         {
-            _botProvider = botProvider;
+            _client = client;
             handlers = new List<IBotUpdateHandler>();
         }
 
@@ -36,7 +36,7 @@ namespace BotUpdateDispatcherModule
             {
                 if (handler.CanHandleUpdate(update.Update))
                 {
-                    handler.HandleUpdate(update.Update);
+                    handler.HandleUpdate(update.Update, _client);
                 }
             }
         }

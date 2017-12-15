@@ -12,18 +12,17 @@
 
     public class BaseCommands : IBotUpdateHandler
     {
-        private ITelegramBotClient _client;
+        private IBotUpdateDispatcher _updateDispatcher;
+        private IBotLogger _logger;
 
-        public BaseCommands()
+        public BaseCommands(IBotUpdateDispatcher updateDispatcher, IBotLogger logger)
         {
+            _updateDispatcher = updateDispatcher;
+            _updateDispatcher.AddHandler(this);
+            _logger = logger;
         }
 
-        public BaseCommands(ITelegramBotClient client)
-        {
-            _client = client;
-        }
-
-        public bool CanHandleUpdate(Update update)
+        public bool CanHandleUpdate(Update update, ITelegramBotClient botClient = null)
         {
             if (update.Type != UpdateType.MessageUpdate || update.Message.Type != MessageType.TextMessage)
                 return false;
@@ -34,7 +33,7 @@
                 || request == "/help";
         }
 
-        public async void HandleUpdate(Update update)
+        public async void HandleUpdate(Update update, ITelegramBotClient botClient = null)
         {
             string answer = "Список доступных команд:\r\n" +
                 "/flip - Подбросить монетку\r\n" +
@@ -44,8 +43,8 @@
                 "/rockpaperscissors - Камень, ножницы, бумага\r\n" +
                 "/numbers - Мобильные номера группы\r\n" +
                 "/help - Список всех команд";
-            var message = await _client.SendTextMessageAsync(update.Message.Chat.Id, answer, ParseMode.Default, false, false, update.Message.MessageId);
-            //Logger.Log(update, message);
+            var message = await botClient.SendTextMessageAsync(update.Message.Chat.Id, answer, ParseMode.Default, false, false, update.Message.MessageId);
+            _logger?.LogUpdate(update, message);
         }
     }
 }

@@ -35,7 +35,7 @@
             currentGames = new List<Game>(10);
         }
 
-        public async void HandleUpdate(Update update)
+        public async void HandleUpdate(Update update, ITelegramBotClient client)
         {
             string answer;
 
@@ -150,7 +150,7 @@
             }
         }
 
-        public bool CanHandleUpdate(Update update)
+        public bool CanHandleUpdate(Update update, ITelegramBotClient client=null)
         {
             //check if it's callback from buttons on already going game
             if ((update.Type == UpdateType.CallbackQueryUpdate)

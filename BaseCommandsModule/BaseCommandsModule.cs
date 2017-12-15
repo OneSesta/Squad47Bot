@@ -6,21 +6,30 @@ using System.Text;
 using System.Threading.Tasks;
 using TelegramBot.Common;
 using Unity;
+using Unity.Attributes;
 
 namespace BaseCommandsModule
 {
-    class BaseCommandsModule : IModule
+    [Module(ModuleName = "BaseCommandsModule")]
+    [ModuleDependency("BotUpdateDispatcherModule")]
+    [ModuleDependency("LoggerModule")]
+
+    public class BaseCommandsModule : IModule
     {
         IUnityContainer _unityContainer;
+        IBotUpdateDispatcher _updateDispatcher;
+        IBotLogger _logger;
 
-        public BaseCommandsModule(IUnityContainer unityContainer)
+        public BaseCommandsModule(IUnityContainer unityContainer, IBotUpdateDispatcher updateDispatcher, IBotLogger logger)
         {
             _unityContainer = unityContainer;
+            _updateDispatcher = updateDispatcher;
+            _logger = logger;
         }
 
         public void Initialize()
         {
-            _unityContainer.RegisterInstance<IBotUpdateHandler>("BaseCommandsModule", new BaseCommands());
+            _unityContainer.RegisterInstance<IBotUpdateHandler>("BaseCommandsModule", new BaseCommands(_updateDispatcher, _logger));
         }
     }
 }
