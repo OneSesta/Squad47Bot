@@ -78,17 +78,18 @@
         </DockPanel>
 
         <Grid Grid.Column="1" Grid.Row="1">
-            <!--<TabControl 
+            <TabControl regions:RegionManager.RegionName="ModulesSettingsRegion"
                         BorderThickness="0" Margin="0,5,0,1">
-                <TabItem Header="Logs" BorderThickness="0">
+            </TabControl>
+            <!--<TabItem Header="Logs" BorderThickness="0">
                     <ContentControl regions:RegionManager.RegionName="Log" VerticalContentAlignment="Stretch" HorizontalContentAlignment="Stretch"></ContentControl>
-                    --><!--<Grid>
+                    <Grid>
                         <Grid.RowDefinitions>
                             <RowDefinition/>
                         </Grid.RowDefinitions>
                         <TextBox DataContext="{StaticResource LogViewModel}" x:Name="LogTextBox" Text="{Binding Log, Mode=OneWay}"
                      RenderOptions.EdgeMode="Aliased" Margin="0" Width="Auto" Height="Auto"/>
-                    </Grid>--><!--
+                    </Grid>
                 </TabItem>
                 <TabItem Header="Schedule">
                     <ListView HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
@@ -129,10 +130,10 @@
 
                 </TabItem>
 
-            </TabControl>-->
+            </TabControl>
             <ItemsControl regions:RegionManager.RegionName="ModulesSettingsRegion">
                 
-            </ItemsControl>
+            </ItemsControl>-->
         </Grid>
 
 

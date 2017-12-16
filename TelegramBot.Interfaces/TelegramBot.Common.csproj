@@ -7,7 +7,7 @@
     <ProjectGuid>{B757CB42-51CD-4B47-95FD-1706B6C92725}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>TelegramBot.Interfaces</RootNamespace>
+    <RootNamespace>TelegramBot.Common</RootNamespace>
     <AssemblyName>TelegramBot.Common</AssemblyName>
     <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
@@ -84,6 +84,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="IBotLogger.cs" />
+    <Compile Include="IBotModuleViewModel.cs" />
     <Compile Include="IBotProvider.cs" />
     <Compile Include="IBotUpdateDispatcher.cs" />
     <Compile Include="IBotUpdateHandler.cs" />

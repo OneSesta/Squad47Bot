@@ -8,7 +8,7 @@ using TelegramBot.Common;
 
 namespace LoggerViewerModule.ViewModels
 {
-    public class LoggerViewModel : ObservableModelBase
+    public class LoggerViewModel : ObservableModelBase, IBotModuleViewModel
     {
         private string _log = "";
         public string Log
@@ -39,6 +39,8 @@ namespace LoggerViewerModule.ViewModels
             get;
             private set;
         }
+
+        public string Title => "Log";
 
         public LoggerViewModel(IBotLogger logger)
         {
