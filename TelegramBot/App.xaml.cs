@@ -15,6 +15,7 @@
     using TelegramBot.Common;
     using TelegramBot.Views;
     using Unity;
+    using Unity.Extension;
     using Unity.ServiceLocation;
 
     public partial class App : PrismApplication
@@ -26,7 +27,10 @@
             return Container.Resolve<MainWindow>();
         }
 
-        protected override void RegisterTypes(IContainerRegistry containerRegistry) { }
+        protected override void RegisterTypes(IContainerRegistry containerRegistry)
+        {
+            
+        }
 
         protected override IModuleCatalog CreateModuleCatalog()
         {
