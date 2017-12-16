@@ -12,7 +12,6 @@ namespace BaseCommandsModule
 {
     [Module(ModuleName = "BaseCommandsModule")]
     [ModuleDependency("BotUpdateDispatcherModule")]
-    [ModuleDependency("LoggerModule")]
 
     public class BaseCommandsModule : IModule
     {
@@ -20,7 +19,7 @@ namespace BaseCommandsModule
         IBotUpdateDispatcher _updateDispatcher;
         IBotLogger _logger;
 
-        public BaseCommandsModule(IUnityContainer unityContainer, IBotUpdateDispatcher updateDispatcher, IBotLogger logger)
+        public BaseCommandsModule(IUnityContainer unityContainer, IBotUpdateDispatcher updateDispatcher, [OptionalDependency] IBotLogger logger)
         {
             _unityContainer = unityContainer;
             _updateDispatcher = updateDispatcher;

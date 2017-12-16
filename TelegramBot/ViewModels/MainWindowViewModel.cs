@@ -19,26 +19,26 @@
     using TelegramBot.Common;
     using Unity;
     using Prism.Modularity;
+    using Unity.Attributes;
 
 
     /// <summary>
     /// This class is responsible for the main window.
     /// </summary>
-    /*[Module]
+    [Module]
     [ModuleDependency("BotProviderModule")]
-    [ModuleDependency("LoggerModule")]
-    [ModuleDependency("BotUpdateDispatcherModule")]*/
+    [ModuleDependency("BotUpdateDispatcherModule")]
     public class MainWindowViewModel : ObservableModelBase, IModule
     {
         private ITelegramBotClient _botClient;
         private IUnityContainer _unityContainer;
         private IBotUpdateDispatcher _dispatcher;
+        private IBotLogger _logger;
 
         public void Initialize()
         {
         }
 
-        private IBotLogger _logger;
         
         public bool IsActive
         {
@@ -141,14 +141,14 @@
         #endregion
 
 
-        public MainWindowViewModel(IUnityContainer unityContainer, ITelegramBotClient botClient, IBotUpdateDispatcher dispatcher, IBotLogger logger)
+        public MainWindowViewModel(IUnityContainer unityContainer, ITelegramBotClient botClient, IBotUpdateDispatcher dispatcher, [OptionalDependency] IBotLogger logger)
         {
             _logger = logger;
             _unityContainer = unityContainer;
             _dispatcher = dispatcher;
             _botClient = botClient;
 
-            _logger.LogAction("Initializing...");
+            _logger?.LogAction("Initializing...");
             // initializing ViewModel UI commands
             ActivateCommand = new RelayCommand<object>(o => this.Activate(), o => !IsActive);
             DeactivateCommand = new RelayCommand<object>(o => this.Deactivate(), o => IsActive);
