@@ -97,8 +97,6 @@
         <Style TargetType="{x:Type TextBox}">
             <Setter Property="Margin"       Value="5"/>
             <Setter Property="TextWrapping" Value="Wrap"/>
-            <Setter Property="Height"       Value="249"/>
-            <Setter Property="Width"        Value="230"/>
             <Setter Property="Background"   Value="#FF575757"/>
             <Setter Property="BorderBrush"  Value="{x:Null}"/>
             <Setter Property="IsReadOnly"   Value="True"/>
@@ -121,6 +119,7 @@
             <Setter Property="BorderThickness"  Value="0"/>
             <Setter Property="FontFamily"       Value="Candara"/>
             <Setter Property="Padding"          Value="10, 4"/>
+            <Setter Property="Header"           Value="{Binding DataContext.Title}"/>
 
             <Setter Property = "BitmapEffect">
                 <Setter.Value>
