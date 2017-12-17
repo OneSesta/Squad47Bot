@@ -20,7 +20,7 @@ namespace LoggerModule
 
         public void LogUpdate(Update incomingUpdate = null, Message answerMessage = null, string answerQuery = null)
         {
-            if (incomingUpdate == null || answerMessage == null)
+            if ((incomingUpdate == null || answerMessage == null) && answerQuery == null)
                 return;
 
             string entry = $"\r\n\r\n{DateTime.Now.ToLocalTime().ToString("hh:mm:ss.fff")}:\r\n";

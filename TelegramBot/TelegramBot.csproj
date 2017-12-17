@@ -174,7 +174,6 @@
     <Compile Include="Models\ScheduleDay.cs" />
     <Compile Include="Models\SchedulePeriod.cs" />
     <Compile Include="Models\ScheduleWeek.cs" />
-    <Compile Include="Models\RockPaperScissorsGame.cs" />
     <Compile Include="UICommands\OpenAboutWindowCommand.cs" />
     <Compile Include="Views\AboutWindow.xaml.cs">
       <DependentUpon>AboutWindow.xaml</DependentUpon>
