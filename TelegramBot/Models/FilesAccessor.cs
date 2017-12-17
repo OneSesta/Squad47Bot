@@ -31,7 +31,7 @@
             {
                 var message = await _client.SendDocumentAsync(update.Message.Chat.Id, new FileToSend(stream.Name, stream), caption: "Лови", replyToMessageId: update.Message.MessageId);
                 stream.Close();
-                Logger.Log(update, message);
+                //Logger.Log(update, message);
             }
         }
 

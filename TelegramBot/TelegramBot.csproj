@@ -168,7 +168,6 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
-    <Compile Include="Models\Logger.cs" />
     <Compile Include="Models\PersonsInfoCommands.cs" />
     <Compile Include="Models\Person.cs" />
     <Compile Include="Models\ScheduleDay.cs" />
