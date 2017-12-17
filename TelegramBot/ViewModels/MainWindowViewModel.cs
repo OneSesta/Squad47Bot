@@ -174,7 +174,7 @@
 
             // to the end: adding bot command handlers
             _dispatcher.AddHandler(new RockPaperScissorsGame(_botClient));
-            _dispatcher.AddHandler(new RandomBasedCommands(_botClient));
+            //_dispatcher.AddHandler(new RandomBasedCommands(_botClient));
             _dispatcher.AddHandler(new FilesAccessor(_botClient));
             //dispatcher.AddHandler(new BaseCommands(Bot));
 

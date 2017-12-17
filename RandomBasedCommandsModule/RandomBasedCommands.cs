@@ -1,4 +1,4 @@
-﻿namespace TelegramBot.Models
+﻿namespace RandomBasedCommandsModule
 {
     using System;
     using System.Collections.Generic;
@@ -9,15 +9,17 @@
     using Telegram.Bot.Types;
     using Telegram.Bot.Types.Enums;
     using TelegramBot.Common;
-    using TelegramBot.ViewModels;
 
-    internal class RandomBasedCommands : IBotUpdateHandler
+    public class RandomBasedCommands : IBotUpdateHandler
     {
-        private ITelegramBotClient _client;
+        private IBotUpdateDispatcher _updateDispatcher;
+        private IBotLogger _logger;
 
-        public RandomBasedCommands(ITelegramBotClient client)
+        public RandomBasedCommands(IBotUpdateDispatcher updateDispatcher, IBotLogger logger)
         {
-            _client = client;
+            _updateDispatcher = updateDispatcher;
+            _updateDispatcher.AddHandler(this);
+            _logger = logger;
         }
 
         public async void HandleUpdate(Update update, ITelegramBotClient client)
@@ -62,12 +64,12 @@
             Message message;
             if (answer != "")
             {
-                message = await _client.SendTextMessageAsync(update.Message.Chat.Id, answer, ParseMode.Default, false, false, update.Message.MessageId);
-                Logger.Log(update, message);
+                message = await client.SendTextMessageAsync(update.Message.Chat.Id, answer, ParseMode.Default, false, false, update.Message.MessageId);
+                _logger?.LogUpdate(update, message);
             }
         }
 
-        public bool CanHandleUpdate(Update update, ITelegramBotClient client=null)
+        public bool CanHandleUpdate(Update update, ITelegramBotClient client)
         {
             if (update.Type != UpdateType.MessageUpdate || update.Message.Type != MessageType.TextMessage)
                 return false;

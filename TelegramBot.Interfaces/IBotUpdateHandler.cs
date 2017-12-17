@@ -21,6 +21,6 @@ namespace TelegramBot.Common
         /// </summary>
         /// <param name="update"></param>
         /// <returns>True if handler can handle bot update, false otherwise</returns>
-        bool CanHandleUpdate(Update update, ITelegramBotClient botClient=null);
+        bool CanHandleUpdate(Update update, ITelegramBotClient botClient);
     }
 }

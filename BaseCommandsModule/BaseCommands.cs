@@ -33,7 +33,7 @@
                 || request == "/help";
         }
 
-        public async void HandleUpdate(Update update, ITelegramBotClient botClient = null)
+        public async void HandleUpdate(Update update, ITelegramBotClient botClient)
         {
             string answer = "Список доступных команд:\r\n" +
                 "/flip - Подбросить монетку\r\n" +
