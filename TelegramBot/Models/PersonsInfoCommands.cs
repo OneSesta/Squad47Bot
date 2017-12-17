@@ -86,7 +86,7 @@
             }
 
             message = await _client.SendTextMessageAsync(update.Message.Chat.Id, answer, ParseMode.Default, false, false, update.Message.MessageId);
-            Logger.Log(update, message);
+            //Logger.Log(update, message);
         }
 
         public void LoadInfo()
