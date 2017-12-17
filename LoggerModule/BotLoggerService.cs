@@ -55,7 +55,7 @@ namespace LoggerModule
                         {
                             entry += $"Answered with document:\r\n" +
                                 answerMessage.Document.FileName +
-                                "And caption:\r\n" +
+                                "\r\nAnd caption:\r\n" +
                                 answerMessage.Caption;
                             break;
                         }

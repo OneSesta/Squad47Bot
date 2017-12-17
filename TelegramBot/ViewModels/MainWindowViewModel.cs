@@ -61,11 +61,11 @@
             private set;
         }
 
-        public ICommand OpenFilesFolderCommand
+        /*public ICommand OpenFilesFolderCommand
         {
             get;
             private set;
-        }
+        }*/
 
         public ICommand ExitApplicationCommand
         {
@@ -158,7 +158,7 @@
                     Deactivate();
                 App.Current.Shutdown();
             }, (o) => true);
-            OpenFilesFolderCommand = new RelayCommand<object>(o => Process.Start(@"файлы\"), o => true);
+            //OpenFilesFolderCommand = new RelayCommand<object>(o => Process.Start(@"файлы\"), o => true);
             OpenAboutCommand = new OpenAboutWindowCommand();
             OpenLocalFilesCommand = new RelayCommand<object>(o => Process.Start(Path.GetDirectoryName(Assembly.GetEntryAssembly().Location)), o => true);
 
@@ -166,7 +166,7 @@
             if (!Directory.Exists(@"файлы\"))
             {
                 Directory.CreateDirectory(@"файлы\");
-                OpenFilesFolderCommand.Execute(null);
+                Process.Start(@"файлы\");
             }
 
             // auto-activate on startup
@@ -175,7 +175,7 @@
             // to the end: adding bot command handlers
             //_dispatcher.AddHandler(new RockPaperScissorsGame(_botClient));
             //_dispatcher.AddHandler(new RandomBasedCommands(_botClient));
-            _dispatcher.AddHandler(new FilesAccessor(_botClient));
+            //_dispatcher.AddHandler(new FilesAccessor(_botClient));
             //dispatcher.AddHandler(new BaseCommands(Bot));
 
             var numberCommandsHandler = new PersonsInfoCommands(_botClient);

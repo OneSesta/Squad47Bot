@@ -39,7 +39,7 @@
                    Background="#FF323232">
             <Menu>
                 <MenuItem Header="File">
-                    <MenuItem Header="Open Files" Command="{Binding OpenFilesFolderCommand}"/>
+                    <!--<MenuItem Header="Open Files" Command="{Binding OpenFilesFolderCommand}"/>-->
                     <MenuItem Header="Open local files" Command="{Binding OpenLocalFilesCommand}"/>
                     <MenuItem Header="Exit" Command="{Binding ExitApplicationCommand}"/>
                 </MenuItem>
