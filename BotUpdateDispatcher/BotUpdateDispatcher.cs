@@ -34,7 +34,7 @@ namespace BotUpdateDispatcherModule
         {
             foreach (IBotUpdateHandler handler in handlers)
             {
-                if (handler.CanHandleUpdate(update.Update))
+                if (handler.CanHandleUpdate(update.Update, _client))
                 {
                     handler.HandleUpdate(update.Update, _client);
                 }

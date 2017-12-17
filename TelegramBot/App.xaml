@@ -146,7 +146,7 @@
                     <Setter Property="Foreground" Value="#FF323232"/>
                 </Trigger>
             </Style.Triggers>
-            
+
         </Style>
 
         <Style TargetType="{x:Type TabControl}">

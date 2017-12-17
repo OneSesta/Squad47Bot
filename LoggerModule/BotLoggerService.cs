@@ -15,7 +15,7 @@ namespace LoggerModule
 
         public void LogAction(string action)
         {
-            NewLogEntry($"\r\n{DateTime.Now.ToLocalTime().ToString()}:\r\n{action}");
+            NewLogEntry($"\r\n{DateTime.Now.ToLocalTime().ToString("hh : mm : ss .fff")}:\r\n{action}");
         }
 
         public void LogUpdate(Update incomingUpdate = null, Message answerMessage = null, string answerQuery = null)
@@ -23,7 +23,7 @@ namespace LoggerModule
             if (incomingUpdate == null || answerMessage == null)
                 return;
 
-            string entry = $"\r\n\r\n{DateTime.Now.ToLocalTime().ToString()}:\r\n";
+            string entry = $"\r\n\r\n{DateTime.Now.ToLocalTime().ToString("hh:mm:ss.fff")}:\r\n";
             if (incomingUpdate != null)
                 switch (incomingUpdate.Type)
                 {
