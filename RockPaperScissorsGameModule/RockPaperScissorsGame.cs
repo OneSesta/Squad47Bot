@@ -1,4 +1,4 @@
-﻿namespace TelegramBot.Models
+﻿namespace RockPaperScissorsGameModule
 {
     using System;
     using System.Collections.Generic;
@@ -11,11 +11,19 @@
     using Telegram.Bot.Types.InlineKeyboardButtons;
     using Telegram.Bot.Types.ReplyMarkups;
     using TelegramBot.Common;
-    using TelegramBot.ViewModels;
 
     public class RockPaperScissorsGame : IBotUpdateHandler
     {
-        private ITelegramBotClient _client;
+        private IBotUpdateDispatcher _updateDispatcher;
+        private IBotLogger _logger;
+
+        public RockPaperScissorsGame(IBotUpdateDispatcher updateDispatcher, IBotLogger logger)
+        {
+            _updateDispatcher = updateDispatcher;
+            _updateDispatcher.AddHandler(this);
+            _logger = logger;
+            currentGames = new List<Game>(10);
+        }
 
         //class to contain game message and info about players
         private class Game
@@ -28,12 +36,6 @@
         }
 
         private List<Game> currentGames;
-
-        public RockPaperScissorsGame(ITelegramBotClient client)
-        {
-            _client = client;
-            currentGames = new List<Game>(10);
-        }
 
         public async void HandleUpdate(Update update, ITelegramBotClient client)
         {
@@ -60,9 +62,9 @@
                 answer = "Камень, ножницы, бумага:";
                 Game game = new Game
                 {
-                    gameMessage = await _client.SendTextMessageAsync(update.Message.Chat.Id, answer, replyToMessageId: update.Message.MessageId, replyMarkup: keyboard)
+                    gameMessage = await client.SendTextMessageAsync(update.Message.Chat.Id, answer, replyToMessageId: update.Message.MessageId, replyMarkup: keyboard)
                 };
-                Logger.Log(update, game.gameMessage);
+                _logger?.LogUpdate(update, game.gameMessage);
                 //adding new game to list of current games
                 currentGames.Add(game);
                 return;
@@ -79,8 +81,8 @@
                 .Count != 1)
                 {
                     //if it doesn't, GTFO
-                    var popup = await _client.AnswerCallbackQueryAsync(update.CallbackQuery.Id, "Низзя!");
-                    Logger.Log(update, answerQuery: "Низзя!");
+                    var popup = await client.AnswerCallbackQueryAsync(update.CallbackQuery.Id, "Низзя!");
+                    _logger?.LogUpdate(update, answerQuery: "Низзя!");
                     return;
                 }
 
@@ -102,8 +104,8 @@
                         $"{game.player1.FirstName} {game.player1.LastName}\r\n" +
                         $"vs\r\n" +
                         $"Пока никого... Сыграй!";
-                    var edit = await _client.EditMessageTextAsync(game.gameMessage.Chat, game.gameMessage.MessageId, answer, replyMarkup: keyboard);
-                    Logger.Log(update, edit);
+                    var edit = await client.EditMessageTextAsync(game.gameMessage.Chat, game.gameMessage.MessageId, answer, replyMarkup: keyboard);
+                    _logger?.LogUpdate(update, edit);
                 }
 
                 //else he is the second player
@@ -112,8 +114,8 @@
                     //if player1 and player2 are same user
                     if (game.player1.Id == update.CallbackQuery.From.Id)
                     {
-                        var popup = await _client.AnswerCallbackQueryAsync(update.CallbackQuery.Id, "Низзя!");
-                        Logger.Log(update, answerQuery: "Низзя!");
+                        var popup = await client.AnswerCallbackQueryAsync(update.CallbackQuery.Id, "Низзя!");
+                        _logger?.LogUpdate(update, answerQuery: "Низзя!");
                         return;
                     }
 
@@ -141,8 +143,8 @@
                         $"{game.player2.FirstName} {game.player2.LastName}: {presentations[game.player2Answer]}\r\n" +
                         $"Результат: {outcome}";
 
-                    var edit = await _client.EditMessageTextAsync(game.gameMessage.Chat, game.gameMessage.MessageId, answer);
-                    Logger.Log(update, edit);
+                    var edit = await client.EditMessageTextAsync(game.gameMessage.Chat, game.gameMessage.MessageId, answer);
+                    _logger?.LogUpdate(update, edit);
 
                     //removing game from list of current games
                     currentGames.RemoveAt(gameIndex);
@@ -150,7 +152,7 @@
             }
         }
 
-        public bool CanHandleUpdate(Update update, ITelegramBotClient client=null)
+        public bool CanHandleUpdate(Update update, ITelegramBotClient client)
         {
             //check if it's callback from buttons on already going game
             if ((update.Type == UpdateType.CallbackQueryUpdate)
