@@ -1,6 +1,6 @@
 ﻿using TelegramBot.Common;
 
-namespace TelegramBot.Models
+namespace PersonsInfoModule.Models
 {
     internal class SchedulePeriod : ObservableModelBase
     {

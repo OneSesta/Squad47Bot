@@ -4,7 +4,6 @@
     using System.Windows.Controls;
     using System.Windows.Input;
     using TelegramBot.Common;
-    using TelegramBot.Models;
     using TelegramBot.ViewModels;
     /// <summary>
     /// Interaction logic for MainWindow.xaml
