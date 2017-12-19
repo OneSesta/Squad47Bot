@@ -3,7 +3,9 @@
 This is a Telegram bot to help our university group be alive in such a contradictory place as University of Customs and Finance.
 
 ## Built with
-* [.NET Client for Telegram Bot API](https://github.com/TelegramBots/telegram.bot) - client we're using to make the bot work.
+* [.NET Client for Telegram Bot API](https://github.com/TelegramBots/telegram.bot) - client we're using to make the bot work,
+* [Unity container](https://github.com/unitycontainer/unity) - IoC, DI container to reduce coupling
+* [Prism](https://github.com/PrismLibrary/Prism) - Fancy modularity
 * Gallons of tea, tons of memes, love.
 
 ## Authors
