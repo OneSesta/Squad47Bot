@@ -20,7 +20,9 @@
 
     public partial class App : PrismApplication
     {
-
+        /// <summary>
+        /// Create shell from MainWindow
+        /// </summary>
         protected override Window CreateShell()
         {
             InitializeModules();
@@ -32,6 +34,9 @@
             
         }
 
+        /// <summary>
+        /// Creating catalog of Modules from .dlls in "Modules" folder
+        /// </summary>
         protected override IModuleCatalog CreateModuleCatalog()
         {
             var catalog = new DirectoryModuleCatalog() { ModulePath = @"./Modules" };

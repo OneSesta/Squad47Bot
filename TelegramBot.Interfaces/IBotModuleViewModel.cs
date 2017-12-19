@@ -8,6 +8,9 @@ namespace TelegramBot.Common
 {
     public interface IBotModuleViewModel
     {
+        /// <summary>
+        /// Title of module tab in main window
+        /// </summary>
         string Title { get; }
     }
 }

@@ -6,6 +6,10 @@ using System.Threading.Tasks;
 
 namespace TelegramBot.Common
 {
+    /// <summary>
+    /// Public Squad47Bot utilities class, such as prettifying incoming command.
+    /// Includes public constants such as regions names, etc.
+    /// </summary>
     public static class Utils
     {
 #if DEBUG

@@ -8,6 +8,10 @@ using Telegram.Bot.Types;
 
 namespace TelegramBot.Common
 {
+    /// <summary>
+    /// Should perform handling of incoming Update,
+    /// such as answering message with requested info
+    /// </summary>
     public interface IBotUpdateHandler
     {
         /// <summary>

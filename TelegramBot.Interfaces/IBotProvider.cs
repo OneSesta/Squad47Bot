@@ -7,6 +7,9 @@ using Telegram.Bot;
 
 namespace TelegramBot.Common
 {
+    /// <summary>
+    /// Should perform tasks of construction of ITelegramBotClient.
+    /// </summary>
     public interface IBotProvider
     {
         ITelegramBotClient GetBotClient();
