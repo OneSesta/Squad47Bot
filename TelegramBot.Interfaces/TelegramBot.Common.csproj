@@ -89,6 +89,7 @@
     <Compile Include="IBotUpdateDispatcher.cs" />
     <Compile Include="IBotUpdateHandler.cs" />
     <Compile Include="IBotApiKeyProvider.cs" />
+    <Compile Include="MenuItemViewModel.cs" />
     <Compile Include="ObservableModelBase.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="RelayCommand.cs" />
