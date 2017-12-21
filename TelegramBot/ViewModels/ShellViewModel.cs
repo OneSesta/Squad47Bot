@@ -24,14 +24,14 @@
     /// <summary>
     /// This class is responsible for the main window (aka Shell)
     /// </summary>
-    [ModuleDependency("BotProviderModule")]
-    [ModuleDependency("BotUpdateDispatcherModule")]
-    public class ShellViewModel : ObservableModelBase, IModule
+    //[ModuleDependency("BotProviderModule")]
+    //[ModuleDependency("BotUpdateDispatcherModule")]
+    public class ShellViewModel : ObservableModelBase, IShellViewModel
     {
-        private ITelegramBotClient _botClient;
-        private IUnityContainer _unityContainer;
-        private IBotUpdateDispatcher _dispatcher;
-        private IBotLogger _logger;
+        //private ITelegramBotClient _botClient;
+        //private IUnityContainer _unityContainer;
+        //private IBotUpdateDispatcher _dispatcher;
+        //private IBotLogger _logger;
 
         private ObservableCollection<MenuItemViewModel> _menuItems;
         public ObservableCollection<MenuItemViewModel> MenuItems
@@ -46,46 +46,33 @@
                 OnPropertyChanged();
             }
         }
-
-
-        public void Initialize()
-        {
-
-        }
-
         
-        public bool IsActive
-        {
-            get
-            {
-                return _botClient.IsReceiving;
-            }
-        }
+        //public bool IsActive
+        //{
+        //    get
+        //    {
+        //        return _botClient.IsReceiving;
+        //    }
+        //}
 
         #region Commands
-        public ICommand ActivateCommand
-        {
-            get;
-            private set;
-        }
+        //public ICommand ActivateCommand
+        //{
+        //    get;
+        //    private set;
+        //}
 
-        public ICommand DeactivateCommand
-        {
-            get;
-            private set;
-        }
+        //public ICommand DeactivateCommand
+        //{
+        //    get;
+        //    private set;
+        //}
 
         /*public ICommand OpenFilesFolderCommand
         {
             get;
             private set;
         }*/
-
-        public ICommand ExitApplicationCommand
-        {
-            get;
-            private set;
-        }
 
         public ICommand OpenLocalFilesCommand
         {
@@ -101,13 +88,16 @@
 
         #endregion
 
-        public ShellViewModel(IUnityContainer unityContainer, ITelegramBotClient botClient, IBotUpdateDispatcher dispatcher, [OptionalDependency] IBotLogger logger)
-        {
-            _logger = logger;
-            _unityContainer = unityContainer;
-            _dispatcher = dispatcher;
-            _botClient = botClient;
+        private IBot _bot;
 
+        public ShellViewModel(/*IUnityContainer unityContainer, ITelegramBotClient botClient, IBotUpdateDispatcher dispatcher, [OptionalDependency] IBotLogger logger*/ IBot bot)
+        {
+            //_logger = logger;
+            //_unityContainer = unityContainer;
+            //_dispatcher = dispatcher;
+            //_botClient = botClient;
+
+            _bot = bot;
             OpenLocalFilesCommand = new RelayCommand<object>(o => Process.Start(Path.GetDirectoryName(Assembly.GetEntryAssembly().Location)), o => true);
             MenuItems = new ObservableCollection<MenuItemViewModel>()
             {
@@ -125,39 +115,39 @@
                 }
             };
 
-            _logger?.LogAction("Initializing...");
-            // initializing ViewModel UI commands
-            ActivateCommand = new RelayCommand<object>(o => this.Activate(), o => !IsActive);
-            DeactivateCommand = new RelayCommand<object>(o => this.Deactivate(), o => IsActive);
-            ExitApplicationCommand = new RelayCommand<object>(o =>
-            {
-                if (IsActive)
-                    Deactivate();
-                App.Current.Shutdown();
-            }, (o) => true);
+            //_logger?.LogAction("Initializing...");
+            //// initializing ViewModel UI commands
+            //ActivateCommand = new RelayCommand<object>(o => this.Activate(), o => !IsActive);
+            //DeactivateCommand = new RelayCommand<object>(o => this.Deactivate(), o => IsActive);
+            //ExitApplicationCommand = new RelayCommand<object>(o =>
+            //{
+            //    if (IsActive)
+            //        Deactivate();
+            //    App.Current.Shutdown();
+            //}, (o) => true);
             OpenAboutCommand = new OpenAboutWindowCommand();
-            ActivateCommand.Execute(null);
+            //ActivateCommand.Execute(null);
         }
 
 
-        /// <summary>
-        /// Activates the bot (hooks MessageUpdate handler and starts receiving)
-        /// </summary>
-        public void Activate()
-        {
-            _botClient.OnUpdate += _dispatcher.HandleUpdate;
-            _botClient.StartReceiving(new UpdateType[] { UpdateType.CallbackQueryUpdate, UpdateType.MessageUpdate });
-            _logger.LogAction("Bot activated");
-        }
-        /// <summary>
-        /// Deactivates the bot (unhooks MessageUpdate handler and stops receiving)
-        /// </summary>
-        public void Deactivate()
-        {
-            _botClient.StopReceiving();
-            _botClient.OnUpdate -= _dispatcher.HandleUpdate;
-            _logger.LogAction("Bot deactivated");
-        }
+        ///// <summary>
+        ///// Activates the bot (hooks MessageUpdate handler and starts receiving)
+        ///// </summary>
+        //public void Activate()
+        //{
+        //    _botClient.OnUpdate += _dispatcher.HandleUpdate;
+        //    _botClient.StartReceiving(new UpdateType[] { UpdateType.CallbackQueryUpdate, UpdateType.MessageUpdate });
+        //    _logger.LogAction("Bot activated");
+        //}
+        ///// <summary>
+        ///// Deactivates the bot (unhooks MessageUpdate handler and stops receiving)
+        ///// </summary>
+        //public void Deactivate()
+        //{
+        //    _botClient.StopReceiving();
+        //    _botClient.OnUpdate -= _dispatcher.HandleUpdate;
+        //    _logger.LogAction("Bot deactivated");
+        //}
 
     }
 }

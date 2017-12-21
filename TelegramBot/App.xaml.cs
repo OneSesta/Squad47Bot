@@ -26,7 +26,10 @@
         protected override Window CreateShell()
         {
             InitializeModules();
-            return Container.Resolve<Shell>();
+            this.ShutdownMode = ShutdownMode.OnMainWindowClose;
+            var shell = Container.Resolve<Shell>();
+            this.MainWindow = shell;
+            return shell;
         }
 
         protected override void RegisterTypes(IContainerRegistry containerRegistry)

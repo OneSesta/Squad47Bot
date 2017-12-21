@@ -103,8 +103,8 @@
 
             <Menu 
               HorizontalAlignment="Right">
-                <MenuItem Header="___" Click="Button_Click" Width="24"/>
-                <MenuItem Header="X" Command="{Binding ExitApplicationCommand}" Width="24"/>
+                <MenuItem Header="___" Click="MinimizeButton_Click" Width="24"/>
+                <MenuItem Header="X" Click="CloseButton_Click" Width="24"/>
             </Menu>
         </DockPanel>
 
