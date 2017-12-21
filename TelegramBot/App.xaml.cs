@@ -13,6 +13,7 @@
     using System.Threading.Tasks;
     using System.Windows;
     using TelegramBot.Common;
+    using TelegramBot.ViewModels;
     using TelegramBot.Views;
     using Unity;
     using Unity.Extension;
@@ -34,7 +35,7 @@
 
         protected override void RegisterTypes(IContainerRegistry containerRegistry)
         {
-            
+
         }
 
         /// <summary>

@@ -7,8 +7,8 @@ using System.Threading.Tasks;
 
 namespace TelegramBot.Common
 {
-    public interface IShellViewModel
+    public interface IMenuItemsService
     {
-        ObservableCollection<MenuItemViewModel> MenuItems { get; }
+        ObservableCollection<MenuItemViewModel> MenuItems { get; set; }
     }
 }

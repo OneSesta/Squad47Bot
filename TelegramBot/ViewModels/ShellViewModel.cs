@@ -26,27 +26,29 @@
     /// </summary>
     //[ModuleDependency("BotProviderModule")]
     //[ModuleDependency("BotUpdateDispatcherModule")]
-    public class ShellViewModel : ObservableModelBase, IShellViewModel
+    public class ShellViewModel : ObservableModelBase
     {
         //private ITelegramBotClient _botClient;
         //private IUnityContainer _unityContainer;
         //private IBotUpdateDispatcher _dispatcher;
         //private IBotLogger _logger;
 
-        private ObservableCollection<MenuItemViewModel> _menuItems;
-        public ObservableCollection<MenuItemViewModel> MenuItems
-        {
-            get
-            {
-                return _menuItems;
-            }
-            set
-            {
-                _menuItems = value;
-                OnPropertyChanged();
-            }
-        }
-        
+        //private ObservableCollection<MenuItemViewModel> _menuItems;
+        //public ObservableCollection<MenuItemViewModel> MenuItems
+        //{
+        //    get
+        //    {
+        //        return _menuItems;
+        //    }
+        //    set
+        //    {
+        //        _menuItems = value;
+        //        OnPropertyChanged();
+        //    }
+        //}
+
+        public ObservableCollection<MenuItemViewModel> MenuItems { get; }
+
         //public bool IsActive
         //{
         //    get
@@ -89,8 +91,9 @@
         #endregion
 
         private IBot _bot;
+        private IMenuItemsService _menuItemsService;
 
-        public ShellViewModel(/*IUnityContainer unityContainer, ITelegramBotClient botClient, IBotUpdateDispatcher dispatcher, [OptionalDependency] IBotLogger logger*/ IBot bot)
+        public ShellViewModel(/*IUnityContainer unityContainer, ITelegramBotClient botClient, IBotUpdateDispatcher dispatcher, [OptionalDependency] IBotLogger logger*/ IBot bot, IMenuItemsService menuItemsService)
         {
             //_logger = logger;
             //_unityContainer = unityContainer;
@@ -98,8 +101,10 @@
             //_botClient = botClient;
 
             _bot = bot;
+            _menuItemsService = menuItemsService;
+
             OpenLocalFilesCommand = new RelayCommand<object>(o => Process.Start(Path.GetDirectoryName(Assembly.GetEntryAssembly().Location)), o => true);
-            MenuItems = new ObservableCollection<MenuItemViewModel>()
+            _menuItemsService.MenuItems = new ObservableCollection<MenuItemViewModel>()
             {
                 new MenuItemViewModel()
                 {
@@ -114,6 +119,7 @@
                     }
                 }
             };
+            MenuItems = _menuItemsService.MenuItems;
 
             //_logger?.LogAction("Initializing...");
             //// initializing ViewModel UI commands

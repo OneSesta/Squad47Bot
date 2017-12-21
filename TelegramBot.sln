@@ -33,6 +33,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ScheduleModule", "ScheduleM
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BotModule", "BotModule\BotModule.csproj", "{F81B5F84-0F32-4096-B93A-F31D50040576}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MenuItemsModule", "MenuItemsModule\MenuItemsModule.csproj", "{A7FB907B-05C5-402B-B73E-F8606A0022D5}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -95,6 +97,10 @@ Global
 		{F81B5F84-0F32-4096-B93A-F31D50040576}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{F81B5F84-0F32-4096-B93A-F31D50040576}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{F81B5F84-0F32-4096-B93A-F31D50040576}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A7FB907B-05C5-402B-B73E-F8606A0022D5}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A7FB907B-05C5-402B-B73E-F8606A0022D5}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A7FB907B-05C5-402B-B73E-F8606A0022D5}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A7FB907B-05C5-402B-B73E-F8606A0022D5}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -112,6 +118,7 @@ Global
 		{1BDB5B2A-B3A2-47EA-B942-867863B8C609} = {56E3A395-E705-4935-BCE2-1A970A990419}
 		{E734760A-0F85-41B1-A97F-732EED328121} = {56E3A395-E705-4935-BCE2-1A970A990419}
 		{F81B5F84-0F32-4096-B93A-F31D50040576} = {56E3A395-E705-4935-BCE2-1A970A990419}
+		{A7FB907B-05C5-402B-B73E-F8606A0022D5} = {56E3A395-E705-4935-BCE2-1A970A990419}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {5E246D7D-2AAA-49AE-8D52-59939D350D4B}

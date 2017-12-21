@@ -9,7 +9,6 @@ using Telegram.Bot;
 using Telegram.Bot.Types.Enums;
 using TelegramBot.Common;
 using Unity;
-using Unity.Attributes;
 
 namespace BotModule
 {
@@ -31,12 +30,14 @@ namespace BotModule
         private ITelegramBotClient _botClient;
         private IBotUpdateDispatcher _dispatcher;
         private IBotLogger _logger;
+        private IMenuItemsService _menuItems;
 
-        public Bot(ITelegramBotClient botClient, IBotUpdateDispatcher dispatcher, [OptionalDependency] IBotLogger logger)
+        public Bot(ITelegramBotClient botClient, IBotUpdateDispatcher dispatcher, IBotLogger logger, IMenuItemsService menuItems)
         {
             _logger = logger;
             _dispatcher = dispatcher;
             _botClient = botClient;
+            _menuItems = menuItems;
 
             _logger?.LogAction("Initializing...");
             // initializing ViewModel UI commands
@@ -57,7 +58,7 @@ namespace BotModule
         {
             _botClient.OnUpdate += _dispatcher.HandleUpdate;
             _botClient.StartReceiving(new UpdateType[] { UpdateType.CallbackQueryUpdate, UpdateType.MessageUpdate });
-            _logger.LogAction("Bot activated");
+            _logger?.LogAction("Bot activated");
         }
         /// <summary>
         /// Deactivates the bot (unhooks MessageUpdate handler and stops receiving)
@@ -66,7 +67,7 @@ namespace BotModule
         {
             _botClient.StopReceiving();
             _botClient.OnUpdate -= _dispatcher.HandleUpdate;
-            _logger.LogAction("Bot deactivated");
+            _logger?.LogAction("Bot deactivated");
         }
 
         public bool IsActive
