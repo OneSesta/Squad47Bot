@@ -23,5 +23,10 @@ namespace MenuItemsModule
                 OnPropertyChanged();
             }
         }
+
+        public MenuItemsService()
+        {
+            MenuItems = new ObservableCollection<MenuItemViewModel>();
+        }
     }
 }

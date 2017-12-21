@@ -22,35 +22,30 @@
     <Window.Resources>
         <HierarchicalDataTemplate DataType="{x:Type common:MenuItemViewModel}"
                           ItemsSource="{Binding Path=Children}">
+
             <HierarchicalDataTemplate.ItemContainerStyle>
                 <Style TargetType="MenuItem">
                     <Setter Property="Command"
-                    Value="{Binding Command}" />
+                Value="{Binding Command}" />
                 </Style>
             </HierarchicalDataTemplate.ItemContainerStyle>
+
             <StackPanel Orientation="Horizontal">
-                <Image Source="{Binding ImageSource}" />
-                <TextBlock Text="{Binding Text}" />
+                <Image Source="{Binding ImageSource}" Width="{Binding Path=Children[1].FontSize, RelativeSource={RelativeSource AncestorType=StackPanel}}">
+                    <Image.Style>
+                        <Style TargetType="Image">
+                            <Style.Triggers>
+                                <DataTrigger Binding="{Binding ImageSource}" Value="{x:Null}">
+                                    <Setter Property="Visibility" Value="Collapsed" />
+                                </DataTrigger>
+                            </Style.Triggers>
+                        </Style>
+                    </Image.Style>
+                </Image>
+                <TextBlock Text="{Binding Text}" VerticalAlignment="Center"/>
             </StackPanel>
+
         </HierarchicalDataTemplate>
-        <!--<HierarchicalDataTemplate DataType="{x:Type common:MenuItemViewModel}"
-                          ItemsSource="{Binding Path=Children}">
-            <HierarchicalDataTemplate.ItemContainerStyle>
-                <Style TargetType="MenuItem">
-                    <Setter Property="Command"
-                            Value="{Binding Command}" />
-                    <Setter Property="Header"
-                            Value="{Binding Text}" />
-                    <Setter Property="Icon"
-                            Value="{Binding ImageSource}" />
-                    --><!--<Style.Triggers>
-                        <Trigger Property="Icon" Value="{x:Null}">
-                            <Setter Property="Visibility" Value="Collapsed" />
-                        </Trigger>
-                    </Style.Triggers>--><!--
-                </Style>
-            </HierarchicalDataTemplate.ItemContainerStyle>
-        </HierarchicalDataTemplate>-->
     </Window.Resources>
 
     <Grid Background="#FF323232" >
