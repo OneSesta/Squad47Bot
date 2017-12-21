@@ -75,7 +75,7 @@ namespace TelegramBot.Common
             {
                 return _children;
             }
-            private set
+            set
             {
                 _children = value;
                 OnPropertyChanged();

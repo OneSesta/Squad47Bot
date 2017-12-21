@@ -26,7 +26,7 @@
         protected override Window CreateShell()
         {
             InitializeModules();
-            return Container.Resolve<MainWindow>();
+            return Container.Resolve<Shell>();
         }
 
         protected override void RegisterTypes(IContainerRegistry containerRegistry)
