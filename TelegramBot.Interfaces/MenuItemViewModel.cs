@@ -96,21 +96,27 @@ namespace TelegramBot.Common
         /// <returns>Menu item if found, null if not found</returns>
         public MenuItemViewModel GetItem(Predicate<MenuItemViewModel> predicate, bool searchInSubmenusAlso = false)
         {
-            MenuItemViewModel found = null;
             foreach (MenuItemViewModel model in Children)
             {
-                if (predicate(model)){
-                    found = model;
+                if (predicate(model))
+                {
+                    return model;
                 }
             }
+
             if (searchInSubmenusAlso)
             {
                 foreach (MenuItemViewModel model in Children)
                 {
-                    GetItem(predicate, searchInSubmenusAlso);
+                    MenuItemViewModel found = null;
+                    found = model.GetItem(predicate, searchInSubmenusAlso);
+                    if (found != null)
+                    {
+                        return found;
+                    }
                 }
             }
-            return found;
+            return null;
         }
     }
 }
