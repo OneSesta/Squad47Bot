@@ -45,37 +45,17 @@ namespace BotModule
             ActivateCommand = new RelayCommand<object>(o => this.Activate(), o => !IsActive);
             DeactivateCommand = new RelayCommand<object>(o => this.Deactivate(), o => IsActive);
 
-            //menuItems.MenuItems.Add(new MenuItemViewModel()
-            //{
-            //    Text = "Start",
-            //    ImageSource = new Uri(@"..\Images\Start.png", UriKind.Relative),
-            //    Command = ActivateCommand
-            //});
-            //menuItems.MenuItems.Add(new MenuItemViewModel()
-            //{
-            //    Text = "Stop",
-            //    ImageSource = new Uri(@"..\Images\Stop.png", UriKind.Relative),
-            //    Command = DeactivateCommand
-            //});
-
             menuItems.MenuItems.Add(new MenuItemViewModel()
             {
-                Text = "Bot",
-                Children = new ObservableCollection<MenuItemViewModel>()
-                {
-                    new MenuItemViewModel()
-                    {
-                        Text = "Start",
-                        ImageSource = new Uri(@"..\Images\Start.png", UriKind.Relative),
-                        Command = ActivateCommand
-                    },
-                    new MenuItemViewModel()
-                    {
-                        Text = "Stop",
-                        ImageSource = new Uri(@"..\Images\Stop.png", UriKind.Relative),
-                        Command = DeactivateCommand
-                    }
-                }
+                Text = "Start",
+                ImageSource = new Uri(@"/BotModule;component/Start.png", UriKind.RelativeOrAbsolute),
+                Command = ActivateCommand
+            });
+            menuItems.MenuItems.Add(new MenuItemViewModel()
+            {
+                Text = "Stop",
+                ImageSource = new Uri(@"/BotModule;component/Stop.png", UriKind.RelativeOrAbsolute),
+                Command = DeactivateCommand
             });
 
             ActivateCommand.Execute(null);

@@ -20,7 +20,7 @@
         Style="{StaticResource DefaultWindowStyle}">
 
     <Window.Resources>
-        <HierarchicalDataTemplate DataType="{x:Type common:MenuItemViewModel}"
+        <!--<HierarchicalDataTemplate DataType="{x:Type common:MenuItemViewModel}"
                           ItemsSource="{Binding Path=Children}">
 
             <HierarchicalDataTemplate.ItemContainerStyle>
@@ -45,7 +45,7 @@
                 <TextBlock Text="{Binding Text}" VerticalAlignment="Center"/>
             </StackPanel>
 
-        </HierarchicalDataTemplate>
+        </HierarchicalDataTemplate>-->
     </Window.Resources>
 
     <Grid Background="#FF323232" >
@@ -64,6 +64,33 @@
                    x:Name="MenuDockPanel"
                    Background="#FF323232">
             <Menu ItemsSource="{Binding MenuItems}">
+                <Menu.Resources>
+                    <Image x:Key="img" Source="{Binding ImageSource}" x:Shared="False">
+                    </Image>
+                </Menu.Resources>
+                <Menu.ItemContainerStyle>
+                    <Style TargetType="{x:Type MenuItem}"
+                           BasedOn="{StaticResource {x:Type MenuItem}}">
+                        <Setter Property="Header" Value="{Binding Text}" />
+                        <Setter Property="HeaderTemplate">
+                            <Setter.Value>
+                                <DataTemplate>
+                                    <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center" Content="{Binding}" />
+                                </DataTemplate>
+                            </Setter.Value>
+                        </Setter>
+                        <Setter Property="Icon" Value="{StaticResource img}"/>
+                        <Setter Property="Command" Value="{Binding Command}"/>
+                        <Setter Property="ItemsSource" Value="{Binding Children}" />
+                        <Setter Property="VerticalAlignment" Value="Center"/>
+                        <Style.Triggers>
+                            <DataTrigger Binding="{Binding ImageSource}"
+                                         Value="{x:Null}">
+                                <Setter Property="Icon" Value="{x:Null}"/>
+                            </DataTrigger>
+                        </Style.Triggers>
+                    </Style>
+                </Menu.ItemContainerStyle>
                 <!--<MenuItem Header="File">
                     --><!--<MenuItem Header="Open Files" Command="{Binding OpenFilesFolderCommand}"/>--><!--
                     <MenuItem Header="Open local files" Command="{Binding OpenLocalFilesCommand}"/>
