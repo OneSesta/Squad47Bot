@@ -8,6 +8,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using TelegramBot.Common;
+using Unity.Attributes;
 
 namespace LoggerViewerModule
 {
@@ -23,12 +24,18 @@ namespace LoggerViewerModule
         {
             _regionManager = regionManager;
             _logger = logger;
-            _view = new LoggerView(new LoggerViewModel(_logger));
+            if (_logger != null)
+            {
+                _view = new LoggerView(new LoggerViewModel(_logger));
+            }
         }
 
         public void Initialize()
         {
-            _regionManager.RegisterViewWithRegion("ModulesSettingsRegion", () => _view);
+            if (_logger != null)
+            {
+                _regionManager.RegisterViewWithRegion("ModulesSettingsRegion", () => _view);
+            }
         }
     }
 }

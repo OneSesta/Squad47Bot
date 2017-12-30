@@ -65,12 +65,12 @@
                    Background="#FF323232">
             <Menu ItemsSource="{Binding MenuItems}">
                 <Menu.Resources>
-                    <Image x:Key="img" Source="{Binding ImageSource}" x:Shared="False">
-                    </Image>
+                    <!-- -->
+                    <Image x:Key="MenuIcon" Source="{Binding ImageSource}" x:Shared="False"/>
                 </Menu.Resources>
                 <Menu.ItemContainerStyle>
                     <Style TargetType="{x:Type MenuItem}"
-                           BasedOn="{StaticResource {x:Type MenuItem}}">
+        BasedOn="{StaticResource {x:Type MenuItem}}">
                         <Setter Property="Header" Value="{Binding Text}" />
                         <Setter Property="HeaderTemplate">
                             <Setter.Value>
@@ -79,25 +79,28 @@
                                 </DataTemplate>
                             </Setter.Value>
                         </Setter>
-                        <Setter Property="Icon" Value="{StaticResource img}"/>
+                        <Setter Property="Icon" Value="{StaticResource MenuIcon}"/>
                         <Setter Property="Command" Value="{Binding Command}"/>
                         <Setter Property="ItemsSource" Value="{Binding Children}" />
-                        <Setter Property="VerticalAlignment" Value="Center"/>
                         <Style.Triggers>
                             <DataTrigger Binding="{Binding ImageSource}"
-                                         Value="{x:Null}">
+                        Value="{x:Null}">
                                 <Setter Property="Icon" Value="{x:Null}"/>
                             </DataTrigger>
                         </Style.Triggers>
                     </Style>
                 </Menu.ItemContainerStyle>
                 <!--<MenuItem Header="File">
-                    --><!--<MenuItem Header="Open Files" Command="{Binding OpenFilesFolderCommand}"/>--><!--
+                    -->
+                <!--<MenuItem Header="Open Files" Command="{Binding OpenFilesFolderCommand}"/>-->
+                <!--
                     <MenuItem Header="Open local files" Command="{Binding OpenLocalFilesCommand}"/>
                     <MenuItem Header="Exit" Command="{Binding ExitApplicationCommand}"/>
                 </MenuItem>
                 <MenuItem Header="Options">
-                    --><!--<MenuItem DataContext="{StaticResource LogViewModel}" Header="Clear Logs" Command="{Binding ClearLogCommand}"/>--><!--
+                    -->
+                <!--<MenuItem DataContext="{StaticResource LogViewModel}" Header="Clear Logs" Command="{Binding ClearLogCommand}"/>-->
+                <!--
                 </MenuItem>
 
                 <MenuItem Header="Help">

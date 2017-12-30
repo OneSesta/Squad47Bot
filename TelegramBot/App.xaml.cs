@@ -22,7 +22,7 @@
     public partial class App : PrismApplication
     {
         /// <summary>
-        /// Create shell from MainWindow
+        /// Create Shell
         /// </summary>
         protected override Window CreateShell()
         {
