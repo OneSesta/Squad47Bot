@@ -27,10 +27,7 @@
         protected override Window CreateShell()
         {
             InitializeModules();
-            this.ShutdownMode = ShutdownMode.OnMainWindowClose;
-            var shell = Container.Resolve<Shell>();
-            this.MainWindow = shell;
-            return shell;
+            return Container.Resolve<Shell>();
         }
 
         protected override void RegisterTypes(IContainerRegistry containerRegistry)
@@ -44,7 +41,6 @@
         protected override IModuleCatalog CreateModuleCatalog()
         {
             var catalog = new DirectoryModuleCatalog() { ModulePath = @"./Modules" };
-            catalog.Initialize();
             return catalog;
         }
     }

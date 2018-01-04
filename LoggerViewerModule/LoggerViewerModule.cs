@@ -22,6 +22,7 @@ namespace LoggerViewerModule
 
         public LoggerViewerModule(IRegionManager regionManager, IBotLogger logger)
         {
+
             _regionManager = regionManager;
             _logger = logger;
             if (_logger != null)
